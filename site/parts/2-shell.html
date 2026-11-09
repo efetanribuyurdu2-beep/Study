@@ -1,6 +1,6 @@
 <header class="top">
-  <button class="ibtn menu-btn" id="menuBtn" aria-label="Menüyü aç" aria-expanded="false">☰</button>
-  <a class="brand" href="#"><b>Vize Masası</b><small>16–20 Kasım</small></a>
+  <button class="ibtn menu-btn" id="menuBtn" aria-label="Menüyü aç" aria-expanded="false"></button>
+  <a class="brand" href="#"><span class="mark" aria-hidden="true"><i style="--c:var(--c-acc)"></i><i style="--c:var(--c-econ)"></i><i style="--c:var(--c-math)"></i><i style="--c:var(--c-bus)"></i><i style="--c:var(--c-law)"></i></span><b>Vize Masası</b><small>16–20 Kasım</small></a>
   <div class="search" id="searchBox">
     <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="8.5" cy="8.5" r="6"/><path d="m13 13 5 5"/></svg>
     <input id="q" type="search" placeholder="Konu, terim, formül ara…" autocomplete="off" aria-label="Ara">
@@ -8,6 +8,7 @@
     <div class="results" id="results" hidden></div>
   </div>
   <div class="top-tools">
+    <button class="ibtn search-btn" id="searchBtn" aria-label="Ara"></button>
     <span class="pill next-exam" id="nextExam"></span>
     <button class="ibtn pomo" id="pomo" title="Odak sayacı (25 dk çalış, 5 dk mola). Sağ tık veya uzun bas: sıfırla">25:00</button>
     <button class="ibtn" id="themeBtn" title="Tema değiştir" aria-label="Tema değiştir">◐</button>
@@ -19,6 +20,8 @@
   <div class="scrim" id="scrim"></div>
   <main id="view" tabindex="-1"></main>
 </div>
+<div class="readprog" id="readprog" hidden><i></i></div>
+<nav class="bbar" id="bbar" aria-label="Alt menü"></nav>
 <div class="toast" id="toast" hidden></div>
 <dialog id="help">
   <div class="dl">
