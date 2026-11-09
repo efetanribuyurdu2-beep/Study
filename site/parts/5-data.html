@@ -1,0 +1,489 @@
+<script>
+/* ================= DERSLER, TAKVİM, PLAN ================= */
+const COURSES = [
+  {id:'acc',  code:'ACC1005',  name:'Muhasebeye Giriş',   short:'Muhasebe',      exam:'2026-11-16T16:00', src:'https://claude.ai/artifact/CjQWsEDj6ZBfkPZVGxMvu5', book:'Weygandt IFRS · Ch. 1–2', tool:'Borç/Alacak antrenmanı'},
+  {id:'econ', code:'ECON1007', name:'Mikroiktisat',       short:'Mikroiktisat',  exam:'2026-11-17T16:00', src:'https://claude.ai/artifact/GhPgVAfzKEAu2c3YS87Kkb', book:'Mankiw · Hafta 1–5', tool:'Esneklik hesaplayıcı'},
+  {id:'math', code:'BUS MATH', name:'İşletme Matematiği', short:'Matematik',     exam:'2026-11-18T15:30', src:'https://claude.ai/artifact/Lw8Qpa77erb4Ub8ctqVJm7', book:'Haeussler · Bölüm 1–5', tool:'Finans hesaplayıcı'},
+  {id:'bus',  code:'INTRO BUS',name:'İşletmeye Giriş',    short:'İşletme',       exam:'2026-11-19T13:00', src:'https://claude.ai/artifact/Uhz74mdjRz66UAGJggUKfi', book:'Mirze · Bölüm 1–5', tool:null},
+  {id:'law',  code:'HUKUK',    name:'Hukuka Giriş',       short:'Hukuk',         exam:'2026-11-20T11:00', src:'https://claude.ai/artifact/SKFn6wD3m673SiUJuMhAXH', book:'Vize konuları', tool:null}
+];
+const OTHER_EXAMS = [
+  {id:'ink', name:'İnkılap Tarihi', exam:'2026-11-18T13:00'},
+  {id:'tdl', name:'Türk Dili',      exam:'2026-11-18T14:00'}
+];
+const DAYNAMES = ['Paz','Pzt','Sal','Çar','Per','Cum','Cmt'];
+const MONTHS = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+// [gün, [ders, metin, gidilecek sayfa]...]
+const PLAN = {
+  '2026-11-09':[['acc','Konuları listele, ilk bölümleri oku','acc'],['math','Formül kâğıdı hazırla','math-ozet']],
+  '2026-11-10':[['acc','Konu + örnek (denklem, tablolar)','acc'],['math','Soru çözümü','math-test']],
+  '2026-11-11':[['acc','Soru çözümü (3 Kasım örneği)','acc-test'],['math','Soru çözümü (çözümlü örnekler)','math']],
+  '2026-11-12':[['bus','İlk yarı: Bölüm 1–3','bus'],['law','İlk okuma','law']],
+  '2026-11-13':[['math','Karışık soru','math-test'],['bus','İkinci yarı: Bölüm 4–5','bus']],
+  '2026-11-14':[['acc','Genel tekrar + test','acc-test'],['econ','Belgeyi oku','econ']],
+  '2026-11-15':[['acc','Son tekrar, zayıf konular','acc-ozet'],['econ','Hafif tekrar (kartlar)','econ-kart']],
+  '2026-11-16':[['acc','Sabah muhasebe özeti → SINAV 16:00','acc-ozet'],['econ','Akşam iktisat testi','econ-test']],
+  '2026-11-17':[['econ','Sabah iktisat → SINAV 16:00','econ-ozet'],['math','Akşam formül + karışık soru','math-ozet']],
+  '2026-11-18':[['math','Sabah son tekrar → 3 sınav (13:00, 14:00, 15:30)','math-ozet'],['bus','Akşam İşletmeye Giriş tekrarı','bus-ozet']],
+  '2026-11-19':[['bus','Sabah tekrar → SINAV 13:00','bus-ozet'],['law','Akşam Hukuka Giriş tekrarı','law-ozet']],
+  '2026-11-20':[['law','Sabah hukuk özeti → SINAV 11:00','law-ozet']]
+};
+const PLAN_NOTES = {
+  '2026-11-18':'Türk Dili 15:00\'te bitiyor, matematik 15:30\'da başlıyor. Arada formül kâğıdına son bir kez göz at.'
+};
+
+/* ================= TEST SORULARI =================
+   [konu, soru, çeviri|null, [şıklar], doğru indeks, açıklama, ek(1 = belgede yoktu, eklendi)] */
+const QZ = {};
+QZ.acc = [
+ ['Denklem','Which of the following is an asset?',null,['Unearned Revenue','Prepaid Rent','Accounts Payable','Service Revenue','Dividends'],1,'Prepaid (peşin ödenmiş) gider varlıktır: faydası ileride kullanılacak. Unearned Revenue ise borçtur.',1],
+ ['Borç/Alacak','The normal balance of Unearned Revenue is:',null,['Debit','Credit','Either','Zero','Same as Cash'],1,'Unearned Revenue bir borçtur (liability); borçlar alacakla artar, normal bakiyesi credit.',1],
+ ['Yevmiye','A company receives cash for services to be performed next month. The entry is:',null,['Dr Cash, Cr Service Revenue','Dr Cash, Cr Unearned Revenue','Dr Unearned Revenue, Cr Cash','Dr Accounts Receivable, Cr Service Revenue','No entry'],1,'Hizmet henüz verilmedi, gelir kazanılmadı. Peşin alınan para borçtur: Cash Dr / Unearned Revenue Cr (3 Kasım #16).',1],
+ ['Denklem','Paying an account payable causes:',null,['Assets ↑, Liabilities ↑','Assets ↓, Equity ↓','Assets ↓, Liabilities ↓','Liabilities ↓, Equity ↑','No change'],2,'Borç ödemek gider değildir: Cash azalır, A/P azalır. Özkaynak değişmez.',1],
+ ['Tablolar','Dividends are reported on the:',null,['Income statement as an expense','Statement of owner\'s / retained earnings','Balance sheet as a liability','Statement of cash flows only','They are not reported'],1,'Temettü gider değildir; gelir tablosuna girmez, özkaynak (retained earnings) tablosunda düşülür.',1],
+ ['Tablolar','Which statement is like a "photograph" at a specific date?',null,['Income statement','Statement of owner\'s equity','Balance sheet','Statement of cash flows','Trial balance'],2,'Bilanço belirli bir tarihteki durumu gösterir (fotoğraf). Gelir ve özkaynak tabloları bir dönemi anlatır (film).',1],
+ ['Yevmiye','Cash is collected from a customer on account. The entry is:',null,['Dr Cash, Cr Service Revenue','Dr Accounts Receivable, Cr Cash','Dr Cash, Cr Accounts Receivable','Dr Service Revenue, Cr Cash','Dr Cash, Cr Unearned Revenue'],2,'Gelir veresiye hizmet anında kaydedildi; tahsilat sadece varlık değişimidir (3 Kasım #8).',1],
+ ['Tablolar','The correct order of preparing financial statements is:',null,['Balance sheet → Income statement → Owner\'s equity','Income statement → Owner\'s equity → Balance sheet','Owner\'s equity → Income statement → Balance sheet','Cash flows → Balance sheet → Income statement','Any order'],1,'Net kâr özkaynak tablosuna, dönem sonu özkaynak bilançoya taşınır.',1],
+ ['Denklem','Total assets are $90,000 and liabilities are $35,000. Owner\'s equity is:',null,['$125,000','$55,000','$35,000','$90,000','$45,000'],1,'A − L = OE → 90.000 − 35.000 = 55.000.',1],
+ ['Denklem','During the year assets increased by $20,000 and equity increased by $5,000. Liabilities:',null,['increased by $25,000','decreased by $15,000','increased by $15,000','decreased by $5,000','did not change'],2,'ΔA = ΔL + ΔOE → 20.000 = ΔL + 5.000 → ΔL = +15.000.',1],
+ ['Teori','IFRS are issued by the:',null,['FASB','IASB','AICPA','SEC','IMF'],1,'IASB → IFRS (Türkiye dahil 150+ ülke). FASB → US GAAP.',1],
+ ['Teori','Which business form gives owners limited liability?',null,['Sole proprietorship','Partnership','Corporation','All of them','None of them'],2,'Corporation sahipleri (hissedarlar) yalnızca yatırdıkları kadar sorumludur.',1],
+ ['Döngü','Which step comes right after journalizing in the accounting cycle?',null,['Trial balance','Posting to the ledger','Adjusting entries','Closing entries','Preparing statements'],1,'Analyze → journalize → post → trial balance → …',1],
+ ['Tablolar','Revenues $16,500, expenses $5,700, dividends $5,000. Net income is:',null,['$5,800','$10,800','$16,500','$11,500','$21,500'],1,'Net income = 16.500 − 5.700 = 10.800. Temettü net kârı etkilemez; 5.800 retained earnings\'tir (tuzak şık).',1],
+ ['Mizan','If the trial balance totals are equal, then:',null,['There are no errors at all','Debits equal credits, but some errors may still exist','Net income is correct','Every transaction was recorded','Cash is correct'],1,'Yanlış hesaba yazılmış, unutulmuş ya da iki kez kaydedilmiş işlemler mizanı bozmaz.',1],
+ ['Yevmiye','Office supplies are purchased on account. The entry is:',null,['Dr Supplies, Cr Cash','Dr Supplies Expense, Cr Accounts Payable','Dr Supplies, Cr Accounts Payable','Dr Accounts Payable, Cr Supplies','Dr Cash, Cr Supplies'],2,'Malzeme varlıktır (Dr), veresiye alındığı için A/P artar (Cr). 3 Kasım #3.',1],
+ ['Yevmiye','Shareholders contribute furniture worth $18,000 in exchange for stock. The entry is:',null,['Dr Furniture, Cr Cash','Dr Furniture, Cr Common Stock','Dr Common Stock, Cr Furniture','Dr Cash, Cr Common Stock','Dr Furniture, Cr Service Revenue'],1,'Nakit dışı sermaye konması: Furniture Dr / Common Stock Cr (3 Kasım #13).',1],
+ ['Borç/Alacak','Which account increases with a DEBIT?',null,['Accounts Payable','Service Revenue','Common Stock','Salaries Expense','Unearned Revenue'],3,'DEA (Dividends, Expenses, Assets) borçla artar. Diğer dördü LCR grubundadır.',1],
+ ['Tablolar','Which of the following is a current liability?',null,['Land','Mortgage payable (20 years)','Salaries Payable','Equipment','Prepaid Rent'],2,'Salaries Payable bir yıl içinde ödenecek borçtur. Land, Equipment ve Prepaid Rent varlıktır; 20 yıllık ipotek uzun vadelidir.',1],
+ ['Teori','Accounting information used mainly by internal managers for budgets and cost reports is:',null,['Financial accounting','Management accounting','Tax accounting','Auditing','Governmental accounting'],1,'Yönetim muhasebesi iç kullanıcılar için, serbest kurallarla hazırlanır.',1]
+];
+QZ.econ = [
+ ['Hafta 1','For a student, the opportunity cost of going to university is best described as:','Bir öğrenci için üniversiteye gitmenin fırsat maliyeti en iyi nasıl tanımlanır?',['tuition only','tuition, books and the wages given up by not working','room and board only','zero, because education is an investment','the salary after graduation'],1,'Fırsat maliyeti vazgeçilen her şeydir: harç, kitaplar ve kaybedilen maaş. Barınma okula gitmesen de ödeyeceğin bir masraftır.'],
+ ['Hafta 1','"Rational people think at the margin" means that people:','“Rasyonel insanlar marjinal düşünür” ne demek?',['always choose the cheapest option','compare marginal benefits and marginal costs of small adjustments','ignore past decisions','respond only to government policy','maximize total cost'],1,'Küçük ayarlamaların ek fayda ve ek maliyetini karşılaştırmak.'],
+ ['Hafta 1','Which principle is about individual decision making?','Hangi ilke bireysel karar almayla ilgilidir?',['Trade can make everyone better off','Markets are usually a good way to organize economic activity','People face trade-offs','Prices rise when the government prints too much money','Governments can sometimes improve market outcomes'],2,'İlke 1–4 bireysel karar almadır; 5–7 etkileşim, 8–10 bütün ekonomi.'],
+ ['Hafta 1','The two main causes of market failure discussed in class are:','Piyasa başarısızlığının iki temel nedeni?',['inflation and unemployment','externalities and market power','taxes and subsidies','scarcity and trade-offs','productivity and income'],1,'İlke 7: dışsallık ve piyasa gücü.'],
+ ['Hafta 1','"Equity" in economics refers to:','İktisatta “equity” neyi ifade eder?',['getting the most from scarce resources','distributing economic prosperity fairly among members of society','the value of a firm\'s shares','maximizing GDP','equal prices for all goods'],1,'Equity = hakkaniyet. (a) şıkkı efficiency\'nin tanımıdır.'],
+ ['Hafta 1','The Phillips curve shows:','Phillips eğrisi neyi gösterir?',['the long-run link between money and prices','the short-run trade-off between inflation and unemployment','the combinations of two goods an economy can produce','the relationship between price and quantity demanded','productivity growth over time'],1,'İlke 10: kısa dönem enflasyon–işsizlik ödünleşimi.'],
+ ['Hafta 1','Differences in living standards across countries are mainly explained by differences in:','Ülkeler arası yaşam standardı farkları esas olarak neyle açıklanır?',['money supply','productivity','population','inflation','trade barriers'],1,'İlke 8: verimlilik.'],
+ ['Hafta 2','A point inside the production possibilities frontier is:','Üİ eğrisinin içindeki bir nokta nedir?',['efficient','unattainable','inefficient','the equilibrium','the point of maximum output'],2,'Kaynaklar tam kullanılmıyor = etkin değil. Dışı ulaşılamaz.'],
+ ['Hafta 2','The production possibilities frontier shifts outward when:','Üİ eğrisi ne zaman dışa kayar?',['unemployment rises','the economy moves along the curve','there is an improvement in technology','the price of one good rises','resources are wasted'],2,'Teknolojik gelişme ya da kaynak artışı eğriyi dışa kaydırır.'],
+ ['Hafta 2','Which of the following is NOT a factor of production?','Hangisi üretim faktörü DEĞİLDİR?',['land','labour','machinery','money','a factory building'],3,'Para üretim faktörü değildir.'],
+ ['Hafta 2','In the basic circular-flow diagram, households:','Temel dairesel akımda hane halkı:',['sell goods in the market for goods and services','buy labour in the factor market','sell factors of production (e.g., labour) in the factor market','receive revenue from firms for goods sold','are controlled by the government'],2,'Hane halkı emeğini faktör piyasasında satar, mal piyasasında alıcıdır.'],
+ ['Hafta 2','Which question belongs to microeconomics?','Hangi soru mikroiktisadın konusudur?',['What causes national inflation?','Why does unemployment rise in recessions?','How does rent control affect housing in a city?','What determines GDP growth?','How does the central bank affect money supply?'],2,'Tek bir şehirdeki konut piyasası = tek piyasa = mikro.'],
+ ['Hafta 2','A country has a comparative advantage in a good when it:','Bir ülke ne zaman karşılaştırmalı üstünlüğe sahiptir?',['produces it with fewer inputs','produces more of it than others','produces it at a lower opportunity cost','exports all of it','has more workers'],2,'Karşılaştırmalı üstünlük = düşük fırsat maliyeti; (a) mutlak üstünlüktür.'],
+ ['Hafta 3–4','If the price of coffee rises, what happens to the demand for tea (a substitute)?','Kahvenin fiyatı artarsa çay talebine ne olur?',['shifts left','shifts right','movement down along the curve','no change','becomes vertical'],1,'İkame malın fiyatı artınca çay talebi artar → sağa kayar.'],
+ ['Hafta 3–4','When income rises, the demand for bus rides falls. Bus rides are:','Gelir artınca otobüs talebi düşüyor. Otobüs yolculuğu:',['a normal good','a luxury','an inferior good','a complement','a public good'],2,'Gelir artınca talebi düşen mal = düşük mal.'],
+ ['Hafta 3–4','A fall in the price of pizza (ceteris paribus) causes:','Pizzanın fiyatının düşmesi neye yol açar?',['a rightward shift of demand','an increase in quantity demanded (movement along the demand curve)','a leftward shift of supply','an increase in demand','a shortage'],1,'Kendi fiyatı değişirse eğri kaymaz; eğri üzerinde hareket olur.'],
+ ['Hafta 3–4','If the market price is above the equilibrium price:','Piyasa fiyatı dengenin üstündeyse:',['there is a shortage and price rises','there is a surplus and price falls','quantity demanded exceeds quantity supplied','the market is in equilibrium','supply shifts right'],1,'Arz edilen > talep edilen → arz fazlası → fiyat düşer.'],
+ ['Hafta 3–4','The price of milk (an input for ice cream) increases. In the ice cream market:','Dondurmanın girdisi sütün fiyatı artıyor:',['demand shifts left; P and Q fall','supply shifts left; P rises, Q falls','supply shifts right; P falls, Q rises','demand shifts right; P and Q rise','nothing changes'],1,'Girdi fiyatı artışı arzı sola kaydırır: fiyat artar, miktar azalır.'],
+ ['Hafta 3–4','Demand and supply both increase at the same time. Then:','Talep ve arz aynı anda artıyor:',['P rises, Q is ambiguous','Q rises, P is ambiguous','both P and Q rise','both fall','P falls, Q falls'],1,'Aynı yöne kayma → Q kesin artar, P belirsiz.'],
+ ['Hafta 3–4','Which is NOT a feature of a perfectly competitive market?','Hangisi tam rekabetin özelliği DEĞİLDİR?',['identical goods','buyers and sellers are price takers','free entry and exit','firms set their own prices','full information about prices'],3,'Tam rekabette firmalar fiyat alıcıdır.'],
+ ['Hafta 3–4','"Ceteris paribus" means:','“Ceteris paribus” ne demektir?',['all variables change together','other things being equal','the market is in equilibrium','prices are sticky','only price matters'],1,'Diğer şeyler sabitken.'],
+ ['Hafta 4–5','The price of a good rises from 4 TL to 6 TL and quantity demanded falls from 120 to 80. Using the midpoint method, demand is:','Fiyat 4→6 TL, miktar 120→80. Orta nokta yöntemiyle talep:',['perfectly inelastic','inelastic','unit elastic','elastic','perfectly elastic'],2,'%ΔQ = 40/100 = %40; %ΔP = 2/5 = %40 → E = 1.'],
+ ['Hafta 4–5','A vertical demand curve is:','Dikey talep eğrisi:',['perfectly elastic','unit elastic','perfectly inelastic','elastic','impossible'],2,'Fiyat ne olursa olsun miktar sabit → E = 0.'],
+ ['Hafta 4–5','A good with negative income elasticity is:','Gelir esnekliği negatif olan mal:',['a normal good','a luxury','an inferior good','a substitute','a necessity'],2,'Negatif gelir esnekliği = düşük mal.'],
+ ['Hafta 4–5','If the cross-price elasticity between two goods is negative, they are:','Çapraz esneklik negatifse mallar:',['substitutes','complements','inferior goods','unrelated','luxuries'],1,'Negatif → tamamlayıcı; pozitif → ikame.'],
+ ['Hafta 4–5','Which makes demand for a good MORE elastic?','Hangisi talebi DAHA elastik yapar?',['it is a necessity','it has many close substitutes','a short time horizon','a broadly defined market','it is an addictive good'],1,'Yakın ikame çoksa tüketici kolayca başka mala geçer.'],
+ ['Hafta 4–5','Supply is usually more elastic in the long run because:','Arz uzun dönemde neden daha elastiktir?',['consumers change habits','firms can build new factories and new firms can enter','prices are fixed','technology never changes','demand becomes inelastic'],1,'Uzun dönemde kapasite artar, yeni firmalar girer. (a) talep tarafıdır.'],
+ ['Hafta 4–5','OPEC could keep oil prices high only in the short run because in the short run:','OPEC fiyatı neden yalnızca kısa dönemde yüksek tutabildi?',['supply and demand are both relatively inelastic','supply and demand are both very elastic','demand is perfectly elastic','non-OPEC producers increase output quickly','consumers buy more cars'],0,'Kısa dönemde arz ve talep inelastik; arz kısıntısı fiyatı çok yükseltir.'],
+ ['Hafta 4–5','Price rises from 10 to 12 and quantity demanded falls from 100 to 80. Using the midpoint method, the price elasticity is about:','Fiyat 10→12, miktar 100→80. Orta nokta esnekliği yaklaşık:',['0.55','0.82','1.00','1.22','2.00'],3,'%ΔQ = 20/90 ≈ %22,2; %ΔP = 2/11 ≈ %18,2 → E ≈ 1,22 (elastik).',1],
+ ['Hafta 4–5','If demand is elastic, a price increase will cause total revenue to:','Talep elastikse fiyat artışı toplam geliri:',['increase','decrease','stay the same','double','become zero'],1,'Elastik talepte miktar fiyattan daha çok düşer → TR = P×Q azalır. (Mankiw 5. bölüm.)',1],
+ ['Hafta 4–5','The income elasticity of demand for a good is 1.5. The good is:','Gelir esnekliği 1,5 olan mal:',['an inferior good','a necessity','a luxury (normal) good','a complement','perfectly inelastic'],2,'Pozitif → normal; 1\'den büyük → lüks.',1],
+ ['Hafta 4–5','The cross-price elasticity between butter and margarine is +0.8. They are:','Tereyağı–margarin çapraz esnekliği +0,8:',['complements','substitutes','inferior goods','unrelated','luxuries'],1,'Pozitif çapraz esneklik → ikame.',1],
+ ['Hafta 3–4','Consumers expect the price of phones to rise next month. Today\'s demand for phones:','Tüketiciler gelecek ay telefon fiyatının artacağını bekliyor. Bugünkü talep:',['shifts left','shifts right','does not change','moves along the curve','becomes vertical'],1,'Beklentiler fiyat dışı belirleyicidir; şimdi almak isteyenler artar → talep sağa kayar.',1],
+ ['Hafta 2','An economy reduces unemployment and moves from a point inside its PPF to a point on it. This means:','Ekonomi Üİ eğrisinin içinden eğrinin üzerine geliyor:',['the PPF shifted outward','it became more efficient without giving up any good','opportunity cost became zero forever','technology improved','it is now unattainable'],1,'İçeriden eğriye gelmek atıl kaynakları kullanmaktır; eğri kaymaz, hiçbir maldan vazgeçmeden daha çok üretilir.',1],
+ ['Hafta 3–4','A new technology lowers production costs while consumer incomes fall (normal good). The equilibrium price will:','Teknoloji maliyeti düşürürken gelir düşüyor (normal mal). Denge fiyatı:',['definitely rise','definitely fall','be ambiguous','stay the same','become zero'],1,'Arz sağa, talep sola: ters yönlü kayma → P kesin düşer, Q belirsiz.',1]
+];
+QZ.math = [
+ ['Bölüm 3','Demand p = 100 − 2q and supply p = 20 + 3q. Equilibrium quantity is:','Talep p = 100 − 2q, arz p = 20 + 3q. Denge miktarı:',['12','16','20','68','80'],1,'100 − 2q = 20 + 3q → 5q = 80 → q = 16 (p = 68).',1],
+ ['Bölüm 3','Price 25, unit variable cost 15, fixed cost 5000. Break-even quantity:','Fiyat 25, değişken maliyet 15, sabit maliyet 5000. Başabaş miktarı:',['200','333','500','1000','5000'],2,'25q = 5000 + 15q → q = 500.',1],
+ ['Bölüm 3','Revenue R = 80q − 2q². Revenue is maximized at q =',null,['10','20','40','80','800'],1,'Tepe: q = −b/2a = −80/(−4) = 20. Maksimum gelir 800.',1],
+ ['Bölüm 3','A per-unit tax of t is imposed. The supply equation p = f(q) becomes:',null,['p = f(q) − t','p = f(q) + t','p = t · f(q)','p = f(q − t)','unchanged'],1,'Vergi arzı yukarı kaydırır: yeni arz = eski arz + t.',1],
+ ['Bölüm 1','Solving −3x + 6 > 12 gives:',null,['x > −2','x < −2','x > 2','x < 6','x > 6'],1,'−3x > 6 → negatife bölünce yön döner: x < −2.',1],
+ ['Bölüm 1','Σ (i = 1 to 20) i equals:',null,['200','210','220','400','420'],1,'n(n+1)/2 = 20·21/2 = 210.',1],
+ ['Bölüm 2','The graph of f(x − 3) is the graph of f(x) shifted:',null,['3 units left','3 units right','3 units up','3 units down','reflected'],1,'Parantez içi ters çalışır: x − 3 → sağa.',1],
+ ['Bölüm 4','ln(2,5) / ln(1,05) is the solution of:',null,['1,05ⁿ = 2,5','2,5ⁿ = 1,05','n·1,05 = 2,5','log(n) = 2,5','eⁿ = 2,5'],0,'Üsteki bilinmeyen: iki tarafın ln\'i → n·ln 1,05 = ln 2,5.',1],
+ ['Bölüm 4','Which statement is FALSE?',null,['log(mn) = log m + log n','log(mʳ) = r log m','log(m + n) = log m + log n','log_b 1 = 0','ln e = 1'],2,'log(m + n) açılmaz; sık yapılan hata.',1],
+ ['Bölüm 5','5000 TL at 8% compounded quarterly for 5 years grows to about:',null,['5400,00','7000,00','7346,64','7429,74','7459,12'],3,'r = 0,02, n = 20 → 5000·1,02²⁰ ≈ 7429,74.',1],
+ ['Bölüm 5','The effective rate of 12% compounded monthly is about:',null,['12,00%','12,36%','12,55%','12,68%','12,75%'],3,'(1,01)¹² − 1 ≈ 0,1268.',1],
+ ['Bölüm 5','At 6% compounded annually, money doubles in about:',null,['6 years','10 years','11,9 years','12,5 years','16,7 years'],2,'n = ln 2 / ln 1,06 ≈ 11,9.',1],
+ ['Bölüm 5','500 TL at the end of every month for 3 years, 9% compounded monthly. Present value ≈',null,['15.723,40','18.000,00','20.578,18','13.500,00','16.391,02'],0,'r = 0,0075, n = 36 → 500·a(36; 0,0075) ≈ 15.723,40.',1],
+ ['Bölüm 5','Loan of 20.000 TL, 60 monthly payments, 7,2% compounded monthly. Monthly payment ≈',null,['333,33','380,00','397,91','412,50','445,20'],2,'r = 0,006 → R = 20.000 / a(60; 0,006) ≈ 397,91.',1],
+ ['Bölüm 5','To have 30.000 TL in 6 years with quarterly deposits at 8% compounded quarterly, each deposit ≈',null,['986,13','1250,00','1093,74','1586,03','899,00'],0,'r = 0,02, n = 24 → R = 30.000 / s(24; 0,02) ≈ 986,13.',1],
+ ['Bölüm 5','A perpetuity pays 5000 per year at 4%. Its present value is:',null,['20.000','125.000','200.000','5200','50.000'],1,'A = R / r = 5000 / 0,04 = 125.000.',1],
+ ['Bölüm 5','In S = Pe^(rt) for continuous compounding:',null,['r is divided by 12','r is the annual rate and t is in years','t is the number of months','r must be the effective rate','n is used instead of t'],1,'Sürekli bileşikte r yıllık kalır, t yıl; dönem sayısına bölme yapılmaz.',1],
+ ['Bölüm 5','In an annuity due, compared with an ordinary annuity:',null,['payments are at the end of each period','the first payment is made today and is not discounted','the present value is smaller','interest is simple','there is no future value'],1,'Annuity due dönem başında ödenir; ilk ödeme bugündür, indirgenmez. Bu yüzden değeri daha büyüktür.',1],
+ ['Bölüm 5','After k payments of a loan with n payments, the outstanding balance equals:',null,['kR','A − kR','R · a(n − k, r)','R · s(k, r)','nR − A'],2,'Kalan borç = kalan taksitlerin bugünkü değeri.',1],
+ ['Bölüm 5','6% compounded monthly for 3 years: r and n are:',null,['r = 0,06; n = 3','r = 0,005; n = 36','r = 0,5; n = 36','r = 0,06; n = 36','r = 0,005; n = 3'],1,'r = 0,06 / 12 = 0,005; n = 3·12 = 36.',1]
+];
+QZ.bus = [
+ ['Bölüm 1','Which managerial skill is equally important at all management levels?',null,['Conceptual','Technical','Human','Analytical'],2,'Human skill her kademede eşit önemde.'],
+ ['Bölüm 1','According to the textbook, the most important characteristic of an entrepreneur is:',null,['Being their own boss','Optimism','High energy','Vision'],0,'Kitap “being their own boss”u en önemli özellik sayar.'],
+ ['Bölüm 1','An entrepreneur who always blames fate and others for failure lacks:',null,['Tolerance for ambiguity','Internal locus of control','Vision','Need to achieve'],1,'Kaderi suçlayan kişi external locus of control\'e sahiptir.'],
+ ['Bölüm 1','"Disturbance handler" belongs to which group of managerial roles?',null,['Informational','Interpersonal','Decisional','Technical'],2,'Disturbance handler bir karar rolüdür.'],
+ ['Bölüm 1','A manager representing the company at an official ceremony is acting as a:',null,['Liaison','Figurehead','Spokesperson','Monitor'],1,'Törenlerde temsil = figurehead (interpersonal).'],
+ ['Bölüm 1','Which of the following is NOT part of the industry environment?',null,['Competitors','Substitutes','Technological segment','Labor market'],2,'Technological, general environment\'ın segmentidir.'],
+ ['Bölüm 1','Lobbying is a strategy used to:',null,['Adapt the organization','Influence the environment','Build a joint venture','Reduce span of control'],1,'Lobi faaliyeti çevreyi etkileme yoludur.'],
+ ['Bölüm 1','Under high environmental uncertainty, which structure is more appropriate?',null,['Mechanistic','Organic','Centralized','Tall'],1,'Esnek organic yapı yüksek belirsizliğe uyar.'],
+ ['Bölüm 2','Which of the following is a disadvantage of SMSBs?',null,['Flexibility','Innovation','Inadequate management','Low costs'],2,'Diğer üçü KOBİ avantajıdır.'],
+ ['Bölüm 2','In which business form does the business have a separate legal identity but ALL owners have unlimited liability?',null,['Ordinary partnership','Registered partnership','Limited partnership','Limited company'],1,'Registered partnership: tüzel kişilik var, sorumluluk sınırsız.'],
+ ['Bölüm 2','According to the textbook, the maximum number of shareholders in a limited company is:',null,['5','20','50','Unlimited'],2,'Kitaba göre limited şirket en fazla 50 ortaklı.'],
+ ['Bölüm 2','The owners of a joint-stock company are called:',null,['Partners','Shareholders','Proprietors','Liaisons'],1,'A.Ş. sahiplerine shareholder/stockholder denir.'],
+ ['Bölüm 2','A car manufacturer merges with its tyre supplier. This is a:',null,['Horizontal merger','Vertical merger','Conglomerate merger','Cartel'],1,'Tedarikçi + üretici = aynı zincirin farklı aşamaları.'],
+ ['Bölüm 2','An acquisition that the target company does not want is called a:',null,['Joint venture','Hostile takeover','Cartel','Franchise'],1,'İstenmeyen satın alma = hostile takeover.'],
+ ['Bölüm 2','In which arrangement do the partner companies keep their own identities?',null,['Merger','Acquisition','Joint venture','Holding subsidiary'],2,'Joint venture\'da şirketler kimliğini korur.'],
+ ['Bölüm 3','If a country\'s exports exceed its imports, its balance of trade is:',null,['Favorable','Unfavorable','In deficit','Devalued'],0,'İhracat > ithalat = favorable.'],
+ ['Bölüm 3','A systematic record of ALL money flows into and out of a country is the:',null,['Balance of trade','Balance of payments','Exchange rate','Tariff schedule'],1,'Tüm para akışı = balance of payments.'],
+ ['Bölüm 3','Which delivery term makes the seller pay for both freight AND insurance?',null,['EXW','FOB','CFR','CIF'],3,'CIF = Cost + Insurance + Freight.'],
+ ['Bölüm 3','The safest payment method for the exporter is:',null,['Open account','Consignment','Cash in advance','Cash against documents'],2,'Para mal gönderilmeden alınır.'],
+ ['Bölüm 3','A limit on the quantity of a product that can be imported is a:',null,['Tariff','Quota','Embargo','Subsidy'],1,'Miktar sınırı = quota; vergi olsaydı tariff.'],
+ ['Bölüm 3','Free trade among members plus a common external tariff describes a:',null,['Free trade area','Customs union','Common market','Economic union'],1,'Ortak dış tarife customs union\'ın ayırt edici özelliği.'],
+ ['Bölüm 3','Franchising and licensing belong to which stage of global business?',null,['Exporting','Contractual agreements','International investments','Countertrading'],1,'Franchising, licensing, subcontracting = contractual agreements.'],
+ ['Bölüm 4','A budget is an example of a:',null,['Standing plan','Policy','Single-use plan','Rule'],2,'Budget, program ve project tek kullanımlık planlardır.'],
+ ['Bölüm 4','Short-term plans prepared by first-line managers are:',null,['Strategic plans','Tactical plans','Operational plans','Policies'],2,'Alt kademe + kısa vade = operational.'],
+ ['Bölüm 4','In which structure does an employee report to two managers?',null,['Functional','Product','Geographic','Matrix'],3,'Matrix: fonksiyon müdürü + proje müdürü.'],
+ ['Bölüm 4','A wide span of control usually results in a:',null,['Tall structure','Flat structure','Centralized structure','Matrix structure'],1,'Geniş span → az kademe → flat.'],
+ ['Bölüm 5','The theory that the best leadership style depends on the situation is the:',null,['Trait theory','Behavioral theory','Contingency theory','Equity theory'],2,'“Duruma göre değişir” = contingency.'],
+ ['Bölüm 5','The highest level in Maslow\'s hierarchy is:',null,['Esteem','Social','Safety','Self-actualization'],3,'Piramidin tepesi self-actualization.'],
+ ['Bölüm 5','According to Herzberg, salary and working conditions are:',null,['Motivators','Hygiene factors','Self-actualization needs','Valences'],1,'Maaş ve koşullar hygiene factor; yoksa tatminsizlik yaratır.'],
+ ['Bölüm 5','Vroom\'s expectancy theory is a:',null,['Content theory','Process theory','Trait theory','Contingency theory'],1,'Vroom ve Adams süreç teorileridir.'],
+ ['Bölüm 5','Checking the quality of raw materials before production starts is:',null,['Feedback control','Concurrent control','Feedforward control','Budget control'],2,'Faaliyetten önce yapılan kontrol = feedforward.'],
+ ['Bölüm 5','Informal communication that spreads through rumors is called:',null,['Downward communication','Upward communication','Grapevine','Horizontal communication'],2,'Gayriresmi dedikodu ağı = grapevine.'],
+ ['Bölüm 1','Announcing the company\'s new strategy to the press is the role of:',null,['Figurehead','Spokesperson','Liaison','Negotiator'],1,'Dışarıya bilgi duyurmak = spokesperson (informational). Figurehead sadece törensel temsildir.',1],
+ ['Bölüm 4','"Smoking is not allowed in the workplace" is an example of a:',null,['Policy','Procedure','Rule','Program'],2,'Tek bir yap/yapma kuralı = rule (standing plan).',1],
+ ['Bölüm 5','According to Herzberg, which is a MOTIVATOR?',null,['Salary','Company policy','Recognition','Job security'],2,'Takdir (recognition) içsel bir motivatördür; diğerleri hygiene.',1],
+ ['Bölüm 3','Free movement of labour and capital among members is added at which stage of integration?',null,['Free trade area','Customs union','Common market','Economic union'],2,'Common market = customs union + emek ve sermayenin serbest dolaşımı.',1],
+ ['Bölüm 4','Grouping activities as Marmara, Ege and international divisions is:',null,['Functional','Product','Geographic','Process'],2,'Bölgeye göre gruplama = geographic departmentalization.',1],
+ ['Bölüm 5','In Vroom\'s theory, if valence is zero, motivation is:',null,['Maximum','Zero','Unchanged','Negative only for managers'],1,'Motivasyon = E × I × V; çarpanlardan biri sıfırsa sonuç sıfır.',1]
+];
+QZ.law = [
+ ['Sosyal düzen','Hukuk kuralını diğer sosyal düzen kurallarından ayıran temel özellik hangisidir?',null,['Toplumsal olması','Yazılı olması','Devlet gücüyle desteklenen maddi yaptırım','Ahlaka uygun olması'],2,'Diğer kuralların da toplumsal tepkisi var; sadece hukuk kuralı devlet zoruyla uygulanır. Hukuk kuralı yazılı olmak zorunda değildir (örf ve adet).'],
+ ['Sistemler','Türk Medeni Kanunu hangi ülkeden alınmıştır?',null,['Almanya','Fransa','İtalya','İsviçre'],3,'Ceza Kanunu İtalya\'dan, Ticaret Kanunu Almanya\'dan alınmıştır.'],
+ ['Dallar','Aşağıdakilerden hangisi kamu hukuku dalıdır?',null,['Borçlar hukuku','Medeni usul hukuku','Ticaret hukuku','Devletler özel hukuku'],1,'Adı yanıltıcı; devletin yargı yetkisini düzenlediği için kamu hukukudur.'],
+ ['Yaptırım','Aldatılarak yapılan bir sözleşmenin hukuki durumu nedir?',null,['Yokluk','Kesin hükümsüzlük','İptal edilebilirlik','Tamamen geçerli'],2,'Aldatma irade sakatlığıdır; sözleşme geçerlidir ama aldatılan taraf süresi içinde iptal ettirebilir.'],
+ ['Kural türleri','“Aksi kararlaştırılmadıkça, borç alacaklının yerleşim yerinde ödenir” hükmü hangi tür kuraldır?',null,['Emredici','Tamamlayıcı','Tanımlayıcı','Yaptırım kuralı'],1,'Taraflar ödeme yerini kararlaştırmadıysa boşluğu doldurur; taraflar başka yer belirleyebilir.'],
+ ['Kaynaklar','Normlar hiyerarşisinde en üstte hangisi yer alır?',null,['Kanun','Uluslararası antlaşma','Anayasa','Cumhurbaşkanlığı kararnamesi'],2,'Anayasa en üst normdur (AY m.11).'],
+ ['Sistemler','Anglo-Sakson hukuk sisteminde temel kaynak hangisidir?',null,['Kodifiye kanunlar','Yargı kararları (emsal)','Dini kurallar','Doktrin'],1,'Emsal ilkesi: önceki karar benzer davaları bağlar.'],
+ ['Sosyal düzen','“Belli bir kişiye değil, herkese yönelik olması” hukuk kuralının hangi özelliğidir?',null,['Soyutluk','Genellik','Süreklilik','Yaptırım'],1,'Genel = herkese; soyut = benzer tüm olaylara.',1],
+ ['Sosyal düzen','Hukuk kuralının iki unsuru hangileridir?',null,['Varsayım ve hüküm','Kaynak ve yaptırım','Maddi ve manevi unsur','Kanun ve içtihat'],0,'“Bir kimse zarar verirse” (varsayım) … “tazmin eder” (hüküm). Maddi/manevi unsur örf ve adetin unsurlarıdır.',1],
+ ['Sistemler','1926 tarihli Türk Ceza Kanunu hangi ülkeden alınmıştır?',null,['İsviçre','Almanya','İtalya','Fransa'],2,'Ceza → İtalya. Ticaret ve Ceza Muhakemesi → Almanya.',1],
+ ['Kaynaklar','Aşağıdaki yargı kararlarından hangisi bağlayıcıdır?',null,['Bölge mahkemesi kararları','Yargıtay içtihadı birleştirme kararları','Hukukçuların görüşleri','İlk derece mahkemesi kararları'],1,'İstisna: AYM kararları ve Yargıtay İBK bağlayıcıdır; diğer içtihat yardımcı kaynaktır.',1],
+ ['Kaynaklar','Cumhurbaşkanlığı kararnamesi ile kanun çatışırsa hangisi uygulanır?',null,['Kararname','Kanun','Sonra çıkan','Hâkim seçer'],1,'CBK ile kanun çatışırsa kanun uygulanır.',1],
+ ['Kaynaklar','Temel hak ve özgürlüklere ilişkin bir uluslararası antlaşma ile kanun çatışırsa ne olur?',null,['Kanun uygulanır','Antlaşma uygulanır','İkisi de uygulanmaz','Danıştay karar verir'],1,'AY m.90: temel haklara ilişkin antlaşma hükümleri esas alınır.',1],
+ ['Kaynaklar','Yönetmeliklerin kanuna uygunluğunu hangi yargı organı denetler?',null,['Anayasa Mahkemesi','Yargıtay','Danıştay','Sayıştay'],2,'Kanunlar → AYM; yönetmelikler → Danıştay (idari yargı).',1],
+ ['Kaynaklar','Örf ve adet hukukunun manevi unsuru nedir?',null,['Davranışın uzun süre tekrarlanması','Toplumun uymayı hukuken zorunlu sayması','Kanunla düzenlenmiş olması','Hâkimin onaylaması'],1,'Maddi unsur = tekrar; manevi unsur = hukuken zorunluluk inancı.',1],
+ ['Kural türleri','“Ergin olmak 18 yaşını doldurmakla başlar” hükmü hangi tür kuraldır?',null,['Emredici','Tamamlayıcı','Yorumlayıcı','Tanımlayıcı'],3,'Bir kavramın ne olduğunu tanımlar (TMK m.11).',1],
+ ['Kural türleri','Sözleşmede ödeme “ay başı” denmişse bunun ayın birinci günü anlaşılmasını sağlayan kural:',null,['Emredici','Tamamlayıcı','Yorumlayıcı','Tanımlayıcı'],2,'Var olan ama belirsiz ifadeyi açıklar → yorumlayıcı.',1],
+ ['Yaptırım','Evlendirme memuru önünde yapılmamış bir “evlilik” hangi yaptırıma tabidir?',null,['İptal edilebilirlik','Kesin hükümsüzlük','Yokluk','Tazminat'],2,'Kurucu unsur eksik; işlem hiç doğmamıştır.',1],
+ ['Yaptırım','Korkutma (tehdit) altında imzalanan sözleşme:',null,['Yoktur','Kesin hükümsüzdür','İptal edilebilir','Tamamen geçerlidir'],2,'Korkutma irade sakatlığıdır (yanılma, aldatma, korkutma) → iptal edilebilirlik.',1],
+ ['Dallar','İş hukuku hangi gruba girer?',null,['Kamu hukuku','Özel hukuk','Karma','Devletler genel hukuku'],2,'İşçi–işveren ilişkisi özel; devletin koruyucu emredici müdahalesi kamu → karma.',1],
+ ['Dallar','Bir Türk ile bir Alman\'ın evliliğine uygulanacak hukuku belirleyen dal:',null,['Devletler genel hukuku','Devletler özel hukuku','Anayasa hukuku','İdare hukuku'],1,'Yabancı unsurlu kişiler arası ilişki → devletler özel hukuku (özel hukuk).',1],
+ ['Uygulama','Kanunda yürürlük tarihi yazmıyorsa kanun ne zaman yürürlüğe girer?',null,['Yayım günü','Yayımdan 15 gün sonra','Yayımdan 45 gün sonra','Yayımdan 6 ay sonra'],2,'Resmî Gazete\'de yayımından itibaren 45 gün sonra.',1],
+ ['Uygulama','Ceza hukukunda aleyhe kıyas yasağı hangi ilkeden kaynaklanır?',null,['Mülkilik','Suç ve cezaların kanuniliği','Geriye yürümezlik','Şahsilik'],1,'Kanunda açıkça suç sayılmayan fiil için kimse cezalandırılamaz.',1],
+ ['Uygulama','Kanun koyucunun kanunu yaptığı dönemdeki amacına ve gerekçeye bakan yorum yöntemi:',null,['Lafzi','Tarihi','Sistematik','Amaçsal'],1,'Tarihi yorum gerekçeye bakar; amaçsal yorum kuralın bugünkü amacına bakar.',1],
+ ['Uygulama','Türk kanunlarının Türkiye\'de bulunan herkese uygulanması hangi ilkedir?',null,['Şahsilik','Mülkilik (ülkesellik)','Geriye yürümezlik','Kıyas'],1,'Vatandaş olsun olmasın ülkedeki herkese → mülkilik.',1]
+];
+
+/* ================= KARTLAR ================= */
+const FC = {};
+FC.acc = [
+ ['A = L + OE','Assets = Liabilities + Owner\'s Equity. Her işlemden sonra dengede kalır.'],
+ ['DEA','Dividends, Expenses, Assets → DEBIT ile artar, normal bakiyesi debit.'],
+ ['LCR','Liabilities, Capital/Common Stock, Revenues → CREDIT ile artar, normal bakiyesi credit.'],
+ ['Prepaid Expense','Varlık. Gider peşin ödendi, faydası ileride kullanılacak.'],
+ ['Unearned Revenue','Borç. Para peşin alındı, hizmet henüz verilmedi.'],
+ ['Accrued liability','Gerçekleşmiş ama ödenmemiş gider (Salaries/Utilities/Interest Payable).'],
+ ['Accounts Payable vs Notes Payable','A/P: veresiye alımdan doğan borç. N/P: yazılı senet/kredi, genelde faizli.'],
+ ['Dividends / Withdrawals','Sahibe dağıtım. OE\'yi azaltır ama GİDER DEĞİLDİR; gelir tablosuna girmez.'],
+ ['Veresiye hizmet','Gelir hemen kaydedilir: A/R Dr, Service Revenue Cr. Tahsilatta yeni gelir yok.'],
+ ['Tablo sırası','Income Statement → Statement of Owner\'s Equity → Balance Sheet.'],
+ ['Film mi fotoğraf mı?','Gelir ve özkaynak tabloları = film (dönem). Bilanço = fotoğraf (tarih).'],
+ ['Üç satırlık başlık','Şirket adı · Tablonun adı · Dönem veya tarih.'],
+ ['Muhasebe döngüsü','Analyze → Journalize → Post → Trial balance → Adjusting → Adjusted TB → Statements → Closing → Post-closing TB.'],
+ ['Journal','İşlemlerin kronolojik (tarih sırasıyla) kaydı.'],
+ ['Ledger','Tüm hesapların (T-hesapların) ve bakiyelerinin toplandığı kayıt.'],
+ ['Posting','Yevmiyedeki tutarları defteri kebirdeki hesaplara aktarmak.'],
+ ['Trial balance','Tüm hesap bakiyelerinin listesi; debit toplamı = credit toplamı. Hatasızlığı kanıtlamaz.'],
+ ['AICPA\'nın 4 fiili','Recording, classifying, summarizing, interpreting.'],
+ ['IASB / FASB','IASB → IFRS (Türkiye dahil 150+ ülke). FASB → US GAAP.'],
+ ['Finansal vs yönetim muhasebesi','Finansal: dış kullanıcı, IFRS/GAAP. Yönetim: iç kullanıcı, serbest (bütçe, maliyet raporu).'],
+ ['Corporation','Sınırlı sorumluluk, ayrı tüzel kişi, ayrı vergilenir, hisse kolay devredilir.'],
+ ['Historical cost','Varlıklar alış maliyetiyle kaydedilir.'],
+ ['Retained earnings','Birikmiş net kâr − dağıtılan temettüler.'],
+ ['Cari borç','1 yıl veya faaliyet döngüsü içinde (hangisi uzunsa) ödenecek borç.'],
+ ['Bileşik kayıt','Birden fazla borçlu ya da alacaklı hesap içeren kayıt (Rent Exp + Salaries Exp / Cash).']
+];
+FC.econ = [
+ ['Scarcity','Kıtlık: kaynakların istekleri karşılamaya yetmemesi.'],
+ ['Economics','İktisat: toplumun kıt kaynaklarını nasıl yönettiğini inceleyen bilim.'],
+ ['Trade-off','Ödünleşim: bir şeyi elde etmek için başka bir şeyden vazgeçmek.'],
+ ['Efficiency vs Equity','Efficiency: pastayı büyütmek. Equity: pastayı adil bölmek.'],
+ ['Opportunity cost','Fırsat maliyeti: vazgeçilen en iyi alternatif.'],
+ ['Marginal change','Marjinal değişiklik: planın kenarlarındaki küçük, artımlı ayarlama.'],
+ ['Incentive','Teşvik: davranışı değiştiren fiyat, miktar ya da politika.'],
+ ['Market economy','Kaynakları çok sayıda hane ve firmanın merkezî olmayan kararlarıyla dağıtan ekonomi.'],
+ ['Invisible hand','Görünmez el (Adam Smith): kişisel çıkarın piyasada toplumsal faydaya yol açması.'],
+ ['Market failure','Piyasanın kaynakları etkin dağıtamaması. Nedenleri: externality, market power.'],
+ ['Externality','Dışsallık: bir eylemin üçüncü kişinin refahına etkisi.'],
+ ['Market power','Tek bir aktörün fiyatları önemli ölçüde etkileyebilmesi.'],
+ ['Productivity','Bir işçinin bir saatte ürettiği mal ve hizmet miktarı. Yaşam standardını belirler.'],
+ ['Inflation','Genel fiyat düzeyinin artması. Çok para basılınca fiyatlar artar.'],
+ ['Phillips curve','Kısa dönemde enflasyon–işsizlik ödünleşimi.'],
+ ['On ilkenin grupları','1–4 bireysel karar · 5–7 etkileşim · 8–10 bütün ekonomi.'],
+ ['PPF','Üretim imkânları eğrisi: mevcut kaynak ve teknolojiyle üretilebilecek bileşimler.'],
+ ['PPF neden dışa bükük?','Kaynaklar her malın üretimine eşit uygun değil → artan fırsat maliyeti.'],
+ ['Factors of production','Land, labour, capital. Para üretim faktörü DEĞİLDİR.'],
+ ['Circular-flow diagram','Hane ve firma; mal piyasası ve faktör piyasası. İç döngü mal/faktör, dış döngü para.'],
+ ['Micro vs Macro','Mikro: hane, firma, tek piyasa. Makro: enflasyon, işsizlik, büyüme.'],
+ ['Absolute advantage','Bir malı daha az girdiyle üretebilmek.'],
+ ['Comparative advantage','Bir malı daha düşük fırsat maliyetiyle üretebilmek. Ticaret kazancının kaynağı.'],
+ ['Price taker','Piyasa fiyatını veri kabul eden alıcı/satıcı (tam rekabet).'],
+ ['Law of demand','Ceteris paribus fiyat ↑ → talep edilen miktar ↓.'],
+ ['Law of supply','Ceteris paribus fiyat ↑ → arz edilen miktar ↑.'],
+ ['Normal vs Inferior good','Gelir ↑ → talep ↑ (normal) / talep ↓ (düşük mal).'],
+ ['Substitutes vs Complements','İkame: çay–kahve (çapraz esneklik +). Tamamlayıcı: araba–benzin (−).'],
+ ['Change in demand vs quantity demanded','Fiyat dışı etken → eğri kayar (talepte değişme). Kendi fiyatı → eğri üzerinde hareket.'],
+ ['Ceteris paribus','Diğer her şey sabitken.'],
+ ['Surplus','Fiyat dengenin üstünde: arz edilen > talep edilen → fiyat düşer.'],
+ ['Shortage','Fiyat dengenin altında: talep edilen > arz edilen → fiyat artar.'],
+ ['İki eğri birlikte kayarsa','Aynı yönde → Q kesin, P belirsiz. Ters yönde → P kesin, Q belirsiz.'],
+ ['Elasticity','Bir değişkenin diğerindeki değişime duyarlılığı.'],
+ ['Midpoint method','Değişimi başlangıç ve sonun ortalamasına böler; yönden bağımsız sonuç verir.'],
+ ['Dikey / yatay talep eğrisi','Dikey: tam inelastik (E = 0). Yatay: tam elastik (E = ∞).'],
+ ['Esnekliği artıranlar','Lüks mal, çok ikame, dar tanımlı piyasa, uzun zaman ufku.'],
+ ['Income elasticity','Normal +, düşük −; zorunlu 0–1, lüks > 1.'],
+ ['Elasticity of supply','Uzun dönemde daha elastik; sahil arsası gibi sabit miktarlı mal tam inelastik.'],
+ ['OPEC dersi','Kısa dönemde arz ve talep inelastik → fiyat çok artar; uzun dönemde elastikleşir.']
+];
+FC.math = [
+ ['Dönem faizi ve sayısı','r = yıllık oran / yıldaki dönem · n = yıl × yıldaki dönem.'],
+ ['Bileşik faiz','S = P(1 + r)ⁿ'],
+ ['Bugünkü değer','P = S(1 + r)⁻ⁿ'],
+ ['Efektif oran','rₑ = (1 + r/m)ᵐ − 1 · sürekli: rₑ = eʳ − 1'],
+ ['Sürekli bileşik','S = Peʳᵗ, P = Se⁻ʳᵗ (r yıllık, t yıl; bölme yok).'],
+ ['a(n, r)','[1 − (1 + r)⁻ⁿ] / r → dönem sonu annüitenin bugünkü değer çarpanı.'],
+ ['s(n, r)','[(1 + r)ⁿ − 1] / r → dönem sonu annüitenin gelecek değer çarpanı.'],
+ ['Annuity due','A = R(1 + a(n−1, r)) · S = R(s(n+1, r) − 1). İlk ödeme bugün.'],
+ ['Kredi taksiti','R = A / a(n, r) = Ar / [1 − (1 + r)⁻ⁿ]'],
+ ['Sinking fund','R = S / s(n, r)'],
+ ['Kalan borç','k ödeme sonra: R · a(n − k, r)'],
+ ['Toplam faiz (kredi)','nR − A'],
+ ['Perpetuity','A = R / r'],
+ ['İkiye katlanma süresi','n = ln 2 / ln(1 + r)'],
+ ['Değer denklemi','Zaman çizelgesi → karşılaştırma tarihi → hepsini taşı → borçlar = ödemeler.'],
+ ['NPV','Gelecek nakit girişlerinin BD − ilk yatırım. > 0 ise kârlı.'],
+ ['Tepe noktası','x = −b / 2a. a > 0 min, a < 0 max.'],
+ ['Eğim','m = (y₂ − y₁)/(x₂ − x₁). Paralel: eşit eğim. Dik: m₁·m₂ = −1.'],
+ ['Piyasa dengesi / başabaş','Denge: arz = talep. Başabaş: TR = TC.'],
+ ['Birim vergi','Yeni arz: p = eski arz + t.'],
+ ['Σi ve Σi²','Σi = n(n+1)/2 · Σi² = n(n+1)(2n+1)/6'],
+ ['Aritmetik dizi','aₙ = a₁ + (n−1)d · Sₙ = n(a₁ + aₙ)/2'],
+ ['Geometrik dizi','aₙ = a₁rⁿ⁻¹ · Sₙ = a₁(1 − rⁿ)/(1 − r) · S∞ = a₁/(1 − r)'],
+ ['Log kuralları','log(mn) = log m + log n · log(m/n) = log m − log n · log mʳ = r log m'],
+ ['Taban değiştirme','log_b x = ln x / ln b'],
+ ['Öteleme','f(x − c) sağa · f(x + c) sola · f(x) + c yukarı · −f(x) x eksenine yansıma'],
+ ['Eşitsizlik kuralı','Negatif sayıyla çarpar/bölersen yön değişir.'],
+ ['Mutlak değer eşitsizliği','|x| < a ⇔ −a < x < a · |x| > a ⇔ x < −a veya x > a'],
+ ['Tanım kümesi yasakları','Payda ≠ 0 · çift dereceli kök içi ≥ 0 · log içi > 0']
+];
+FC.bus = [
+ ['Beceri × kademe','Conceptual üstte en önemli, technical altta en önemli, human her kademede eşit.'],
+ ['4 yönetim fonksiyonu','Planning, organizing, leading, controlling.'],
+ ['Informational roles','Monitor, disseminator, spokesperson.'],
+ ['Interpersonal roles','Figurehead, leader, liaison.'],
+ ['Decisional roles','Entrepreneur, disturbance handler, resource allocator, negotiator. En önemli grup.'],
+ ['Girişimcinin en önemli özelliği','Being their own boss.'],
+ ['Internal locus of control','Başarıyı kendi çabasına bağlar; kaderi suçlamaz.'],
+ ['General environment','Political-legal, economic, demographic, socio-cultural, technological, international.'],
+ ['Industry environment','Customers, suppliers, competitors, substitutes, labor market.'],
+ ['Adapt vs Influence','Adapt: organic yapı, merger, JV. Influence: reklam/PR, lobi, trade associations.'],
+ ['Mechanistic vs Organic','Mechanistic: katı, düşük belirsizlik. Organic: esnek, yüksek belirsizlik.'],
+ ['KOBİ dezavantajları','Inadequate management, limited financing, limited growth.'],
+ ['Registered partnership','Tüzel kişilik var, tüm ortaklar sınırsız sorumlu.'],
+ ['Limited partnership','Bazı ortaklar sınırsız, bazıları sınırlı (karışık).'],
+ ['Ltd. vs A.Ş. (kitap)','Ltd.: 2–50 ortak, hisse senedi yok. A.Ş.: en az 5, hisse senedi var.'],
+ ['Merger / JV / Acquisition','Merger: yeni kimlik. JV: kimlik korunur. Acquisition: alınan subsidiary olur.'],
+ ['Hostile takeover','Hedef şirketin istemediği satın alma.'],
+ ['Vertical / Horizontal / Conglomerate','Aynı zincir / aynı sektör / ilgisiz sektörler.'],
+ ['Balance of trade vs payments','Trade: mal ihracat–ithalat. Payments: tüm para akışı.'],
+ ['Devaluation','Yerli paranın resmen değer kaybetmesi; ihracatı ucuzlatır.'],
+ ['EXW → FOB → CFR → CIF','Satıcının yükü artar. CIF = navlun + sigorta.'],
+ ['En güvenli ödeme','İhracatçı: cash in advance. İthalatçı: open account / consignment.'],
+ ['Tariff / Quota / Embargo','Vergi / miktar sınırı / tamamen yasak.'],
+ ['Küreselleşme aşamaları','Exporting (+countertrade) → contractual (franchising, licensing, subcontracting) → int\'l investment.'],
+ ['Entegrasyon basamakları','FTA → customs union (ortak dış tarife) → common market (emek+sermaye) → economic union.'],
+ ['GATT → WTO','GATT 1947, WTO 1995. Ayrıca IMF ve World Bank.'],
+ ['Standing vs single-use','Standing: policy, procedure, rule. Single-use: program, project, budget.'],
+ ['Strategic / Tactical / Operational','Üst–uzun / orta–orta / alt–kısa.'],
+ ['Span of control','Geniş → flat. Dar → tall.'],
+ ['Matrix','Çalışan iki amire rapor verir; unity of command bozulur.'],
+ ['Liderlik teorileri','Trait (doğuştan) · Behavioral (stil) · Contingency (duruma göre).'],
+ ['Maslow (alttan üste)','Physiological → Safety → Social → Esteem → Self-actualization.'],
+ ['Herzberg','Hygiene (maaş, koşullar): yoksa tatminsizlik. Motivators (başarı, takdir): motive eder.'],
+ ['Content vs Process','Content: Maslow, Herzberg (ne). Process: Vroom, Adams (nasıl).'],
+ ['Vroom','Motivasyon = Expectancy × Instrumentality × Valence.'],
+ ['Adams','Equity theory: çıktı/girdi oranını başkalarıyla kıyaslar.'],
+ ['Kontrol türleri','Feedforward (önce) · Concurrent (sırasında) · Feedback (sonra).'],
+ ['Grapevine','Gayriresmi dedikodu ağı.'],
+ ['İletişim süreci','Sender → encoding → channel → decoding → receiver → feedback; noise her aşamada.']
+];
+FC.law = [
+ ['Hukuku ayıran özellik','Devlet gücüyle desteklenen maddi yaptırım.'],
+ ['Hukuk kuralının özellikleri','Genel, soyut, sürekli, yaptırımlı, bağlayıcı.'],
+ ['Hukuk kuralının yapısı','Varsayım + hüküm.'],
+ ['Objektif / Sübjektif hukuk','Objektif: kurallar bütünü. Sübjektif: hak (kişiye tanınan yetki).'],
+ ['Pozitif / Tabii hukuk','Pozitif: yürürlükteki. Tabii: her yerde geçerli ideal hukuk.'],
+ ['Kıta Avrupası','Yazılı kanun asıl kaynak; Roma hukuku; Türkiye, Almanya, Fransa.'],
+ ['Anglo-Sakson','İçtihat asıl kaynak; emsal (precedent); İngiltere, ABD.'],
+ ['Resepsiyon','Başka ülkenin hukukunu benimseme (iktibas).'],
+ ['İsviçre\'den','Medeni Kanun, Borçlar Kanunu, İcra ve İflas Kanunu.'],
+ ['İtalya\'dan','Ceza Kanunu (1926).'],
+ ['Almanya\'dan','Ticaret Kanunu, Ceza Muhakemesi Kanunu.'],
+ ['TMK m.1 sırası','Kanun → örf ve adet → hâkimin koyacağı kural; doktrin ve içtihattan yararlanır.'],
+ ['Asıl / yardımcı kaynak','Asıl: yazılı hukuk + örf-adet. Yardımcı: içtihat + doktrin.'],
+ ['Bağlayıcı içtihat','AYM kararları ve Yargıtay içtihadı birleştirme kararları.'],
+ ['Normlar hiyerarşisi','Anayasa → kanun & antlaşma → CBK → yönetmelik → genelge/tebliğ.'],
+ ['AY m.90','Temel haklara ilişkin antlaşma ile kanun çatışırsa antlaşma uygulanır.'],
+ ['Denetim','Kanun → Anayasa Mahkemesi. Yönetmelik → Danıştay.'],
+ ['Örf ve adetin unsurları','Maddi: uzun süreli tekrar. Manevi: hukuken zorunlu sayılma.'],
+ ['Emredici kural','Aksi kararlaştırılamaz; aykırılık kesin hükümsüzlük.'],
+ ['Tamamlayıcı kural','Taraflar düzenlemediyse boşluğu doldurur.'],
+ ['Yorumlayıcı kural','Belirsiz ifadeyi açıklar (“ay başı” = 1. gün).'],
+ ['Tanımlayıcı kural','Kavramı tanımlar (ergin = 18 yaş).'],
+ ['Yokluk','Kurucu unsur yok; işlem hiç doğmamış; herkes ileri sürer.'],
+ ['Kesin hükümsüzlük','Emredici kural/ahlak/kamu düzeni/şekil; herkes, hâkim re\'sen, süresiz.'],
+ ['İptal edilebilirlik','İrade sakatlığı (yanılma, aldatma, korkutma); sadece mağdur, süreli.'],
+ ['Kamu vs özel hukuk ölçütü','Devlet egemenlik gücüyle taraf → kamu. Taraflar eşit → özel.'],
+ ['Medeni usul hukuku','Adı yanıltıcı: KAMU hukuku (yargı yetkisi).'],
+ ['Karma dallar','İş hukuku, sosyal güvenlik hukuku.'],
+ ['Devletler genel / özel','Genel: devletler arası (kamu). Özel: yabancı unsurlu kişiler (özel).'],
+ ['Mülkilik / Şahsilik','Ülkedeki herkese / yurt dışındaki vatandaşa.'],
+ ['Yürürlük','Yazmıyorsa Resmî Gazete + 45 gün.'],
+ ['Geriye yürümezlik istisnası','Ceza hukukunda lehe kanun geriye yürür.'],
+ ['Yorum yöntemleri','Lafzi (kelime) · tarihi (gerekçe) · sistematik (yer) · amaçsal (bugünkü amaç).'],
+ ['Yorumu yapan','Yasama (bağlayıcı) · yargısal (o davada) · bilimsel (bağlamaz) · idari (idare içinde).'],
+ ['Ceza hukukunda kıyas','Aleyhe kıyas yasak: suç ve cezaların kanuniliği.']
+];
+
+/* ================= ŞEMALAR ================= */
+const svgText = (x,y,t,o={}) => `<text x="${x}" y="${y}"${o.a?` text-anchor="${o.a}"`:''} font-size="${o.s||13}"${o.w?` font-weight="${o.w}"`:''} fill="${o.c||'var(--ink)'}">${t}</text>`;
+const ARW = id => `<defs><marker id="${id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--muted)"/></marker></defs>`;
+const FIGS = {
+ skills(){
+   const bar=(cx,cy,w,hi)=>`<rect x="${cx-w/2}" y="${cy-12}" width="${w}" height="24" rx="6" fill="${hi?'var(--c)':'var(--line)'}"/>`;
+   const rows=[['Top managers',120,[140,140,40],[1,0,0]],['Middle managers',176,[90,140,90],[0,0,0]],['First-line managers',232,[40,140,140],[0,0,1]]];
+   let s=`<svg viewBox="0 0 760 270" role="img" aria-label="Yukarı çıktıkça kavramsal beceri artar, teknik beceri azalır">`;
+   s+=svgText(300,88,'Conceptual',{a:'middle',w:600})+svgText(470,88,'Human',{a:'middle',w:600})+svgText(640,88,'Technical',{a:'middle',w:600});
+   s+=`<line x1="24" x2="736" y1="148" y2="148" stroke="var(--line)"/><line x1="24" x2="736" y1="204" y2="204" stroke="var(--line)"/>`;
+   rows.forEach(([n,y,w,h])=>{s+=svgText(24,y+4,n);s+=bar(300,y,w[0],h[0])+bar(470,y,w[1],h[1])+bar(640,y,w[2],h[2]);});
+   s+=svgText(24,40,'Çubuk uzunluğu = becerinin o kademedeki önemi',{s:12,c:'var(--muted)'});
+   return s+`</svg>`;
+ },
+ env(){
+   let s=`<svg viewBox="0 0 760 330" role="img" aria-label="Genel çevre ve sektör çevresi">`;
+   s+=`<rect x="24" y="20" width="712" height="292" rx="10" fill="var(--surface-2)" stroke="var(--muted)" stroke-opacity=".5"/>`;
+   s+=svgText(40,46,'General environment (genel çevre) · hiçbir firma kontrol edemez',{w:600});
+   ['Political-legal','Economic','Demographic'].forEach((t,i)=>s+=svgText(40,110+i*34,t));
+   ['Socio-cultural','Technological','International'].forEach((t,i)=>s+=svgText(590,110+i*34,t));
+   s+=`<rect x="200" y="70" width="360" height="200" rx="10" fill="var(--surface)" stroke="var(--muted)" stroke-opacity=".6"/>`;
+   s+=svgText(380,96,'Industry environment (sektör çevresi)',{a:'middle',w:600});
+   s+=svgText(214,160,'Customers')+svgText(214,190,'Suppliers')+svgText(546,160,'Competitors',{a:'end'})+svgText(546,190,'Substitutes',{a:'end'})+svgText(380,252,'Labor market',{a:'middle'});
+   s+=`<rect x="310" y="140" width="140" height="62" rx="9" fill="var(--c)" fill-opacity=".14" stroke="var(--c)" stroke-width="2"/>`+svgText(380,176,'İşletme',{a:'middle',w:600});
+   s+=svgText(40,298,'Dış katman geniş ve dolaylı; sektör çevresi firmaya yakın ve doğrudan etkili.',{s:12,c:'var(--muted)'});
+   return s+`</svg>`;
+ },
+ merger(){
+   const P=[[24,'Vertical merger',['Hammadde tedarikçisi','Üretici','Perakendeci'],'Aynı zincirin farklı aşamaları'],[268,'Horizontal merger',['Otomobil üreticisi A','Otomobil üreticisi B'],'Aynı sektör, benzer ürün'],[512,'Conglomerate merger',['Banka','Gıda şirketi'],'Birbiriyle ilgisiz sektörler']];
+   let s=`<svg viewBox="0 0 760 290" role="img" aria-label="Birleşme türleri">`+ARW('mg');
+   P.forEach(([x,t,items,note],pi)=>{const m=x+112;
+     s+=`<rect x="${x}" y="16" width="224" height="256" rx="10" fill="var(--surface-2)" stroke="var(--line)"/>`+svgText(m,44,t,{a:'middle',w:600});
+     const ys=items.length===3?[64,124,184]:[88,160];
+     items.forEach((it,i)=>{s+=`<rect x="${x+20}" y="${ys[i]}" width="184" height="36" rx="8" fill="var(--surface)" stroke="var(--muted)" stroke-opacity=".6"/>`+svgText(m,ys[i]+23,it,{a:'middle'});});
+     if(pi===0){s+=`<path d="M${m} 100V124" stroke="var(--muted)" marker-end="url(#mg)"/><path d="M${m} 160V184" stroke="var(--muted)" marker-end="url(#mg)"/>`;}
+     else s+=svgText(m,150,'+',{a:'middle',s:18,c:'var(--muted)'});
+     s+=svgText(m,252,note,{a:'middle',s:12,c:'var(--muted)'});});
+   return s+`</svg>`;
+ },
+ stages(){
+   const B=[[24,'1. Exporting / Importing','+ Countertrade (takas, barter)','En az risk, en az kontrol'],[272,'2. Contractual agreements','Franchising, licensing,','subcontracting'],[520,'3. Int\'l investments','JV, overseas production, M&amp;A','En çok risk, en çok kontrol']];
+   let s=`<svg viewBox="0 0 760 130" role="img" aria-label="Küreselleşme aşamaları">`+ARW('st');
+   B.forEach(([x,a,b,c],i)=>{s+=`<rect x="${x}" y="20" width="216" height="88" rx="9" fill="${i===2?'var(--c)':'none'}" fill-opacity="${i===2?.12:1}" stroke="${i===2?'var(--c)':'var(--muted)'}" stroke-opacity="${i===2?1:.6}" stroke-width="${i===2?2:1.2}"/>`+svgText(x+12,46,a,{w:600})+svgText(x+12,70,b,{s:12})+svgText(x+12,90,c,{s:12,c:i===1?'var(--ink)':'var(--muted)'});});
+   s+=`<path d="M240 64H272" stroke="var(--muted)" marker-end="url(#st)"/><path d="M488 64H520" stroke="var(--muted)" marker-end="url(#st)"/>`;
+   return s+`</svg>`;
+ },
+ integ(){
+   const base=290,S=[[24,96,'Free trade area',['Üyeler arası','gümrük vergisi yok']],[202,146,'Customs union',['+ dışarıya karşı ortak','gümrük tarifesi','Türkiye–AB, 1996']],[380,196,'Common market',['+ emeğin ve sermayenin','serbest dolaşımı']],[558,246,'Economic union',['+ ortak ekonomi','politikası ve para']]];
+   let s=`<svg viewBox="0 0 760 300" role="img" aria-label="Ekonomik entegrasyon basamakları">`;
+   S.forEach(([x,h,t,ls],i)=>{const hi=i===1;s+=`<rect x="${x}" y="${base-h}" width="170" height="${h}" rx="9" fill="${hi?'var(--c)':'var(--surface-2)'}" fill-opacity="${hi?.14:1}" stroke="${hi?'var(--c)':'var(--line)'}" stroke-width="${hi?2:1.2}"/>`+svgText(x+12,base-h+24,t,{w:600});
+     ls.forEach((l,j)=>s+=svgText(x+12,base-h+46+j*17,l,{s:12,w:j===2?600:null}));});
+   s+=svgText(24,30,'Gevşekten sıkıya doğru →',{s:12,c:'var(--muted)'});
+   return s+`</svg>`;
+ },
+ matrix(){
+   const C=[340,490,640],R=[150,214];
+   let s=`<svg viewBox="0 0 760 260" role="img" aria-label="Matrix yapı">`;
+   C.forEach(c=>s+=`<line x1="${c}" x2="${c}" y1="76" y2="${R[1]}" stroke="var(--line)" stroke-width="1.5"/>`);
+   R.forEach(r=>s+=`<line x1="204" x2="640" y1="${r}" y2="${r}" stroke="var(--line)" stroke-width="1.5"/>`);
+   ['Pazarlama','Üretim','Finans'].forEach((t,i)=>s+=`<rect x="${C[i]-65}" y="36" width="130" height="40" rx="8" fill="var(--surface)" stroke="var(--muted)" stroke-opacity=".6"/>`+svgText(C[i],61,t,{a:'middle'}));
+   ['Proje A','Proje B'].forEach((t,i)=>s+=`<rect x="24" y="${R[i]-20}" width="180" height="40" rx="8" fill="var(--surface)" stroke="var(--muted)" stroke-opacity=".6"/>`+svgText(114,R[i]+5,t,{a:'middle'}));
+   R.forEach((r,ri)=>C.forEach((c,ci)=>{const hi=ri===0&&ci===1;s+=`<circle cx="${c}" cy="${r}" r="${hi?9:6}" fill="${hi?'var(--c)':'var(--muted)'}"/>`;}));
+   s+=svgText(506,138,'Çalışan',{s:12,w:600});
+   s+=svgText(24,244,'Dikey çizgi: fonksiyon müdürü · Yatay çizgi: proje müdürü',{s:12,c:'var(--muted)'});
+   return s+`</svg>`;
+ },
+ maslow(){
+   const cx=190,apex=20,base=270,bw=340,lh=50,w=y=>bw*(y-apex)/(base-apex);
+   const L=[['5. Self-actualization','kendini gerçekleştirme'],['4. Esteem','saygı, tanınma, statü'],['3. Social','ait olma, sevgi'],['2. Safety','güvenlik, iş güvencesi'],['1. Physiological','yeme, içme, barınma']];
+   let s=`<svg viewBox="0 0 760 276" role="img" aria-label="Maslow ihtiyaçlar hiyerarşisi">`;
+   L.forEach(([a,b],i)=>{const y1=apex+lh*i,y2=y1+lh,ym=y1+lh/2;
+     s+=`<polygon points="${cx-w(y1)/2},${y1} ${cx+w(y1)/2},${y1} ${cx+w(y2)/2},${y2} ${cx-w(y2)/2},${y2}" fill="var(--c)" fill-opacity="${[.95,.75,.55,.38,.22][i]}" stroke="var(--surface)" stroke-width="2"/>`;
+     s+=`<line x1="${cx+w(ym)/2+6}" x2="400" y1="${ym}" y2="${ym}" stroke="var(--line)"/>`+svgText(408,ym+4,a,{w:600})+svgText(590,ym+4,b,{s:12,c:'var(--muted)'});});
+   return s+`</svg>`;
+ },
+ comm(){
+   const xs=[24,172,320,468,616],y0=96,bw=120,bh=44,yc=y0+bh/2+4;
+   let s=`<svg viewBox="0 0 760 200" role="img" aria-label="İletişim süreci">`+ARW('cm');
+   s+=`<rect x="320" y="20" width="120" height="32" rx="8" fill="var(--surface-2)" stroke="var(--muted)" stroke-dasharray="4 3"/>`+svgText(380,41,'Noise (gürültü)',{a:'middle',s:12});
+   s+=`<path d="M380 52V${y0}" stroke="var(--muted)" stroke-dasharray="4 3" marker-end="url(#cm)"/>`+svgText(452,41,'her aşamada mesajı bozabilir',{s:12,c:'var(--muted)'});
+   ['Sender','Encoding','Channel','Decoding','Receiver'].forEach((t,i)=>{const hi=i===0||i===4;s+=`<rect x="${xs[i]}" y="${y0}" width="${bw}" height="${bh}" rx="8" fill="${hi?'var(--c)':'none'}" fill-opacity="${hi?.14:1}" stroke="${hi?'var(--c)':'var(--muted)'}" stroke-width="${hi?2:1.2}"/>`+svgText(xs[i]+bw/2,yc,t,{a:'middle',w:hi?600:null});
+     if(i<4)s+=`<path d="M${xs[i]+bw} ${y0+bh/2}H${xs[i+1]}" stroke="var(--muted)" marker-end="url(#cm)"/>`;});
+   s+=`<path d="M${xs[4]+bw/2} ${y0+bh}V176H${xs[0]+bw/2}V${y0+bh}" fill="none" stroke="var(--muted)" marker-end="url(#cm)"/>`;
+   s+=svgText(380,170,'Feedback: alıcı mesajı anladığını gönderene bildirir',{a:'middle',s:12,c:'var(--muted)'});
+   return s+`</svg>`;
+ },
+ ppf(){
+   let s=`<svg viewBox="0 0 560 300" role="img" aria-label="Üretim imkânları eğrisi">`+ARW('pp');
+   s+=`<path d="M60 260V24" stroke="var(--muted)" marker-end="url(#pp)"/><path d="M60 260H520" stroke="var(--muted)" marker-end="url(#pp)"/>`;
+   s+=svgText(66,30,'Bilgisayar',{s:12,c:'var(--muted)'})+svgText(516,280,'Araba',{a:'end',s:12,c:'var(--muted)'});
+   s+=`<path d="M60 60 Q 330 70 380 260" fill="none" stroke="var(--c)" stroke-width="3"/>`;
+   s+=`<path d="M60 40 Q 380 50 440 260" fill="none" stroke="var(--c)" stroke-width="2" stroke-dasharray="6 5" opacity=".7"/>`;
+   const pt=(x,y,l,f)=>`<circle cx="${x}" cy="${y}" r="6" fill="${f}"/>`+svgText(x+10,y-8,l,{w:600});
+   s+=pt(262,128,'A (etkin)','var(--c)')+pt(170,190,'B (etkin değil)','var(--muted)')+pt(380,110,'C (ulaşılamaz)','var(--bad)');
+   s+=svgText(400,62,'Teknoloji → eğri dışa kayar',{s:12,c:'var(--muted)'});
+   return s+`</svg>`;
+ },
+ flow(){
+   let s=`<svg viewBox="0 0 700 330" role="img" aria-label="Dairesel akım diyagramı">`+ARW('fl');
+   const box=(x,y,w,t,hi)=>`<rect x="${x}" y="${y}" width="${w}" height="54" rx="10" fill="${hi?'var(--c)':'var(--surface-2)'}" fill-opacity="${hi?.14:1}" stroke="${hi?'var(--c)':'var(--line)'}" stroke-width="${hi?2:1.2}"/>`+svgText(x+w/2,y+32,t,{a:'middle',w:600});
+   s+=box(240,14,220,'Mal ve hizmet piyasası',0)+box(240,262,220,'Faktör piyasası',0)+box(20,138,150,'Hane halkı',1)+box(530,138,150,'Firmalar',1);
+   s+=`<path d="M560 138 C560 70 520 50 462 46" fill="none" stroke="var(--c)" stroke-width="2" marker-end="url(#fl)"/><path d="M238 46 C170 50 120 70 120 136" fill="none" stroke="var(--c)" stroke-width="2" marker-end="url(#fl)"/>`;
+   s+=`<path d="M90 192 C90 260 160 284 238 288" fill="none" stroke="var(--c)" stroke-width="2" marker-end="url(#fl)"/><path d="M462 288 C540 284 590 260 590 194" fill="none" stroke="var(--c)" stroke-width="2" marker-end="url(#fl)"/>`;
+   s+=`<path d="M100 136 C100 30 200 18 238 22" fill="none" stroke="var(--muted)" stroke-dasharray="5 4" marker-end="url(#fl)"/><path d="M462 22 C560 18 610 40 620 136" fill="none" stroke="var(--muted)" stroke-dasharray="5 4" marker-end="url(#fl)"/>`;
+   s+=`<path d="M620 194 C610 300 520 312 462 310" fill="none" stroke="var(--muted)" stroke-dasharray="5 4" marker-end="url(#fl)"/><path d="M238 310 C160 312 70 300 70 194" fill="none" stroke="var(--muted)" stroke-dasharray="5 4" marker-end="url(#fl)"/>`;
+   s+=svgText(350,110,'Düz çizgi: mal, hizmet, emek (iç döngü)',{a:'middle',s:12})+svgText(350,130,'Kesikli çizgi: para — harcama, gelir, ücret, kira, kâr (dış döngü)',{a:'middle',s:12,c:'var(--muted)'});
+   s+=svgText(350,200,'Hane emeğini faktör piyasasında satar,',{a:'middle',s:12})+svgText(350,218,'malı mal piyasasında alır',{a:'middle',s:12});
+   return s+`</svg>`;
+ },
+ shift(){
+   let s=`<svg viewBox="0 0 720 270" role="img" aria-label="Eğri üzerinde hareket ve eğrinin kayması">`+ARW('sh');
+   [[40,'Eğri üzerinde hareket','Kendi fiyatı değişti'],[390,'Eğrinin kayması','Gelir, zevk, ilişkili mal…']].forEach(([x,t,sub],i)=>{
+     s+=`<path d="M${x} 230V30" stroke="var(--muted)"/><path d="M${x} 230H${x+290}" stroke="var(--muted)"/>`+svgText(x+4,26,'P',{s:12,c:'var(--muted)'})+svgText(x+290,248,'Q',{a:'end',s:12,c:'var(--muted)'});
+     s+=svgText(x+145,262,t+' · '+sub,{a:'middle',s:12,w:600});
+     s+=`<path d="M${x+30} 60L${x+230} 210" stroke="var(--c)" stroke-width="3"/>`+svgText(x+234,214,'D',{w:600});
+     if(i===0){s+=`<circle cx="${x+90}" cy="105" r="6" fill="var(--c)"/><circle cx="${x+170}" cy="165" r="6" fill="var(--c)"/><path d="M${x+98} 111L${x+160} 158" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#sh)"/>`+svgText(x+100,98,'P ↓ → Qd ↑',{s:12});}
+     else{s+=`<path d="M${x+90} 60L${x+290} 210" stroke="var(--c)" stroke-width="3" stroke-dasharray="7 5" opacity=".75"/>`+svgText(x+268,200,'D₂',{w:600})+`<path d="M${x+178} 165H${x+222}" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#sh)"/>`+svgText(x+140,46,'Talep artışı → sağa',{s:12});}
+   });
+   return s+`</svg>`;
+ }
+};
+</script>

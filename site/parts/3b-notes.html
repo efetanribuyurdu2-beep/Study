@@ -1,0 +1,565 @@
+<script type="text/plain" id="n-math">
+## Kapsam
+Bu özet Haeussler'in *Introductory Mathematical Analysis* kitabının 1–5. bölümlerini sınav için toparlar: her konunun ana fikri, formülü ve tipik soru tipi.
+!not Hocanın **A1–A4** etiketli formülleri kitapta bu isimle geçmiyor. Bölüm 5'teki “Hangi formülü ne zaman kullanırım?” tablosundaki annüite satırlarıyla eşleştirip formül kâğıdına not al.
+!ipucu **Çarşamba planı:** Türk Dili 15:00'te bitiyor, matematik 15:30'da başlıyor. Arada “Son tekrar” sekmesindeki formül kâğıdına bak. Araç sekmesindeki hesaplayıcıyla ödev cevaplarını kontrol edebilirsin.
+
+## Bölüm 1: Uygulamalar ve Cebir
+Bu bölümün özü: sözel bir iş problemini denkleme veya eşitsizliğe çevirip çözmek.
+### 1.1 Denklem uygulamaları
+$$ TR = p \cdot q \qquad TC = \text{sabit maliyet} + \text{değişken maliyet} \qquad \text{Kâr} = TR - TC $$
+Çözüm yolu: bilinmeyeni x olarak adlandır, cümleleri tek tek denkleme çevir, çöz, sonucu sorudaki birimle kontrol et.
+### 1.2–1.3 Doğrusal eşitsizlikler
+Denklem gibi çözülür, tek fark: **negatif bir sayıyla çarpar veya bölersen eşitsizlik yön değiştirir.** Cevap aralık olarak yazılır: x > 3 → (3, ∞). Tipik soru: “Kâr pozitif olması için en az kaç ürün satılmalı?” → Kâr > 0 eşitsizliğini kur.
+### 1.4 Mutlak değer
+$$ |x| < a \iff -a < x < a \qquad |x| > a \iff x < -a \text{ veya } x > a $$
+Tipik soru: tolerans problemleri. “Ölçüm hedeften en fazla 0,5 sapabilir” → \(|x - \text{hedef}| \le 0{,}5\).
+### 1.5 Toplam sembolü (Σ)
+$$ \sum_{i=1}^{n} c = nc \qquad \sum_{i=1}^{n} i = \frac{n(n+1)}{2} \qquad \sum_{i=1}^{n} i^2 = \frac{n(n+1)(2n+1)}{6} $$
+Sabitler Σ'nın dışına çıkar, toplamlar ayrılabilir: Σ(a + b) = Σa + Σb.
+### 1.6 Diziler
+$$ \text{Aritmetik: } a_n = a_1 + (n-1)d \qquad S_n = \frac{n}{2}(a_1 + a_n) $$
+$$ \text{Geometrik: } a_n = a_1 r^{n-1} \qquad S_n = \frac{a_1(1 - r^n)}{1 - r} \qquad S_\infty = \frac{a_1}{1 - r} \;(|r| < 1) $$
+Geometrik dizi Bölüm 5'in temelidir: annüite formülleri aslında geometrik dizi toplamıdır.
+
+## Bölüm 2: Fonksiyonlar ve Grafikler
+Fonksiyon, her girdiye (x) tek bir çıktı (y) atayan kuraldır.
+### 2.1 Tanım kümesi
+Tanım kümesi (domain) = x'in alabileceği değerler. İki yasak durum:
+- Payda sıfır olamaz: f(x) = 1/(x − 2) → x ≠ 2
+- Çift dereceli kök içi negatif olamaz: f(x) = √(x − 3) → x ≥ 3
+İş örnekleri: talep fonksiyonu p = f(q), arz fonksiyonu, maliyet fonksiyonu.
+### 2.2 Özel fonksiyonlar
+| Tür | Örnek | Not
+| Sabit | f(x) = 5 | Yatay doğru
+| Polinom | f(x) = 3x² − x + 1 | Derece = en büyük üs
+| Rasyonel | f(x) = (x+1)/(x−2) | Payda ≠ 0
+| Parçalı | x < 0 ise −x, x ≥ 0 ise x² | Her parça kendi aralığında
+| Mutlak değer | f(x) = mutlak x | V şekli
+| Faktöriyel | n! = n·(n−1)···1 | 0! = 1
+### 2.3 Fonksiyon birleştirme
+- (f + g)(x) = f(x) + g(x); çarpım ve bölüm de aynı mantık
+- **Bileşke:** (f ∘ g)(x) = f(g(x)), içteki önce hesaplanır. Genelde f ∘ g ≠ g ∘ f.
+### 2.4 Ters fonksiyon
+f⁻¹'i bulmak için: y = f(x) yaz, x ile y'nin yerini değiştir, y'yi yalnız bırak. Sadece birebir (one-to-one) fonksiyonların tersi vardır. Kontrol: f(f⁻¹(x)) = x.
+### 2.5–2.6 Grafik ve simetri
+- **x-kesişimi:** y = 0 koy; **y-kesişimi:** x = 0 koy
+- **y eksenine simetri:** x yerine −x yazınca denklem aynı kalıyorsa (çift fonksiyon)
+- **Orijine simetri:** x → −x ve y → −y yapınca aynı kalıyorsa (tek fonksiyon)
+- **x eksenine simetri:** y → −y yapınca aynı kalıyorsa (fonksiyon değildir)
+### 2.7 Öteleme ve yansıma
+| Yazım | Etkisi
+| f(x) + c | c birim yukarı
+| f(x) − c | c birim aşağı
+| f(x − c) | c birim **sağa**
+| f(x + c) | c birim **sola**
+| −f(x) | x eksenine göre yansıma
+| f(−x) | y eksenine göre yansıma
+!tuzak Parantez içi ters çalışır: f(x − 3) **sağa** kaydırır, sola değil.
+### 2.8 Çok değişkenli fonksiyonlar
+f(x, y) gibi birden fazla girdisi olan fonksiyonlar. Değer bulmak için değişkenleri yerine koyman yeterli, örneğin üretim fonksiyonu P(l, k).
+
+## Bölüm 3: Doğrular, Paraboller ve Sistemler
+Sınavdaki yıldız konu piyasa dengesi ve başabaş noktasıdır; ikisi de iki denklemi eşitlemekten ibarettir.
+### 3.1 Doğrular
+$$ m = \frac{y_2 - y_1}{x_2 - x_1} \qquad y - y_1 = m(x - x_1) \qquad y = mx + b $$
+- Paralel doğrular: eğimler eşit (m₁ = m₂)
+- Dik doğrular: eğimlerin çarpımı −1 (m₁ · m₂ = −1)
+- Yatay doğru: m = 0; dikey doğru: eğim tanımsız (x = sabit)
+### 3.2 Doğrusal fonksiyonlar ve uygulamaları
+İki nokta verilip doğrusal talep veya arz denklemi istenir. Talep doğrusunun eğimi **negatif** (fiyat artınca talep düşer), arz doğrusununki **pozitif**tir. Doğrusal amortisman da bu konudadır: değer her yıl sabit miktarda azalır.
+### 3.3 Karesel fonksiyonlar (parabol)
+$$ f(x) = ax^2 + bx + c \qquad \text{Tepe noktası: } x = -\frac{b}{2a} $$
+- a > 0 → yukarı açık, tepe noktası **minimum**
+- a < 0 → aşağı açık, tepe noktası **maksimum**
+Tipik soru: “Geliri maksimum yapan fiyat/miktar nedir?” → Gelir fonksiyonunu kur, tepe noktasını bul.
+### 3.4–3.5 Denklem sistemleri
+- **Yerine koyma:** bir denklemden bir değişkeni çek, diğerine koy
+- **Yok etme:** denklemleri uygun sayılarla çarpıp toplayarak bir değişkeni sil
+- Sonuç üç türlü olabilir: tek çözüm (kesişen doğrular), çözüm yok (paralel), sonsuz çözüm (çakışık)
+- Doğrusal olmayan sistemlerde (doğru + parabol) genelde yerine koyma kullanılır
+### 3.6 Sistem uygulamaları
+**Piyasa dengesi:** arz = talep. İki denklemi eşitle, denge miktarı (q) ve denge fiyatını (p) bul.
+**Başabaş noktası:** TR = TC, yani kâr = 0. Bu noktanın altında zarar, üstünde kâr vardır.
+**Vergi etkisi:** Birim başına t kadar vergi konursa arz fonksiyonu yukarı kayar: yeni arz p = (eski arz) + t. Sonra yeniden denge hesaplanır.
+
+## Bölüm 4: Üstel ve Logaritmik Fonksiyonlar
+Logaritma, üstel fonksiyonun tersidir; sınavda asıl iş, üste kalmış bilinmeyeni (genelde süre, n veya t) log alarak aşağı indirmektir.
+### 4.1 Üstel fonksiyonlar
+$$ f(x) = b^x \quad (b > 0,\; b \neq 1) \qquad e \approx 2{,}71828 \qquad N = N_0 e^{kt} $$
+- b > 1 → artan (büyüme), 0 < b < 1 → azalan (çürüme)
+- Grafik her zaman (0, 1) noktasından geçer ve x eksenine hiç değmez
+- Uygulamalar: nüfus artışı, radyoaktif bozunma, bileşik faiz
+### 4.2 Logaritmik fonksiyonlar
+$$ y = \log_b x \iff b^y = x \qquad \ln x = \log_e x $$
+Tanım kümesi: x > 0. Logaritma “b'yi kaçıncı kuvvete yükseltirsem x olur?” sorusunun cevabıdır.
+### 4.3 Logaritma özellikleri
+| Kural | Formül
+| Çarpım | log(mn) = log m + log n
+| Bölüm | log(m/n) = log m − log n
+| Üs | log(mʳ) = r · log m
+| Taban değiştirme | log_b x = ln x / ln b
+| Özel değerler | log_b 1 = 0, log_b b = 1, ln e = 1
+| Ters ilişki | b^(log_b x) = x, e^(ln x) = x
+!tuzak log(m + n) ≠ log m + log n.
+### 4.4 Üstel ve logaritmik denklemler
+**Bilinmeyen üsteyse:** iki tarafın ln'ini al, üs kuralıyla aşağı indir.
+$$ 2(1{,}05)^n = 5 \Rightarrow (1{,}05)^n = 2{,}5 \Rightarrow n = \frac{\ln 2{,}5}{\ln 1{,}05} \approx 18{,}78 $$
+**Bilinmeyen log içindeyse:** logları tek log'da birleştir, üstel forma çevir. Bulduğun x'in log içini pozitif yaptığını mutlaka kontrol et; yapmıyorsa o kök geçersiz.
+Bu yöntem Bölüm 5'te “para kaç yılda ikiye katlanır?” sorularında doğrudan kullanılır.
+
+## Bölüm 5: Finans Matematiği
+Tek ana fikir: farklı zamanlardaki para doğrudan toplanamaz; önce hepsi aynı tarihe taşınır. İleri taşırken (1+r)ⁿ ile çarpılır, geri taşırken (1+r)⁻ⁿ ile çarpılır.
+Her soruda önce dönem faizini ve dönem sayısını bul:
+$$ r = \frac{\text{yıllık nominal oran}}{\text{yıldaki dönem sayısı}} \qquad n = \text{yıl} \times \text{yıldaki dönem sayısı} $$
+Örnek: %6 aylık bileşik, 3 yıl → r = 0,005, n = 36.
+### 5.1 Bileşik faiz
+$$ S = P(1 + r)^n \qquad \text{Bileşik faiz} = S - P \qquad r_e = \left(1 + \frac{r}{n}\right)^n - 1 $$
+**Efektif oran:** yıllık bileşiğe çevrilmiş gerçek oran; farklı bileşik sıklıklarını karşılaştırmak için kullanılır.
+Tipik soru: “Para kaç yılda ikiye katlanır?” → (1+r)ⁿ = 2, ln alıp n'i çöz.
+### 5.2 Bugünkü değer ve değer denklemleri
+$$ P = S(1 + r)^{-n} $$
+**Değer denklemi (equation of value):** borçlar ve ödemeler farklı tarihlerde ise:
+1. Zaman çizelgesi çiz, borçları ve ödemeleri işaretle
+2. Bir karşılaştırma tarihi seç (genelde bilinmeyen ödemenin tarihi)
+3. Her tutarı o tarihe taşı: önceki tutarlar × (1+r)^fark, sonraki tutarlar × (1+r)^−fark
+4. Borçların toplamı = ödemelerin toplamı, bilinmeyeni çöz
+Ödevdeki örnek: 5. ve 10. yılda 6000 $ borç; 2. yılda 2200, 4. yılda 4400 ödeniyor; %1,5. 6. yıla taşıyınca son ödeme ≈ **4875,12 $**.
+**Net bugünkü değer (NPV):** NPV = (gelecek nakit girişlerinin bugünkü değeri) − (ilk yatırım). NPV > 0 ise yatırım kârlı.
+### 5.3 Sürekli bileşik faiz
+$$ S = Pe^{rt} \qquad P = Se^{-rt} \qquad r_e = e^r - 1 $$
+Burada r yıllık oran, t yıl cinsindendir; dönem sayısına bölme yapılmaz. Ödevdeki örnek: 6 yıl sonra 1.000.000 $, %7 sürekli → P = 1.000.000 · e^(−0,42) ≈ **657.046,82 $**.
+### 5.4 Annüiteler
+Annüite = düzenli aralıklarla yapılan eşit ödemeler. Formüller geometrik dizi toplamından gelir.
+$$ a_{\overline{n}|r} = \frac{1 - (1 + r)^{-n}}{r} \qquad s_{\overline{n}|r} = \frac{(1 + r)^n - 1}{r} $$
+**Ordinary annuity (dönem sonu ödeme):**
+$$ A = R \cdot a_{\overline{n}|r} \qquad S = R \cdot s_{\overline{n}|r} $$
+**Annuity due (dönem başı ödeme):** ilk ödeme bugün yapılır, indirgenmez.
+$$ A = R\left(1 + a_{\overline{n-1}|r}\right) \qquad S = R\left(s_{\overline{n+1}|r} - 1\right) $$
+**Sinking fund (birikim fonu):** gelecekte S tutarına ulaşmak için dönemlik yatırım:
+$$ R = \frac{S}{s_{\overline{n}|r}} $$
+**Ertelenmiş annüite:** ödemeler birkaç dönem sonra başlıyorsa, önce annüiteyi ilk ödemeden bir dönem önceye taşı, sonra o değeri bugüne indir.
+### 5.5 Kredi amortismanı
+$$ R = \frac{A}{a_{\overline{n}|r}} = \frac{Ar}{1 - (1 + r)^{-n}} $$
+- **Toplam faiz** = nR − A
+- **Kalan borç** (k ödeme sonra) = kalan taksitlerin bugünkü değeri = R · a(n−k, r)
+- **Amortisman tablosu:** her satırda faiz = önceki bakiye × r, anaparadan düşen = R − faiz, yeni bakiye = eski bakiye − anapara payı
+### 5.6 Perpetuity (sonsuz annüite)
+$$ A = \frac{R}{r} $$
+Tipik soru: “Her yıl 5000 $ burs ödeyecek kalıcı bir fon için bugün ne yatırılmalı?”
+### Hangi formülü ne zaman kullanırım?
+| Soruda ne var? | Ne aranıyor? | Formül
+| Tek tutar, şimdi | Gelecekteki değeri | S = P(1+r)ⁿ
+| Tek tutar, gelecekte | Bugünkü değeri | P = S(1+r)⁻ⁿ
+| Farklı tarihlerde, eşit olmayan tutarlar | Eksik ödeme | Değer denklemi
+| “Compounded continuously” | Bugünkü veya gelecek değer | Pe^(rt) veya Se^(−rt)
+| Eşit ödemeler, dönem sonu | Bugünkü değer (kredi, fiyat) | A = R · a(n,r)
+| Eşit ödemeler, dönem sonu | Birikim | S = R · s(n,r)
+| Eşit ödemeler, dönem başı | Bugünkü veya gelecek değer | Annuity due formülleri
+| Kredi tutarı belli | Taksit | R = A / a(n,r)
+| Hedef birikim belli | Dönemlik yatırım | R = S / s(n,r)
+| Ödemeler sonsuz | Bugünkü değer | A = R / r
+
+## Çözümlü örnekler
+Her biri sınavdaki tipik soru kalıbında. Önce kâğıtta çöz, sonra aç. Sonuçları Araç sekmesindeki hesaplayıcıyla da kontrol edebilirsin.
+!ek Bu örnekler senin belgende yoktu; konuları pekiştirmek için eklendi, cevaplar hesaplanarak doğrulandı.
+?? **1. Piyasa dengesi.** Talep p = 100 − 2q, arz p = 20 + 3q. Denge? || 100 − 2q = 20 + 3q → 5q = 80 → **q = 16**, p = 100 − 32 = **68**.
+?? **2. Vergi.** Aynı piyasada birim başına 5 vergi konuyor. Yeni denge? || Yeni arz p = 25 + 3q. 100 − 2q = 25 + 3q → **q = 15**, **p = 70**. Fiyat 2 arttı, verginin 2'si alıcıya yansıdı.
+?? **3. Başabaş.** Birim fiyat 25, birim değişken maliyet 15, sabit maliyet 5000. Kaç birimde başabaş? || 25q = 5000 + 15q → 10q = 5000 → **q = 500**.
+?? **4. Maksimum gelir.** Talep p = 80 − 2q. Geliri maksimum yapan q ve maksimum gelir? || R = q(80 − 2q) = 80q − 2q². a = −2 < 0, tepe q = −80/(2·(−2)) = **20**; R = 1600 − 800 = **800**.
+?? **5. Σ ve dizi.** \(\sum_{i=1}^{20} i\) ve ilk terimi 3, ortak çarpanı 2 olan geometrik dizinin ilk 6 teriminin toplamı? || n(n+1)/2 = 20·21/2 = **210**. S₆ = 3(1 − 2⁶)/(1 − 2) = 3·63 = **189**.
+?? **6. Bileşik faiz.** 5000 TL, yıllık %8 üç ayda bir bileşik, 5 yıl. || r = 0,02, n = 20 → S = 5000 · 1,02²⁰ ≈ **7429,74**.
+?? **7. Efektif oran.** Yıllık %12 aylık bileşik faizin efektif oranı? || (1,01)¹² − 1 ≈ **%12,68**.
+?? **8. İkiye katlanma.** Yıllık %6 yıllık bileşikte para kaç yılda ikiye katlanır? || 1,06ⁿ = 2 → n = ln 2 / ln 1,06 ≈ **11,9 yıl**.
+?? **9. Bugünkü değer.** 4 yıl sonraki 10.000 TL'nin bugünkü değeri, yıllık %6 aylık bileşik? || r = 0,005, n = 48 → P = 10.000 · 1,005⁻⁴⁸ ≈ **7870,98**.
+?? **10. Annüitenin bugünkü değeri.** 3 yıl boyunca her ay sonu 500 TL, yıllık %9 aylık bileşik. || r = 0,0075, n = 36 → A = 500 · a(36; 0,0075) ≈ **15.723,40**.
+?? **11. Annüitenin gelecek değeri.** 10 yıl her ay sonu 200 TL, yıllık %6 aylık bileşik. || r = 0,005, n = 120 → S = 200 · s(120; 0,005) ≈ **32.775,87**.
+?? **12. Kredi taksiti.** 20.000 TL kredi, 5 yıl, aylık taksit, yıllık %7,2 aylık bileşik. Taksit, toplam faiz ve 24. ödemeden sonra kalan borç? || r = 0,006, n = 60 → R = 20.000 / a(60; 0,006) ≈ **397,91**. Toplam faiz = 60 · 397,91 − 20.000 ≈ **3874,83**. Kalan borç = R · a(36; 0,006) ≈ **12.848,94**. İlk satır: faiz 120, anaparadan düşen 277,91.
+?? **13. Sinking fund.** 6 yıl sonra 30.000 TL için üç ayda bir yatırım, yıllık %8 üç ayda bir bileşik. || r = 0,02, n = 24 → R = 30.000 / s(24; 0,02) ≈ **986,13**.
+?? **14. Annuity due.** Her yıl başı 1000 TL, 5 ödeme, %5. Bugünkü ve gelecek değer? || A = 1000(1 + a(4; 0,05)) ≈ **4545,95**. S = 1000(s(6; 0,05) − 1) ≈ **5801,91**.
+?? **15. Sürekli bileşik.** 1000 TL %5 sürekli bileşik, 10 yıl. Efektif oran (%6 sürekli için) ne olur? || S = 1000e^0,5 ≈ **1648,72**. %6 sürekli için rₑ = e^0,06 − 1 ≈ **%6,18**.
+?? **16. Perpetuity.** Her yıl 5000 $ burs, %4. || A = 5000 / 0,04 = **125.000 $**.
+
+## Sık hatalar ve kontrol listesi
+Sık yapılan hataların çoğu formül bilgisinden değil, dikkatten gelir.
+- Eşitsizliği negatif sayıyla çarpıp yönü çevirmemek
+- f(x − c)'yi sola kaydırma sanmak (sağa kaydırır)
+- log(m + n)'yi log m + log n diye açmak
+- Yıllık oranı dönem sayısına bölmeyi unutmak (%6 aylık → r = 0,005, 0,06 değil)
+- Sürekli bileşikte gereksiz yere oranı bölmek (e^(rt)'de r yıllık kalır)
+- Farklı tarihlerdeki paraları taşımadan toplamak
+- Annuity due'da ilk ödemeyi de indirgemek
+- Ara sonuçları erken yuvarlamak (cevaplar kuruşu kuruşuna kontrol ediliyor)
+### Sınavdan önce işaretle
+[] Talep/arz doğrusu kurma ve piyasa dengesi
+[] Başabaş noktası (TR = TC)
+[] Parabolün tepe noktasıyla maksimum gelir
+[] Logaritma kuralları ve üsteki bilinmeyeni ln ile çözme
+[] Bileşik faiz, bugünkü değer ve efektif oran
+[] Değer denklemi (zaman çizelgesi + karşılaştırma tarihi)
+[] Sürekli bileşik faiz
+[] Ordinary annuity ve annuity due ayrımı
+[] Sinking fund ve amortisman taksiti
+[] Kalan borç ve toplam faiz
+[] Perpetuity
+[] Hocanın A1–A4 formüllerini tabloyla eşleştirdim
+</script>
+
+<script type="text/plain" id="n-bus">
+## Nasıl çalışmalı
+Vize çoktan seçmeli olacağı için bu bölüm **sınıflandırmalara, listelere ve karıştırılan kavram çiftlerine** odaklanıyor. Kaynak: S. Kadri Mirze, *Introduction to Business* (Literatür Yayınları). Kapsam tahmini Bölüm 1–5; hoca 6–7. bölümleri (İnsan Kaynakları) de eklediyse ayrıca çalış. Terimler sınavda İngilizce gelecek.
+| Bölüm | Konu | Olasılık | Neye odaklan
+| 1 | Business, girişimci, yönetici, çevre | Çok yüksek | Beceriler × kademe, 10 rol, genel vs sektör çevresi
+| 2 | İşletme kurma, hukuki yapılar | Çok yüksek | Sorumluluk türleri, ortak sayıları, birleşme türleri
+| 3 | Küresel piyasalar | Yüksek | Teslim/ödeme şekilleri, engeller, entegrasyon basamakları
+| 4 | Planlama ve örgütleme | Yüksek | Plan türleri, departmanlaşma, matrix
+| 5 | Liderlik, motivasyon, iletişim, kontrol | Yüksek | Maslow, Herzberg, Vroom, kontrol türleri
+**Çalışma sırası:** önce her bölümün şemasına bak, sonra tabloları ezberle, en son 32 soruluk denemeyi (Test sekmesi) cevaplara bakmadan çöz. Karıştırılan çiftler en sonda tek tabloda.
+
+## Bölüm 1 – Business
+Bu bölümden en çok **beceri × kademe**, **10 yönetici rolü** ve **genel çevre ile sektör çevresi ayrımı** sorulur.
+### Temel tanımlar
+- **Business:** Topluma mal ve hizmet sunan tüm faaliyetler; bazen kâr amaçlı, bazen değil. Temel faaliyet alıcı ile satıcı arasındaki **exchange** (değişim). Mal + hizmet = **product**.
+- **Profit:** Gelir − gider. Girişimcinin ödülüdür; gider geliri aşarsa **loss** oluşur.
+- **Organization:** Ortak amaç için bilinçli kurulmuş, sistemli çalışan insan grubu.
+- **Not-for-profit:** Gelir elde eder ama asıl amacı kâr değil, topluma hizmettir (devlet kurumları, sendikalar, vakıflar).
+- Kitaba göre business'ı değiştiren üç gelişme: yönetim uygulamaları, bilgi teknolojisi, serbest ticaretin önündeki engellerin kalkması.
+### Girişimci (entrepreneur)
+Risk alıp işletmeyi **sıfırdan** kuran kişi; temel güdüsü kârdır.
+| Özellik | Kısa anlamı
+| Being their own boss | **En önemli** özellik: kimseye rapor vermemek
+| Creative personality | Yeni ürün, yöntem, satış tekniği bulmak
+| Internal locus of control | Başarıyı kendi çabasına bağlar, kadere değil
+| Self-confidence | Kendi yeteneklerine güven
+| Optimism | Tehdit değil fırsat görür
+| High energy | Çok çalışır, işe bağlıdır
+| Vision | İş vizyonla başlar
+| Tolerance for failure | “Kâr, zararın kardeşidir”; başarısızlıkta vazgeçmez
+| Tolerance for ambiguity | Belirsiz çevrede çalışmayı kabul eder
+| Need to achieve | Hedefe ulaşma, tanınma isteği
+### Yöneticiler, kademeler ve beceriler
+4 yönetim fonksiyonu: **planning, organizing, leading, controlling**. Kademeler: **Top** (genel müdür, CEO, rektör, vali, belediye başkanı) · **Middle** (bölüm/daire başkanı, dekan) · **First-line** (şef, supervisor, takım lideri).
+@fig skills | Mirze, Bölüm 1 · Yukarı çıktıkça kavramsal beceri artar, teknik beceri azalır (Exh. 1-2)
+!tuzak **Human skill her kademede eşit derecede önemlidir**: sınavda en sık sorulan nokta. Conceptual en çok üst kademede, technical en çok alt kademede.
+### 10 yönetici rolü (Mintzberg)
+| Grup | Roller | İpucu
+| Informational | Monitor, Disseminator, Spokesperson | Bilgi toplar, dağıtır, duyurur
+| Interpersonal | Figurehead, Leader, Liaison | Temsil eder, yönlendirir, insanları bağlar
+| Decisional | Entrepreneur, Disturbance handler, Resource allocator, Negotiator | Karar verir; **en önemli** rol grubu
+!ipucu 3–3–4: **Bilgi** (Monitor, Disseminator, Spokesperson) · **İnsan** (Figurehead, Leader, Liaison) · **Karar** (Entrepreneur, Disturbance handler, Resource allocator, Negotiator).
+**Non-managers:** Blue-collar (elle, atölyede çalışan) ve white-collar (ofiste, zihinle çalışan). İkisi de kimseyi yönetmez.
+### Dış çevre
+@fig env | Mirze, Bölüm 1 · İşletme iki katmanlı bir dış çevre içinde faaliyet gösterir
+Belirsizlik, yöneticilerin çevre hakkında yeterli bilgisi olmadığında ortaya çıkar. Belirsizlik yükselince iki strateji var:
+| Strateji | Yöntemler
+| **Adapt** (örgütü çevreye uydur) | Esnek **organic** yapı, merger ve joint venture
+| **Influence** (çevreyi etkile) | Advertising & public relations, political activity & lobbying, trade associations
+**Mechanistic** yapı (katı, merkezi, net görev tanımları) düşük belirsizliğe, **organic** yapı (esnek, takım çalışması) yüksek belirsizliğe uyar.
+
+## Bölüm 2 – Forming a Business Unit
+Bu bölümde en çok **sorumluluk türü (sınırlı/sınırsız)**, **ortak sayıları** ve **birleşme türleri** sorulur.
+### KOBİ (SMSB) ve işletme türleri
+| Avantaj | Dezavantaj
+| Innovative (yaratıcı) | Inadequate management (çoğu sahibi tarafından yönetilir)
+| Flexible (hızlı uyum) | Limited financing (yetersiz sermaye)
+| Low costs | Limited growth
+| Isolated market niches (niş pazarlar) |
+Kitaptaki veriye göre Türkiye'de imalat firmalarının %99,5'i KOBİ ve imalat istihdamının %61'ini sağlıyor; buna rağmen banka kredilerinin yalnızca %4'ünü alıyorlar.
+- **Fonksiyona göre:** manufacturing (üretim), service (hizmet), merchandising (ticaret, üretileni satıp dağıtan).
+- **Sermaye sahipliğine göre:** private (özel), public/government (kamu), private + public (karma), foreign (yabancı sermayeli). Özel işletmenin temel güdüsü kârdır; kamu işletmesi genelde özel yatırımcı riskten kaçındığında kurulur.
+### Hukuki yapılar
+| Yapı | Ortak sayısı (kitap) | Sorumluluk | Tüzel kişilik | Akılda tut
+| Sole proprietorship | 1 | Sınırsız | Yok | En basit ve en eski tür; kârın tamamı sahibine; süreklilik zayıf
+| Ordinary (unregistered) partnership | 2+ | Sınırsız | Yok | Ticaret unvanı yok, kolay kurulur
+| Registered partnership (kollektif) | 2+ | Sınırsız | **Var** | Unvan var ama sorumluluk yine sınırsız
+| Limited partnership (komandit) | 2+ | Karışık | Var | Bazı ortaklar sınırsız, bazıları sınırlı sorumlu
+| Partnership partially limited by shares | 2+ | Karışık | Var | Komanditin sermayesi paylara bölünmüş hali
+| Limited company (Ltd.) | **En az 2, en fazla 50** | Sınırlı | Var | Paylar hisse senedine bağlanamaz
+| Joint-stock company (A.Ş.) | **En az 5** | Sınırlı | Var | Hisse senedi var; sahiplerine shareholder/stockholder denir
+| Cooperative | — | — | Var | Üyelerin ortak ihtiyaçları için karşılıklı yardım
+!not Güncel TTK'da (6102) limited ve anonim şirket tek kişiyle kurulabiliyor. Sorular kitaptan gelecekse **2 ve 5** cevabını ver.
+### İttifaklar ve birleşmeler
+- **Strategic alliance:** İşbirliği stratejisi; **joint venture** ve **cartel** bunun türleridir.
+- **Joint venture:** Ortak proje için kurulan ortaklık; şirketler **kimliklerini korur**.
+- **Merger:** Şirketler birleşir, **yeni bir kimlik** doğar.
+- **Acquisition:** Satın alınan şirket **subsidiary** olur. İstenmeyen satın almaya **hostile takeover** denir.
+- **Holding:** Bağlı şirketleri (subsidiaries/sister companies) tek çatı altında kontrol eder; vergi ve benzeri avantajlar sağlar.
+@fig merger | Mirze, Bölüm 2 · Birleşme türünü iki şirketin birbirine göre konumu belirler (örnekler temsili)
+
+## Bölüm 3 – Business in Global Markets
+Bu bölümde en çok **teslim ve ödeme şekilleri**, **küreselleşme aşamaları** ve **entegrasyon basamakları** sorulur.
+### Üstünlükler ve denge kavramları
+- **Absolute advantage:** Bir ürünü tek üreten ya da en verimli üreten ülke (ör. Orta Doğu'da petrol).
+- **Comparative advantage:** Mutlak üstünlük olmasa da bir ürünü göreceli olarak daha verimli/ucuz üretmek. Ülkeler karşılaştırmalı üstünlükleri olan ürünleri satar.
+- **Balance of trade:** İhracat > ithalat ise **favorable** (surplus), tersi **unfavorable** (deficit).
+- **Balance of payments:** Ülkeye giren ve çıkan **tüm para akışının** sistematik kaydı (sadece mal ticareti değil).
+- **Exchange rate:** Bir paranın diğerine göre değeri. **Devaluation** = yerli paranın değerinin resmen düşürülmesi; ihracatı ucuzlatır, ithalatı pahalılaştırır.
+!ipucu Mikroiktisattaki mutlak/karşılaştırmalı üstünlük konusuyla aynı fikir; iki dersin sınavına birlikte çalışmış olursun.
+### Teslim ve ödeme şekilleri
+| Teslim şekli | Satıcının sorumluluğu
+| EXW (Ex Works) | Mal fabrikada teslim; tüm taşıma alıcıda
+| FOB (Free on Board) | Mal gemiye yüklenene kadar
+| CFR / C&F (Cost and Freight) | + navlun (taşıma ücreti)
+| CIF (Cost, Insurance, Freight) | + navlun + **sigorta**
+
+| Ödeme şekli | Kim için güvenli
+| Cash in advance (peşin) | **İhracatçı** için en güvenli
+| Letter of credit (akreditif) | Banka güvencesiyle iki taraf için dengeli
+| Cash against documents (vesaik mukabili) | Belgeler banka aracılığıyla teslim edilir
+| Open account / consignment | **İthalatçı** için en avantajlı
+!ipucu Teslim şekilleri satıcının yükü artan sırada: **E**XW → **F**OB → **C**FR → **C**IF (“E-F-C-C”, alfabetik gibi düşün).
+### Küreselleşme aşamaları
+@fig stages | Mirze, Bölüm 3 · Firma küreselleştikçe hem riski hem kontrolü artar
+### Engeller ve engelleri azaltan kurumlar
+| Tür | Örnekler
+| Natural barriers | Mesafe, dil, kültür farkları
+| Man-made: economic | **Tariff** (gümrük vergisi), **quota** (miktar sınırı), **embargo** (tamamen yasak)
+| Man-made: political/legal | Yasal düzenlemeler, siyasi istikrarsızlık
+Engelleri azaltan kurumlar: **GATT** (1947, tarifeleri düşürdü) → **WTO** (1995), **IMF**, **World Bank**.
+### Ekonomik entegrasyon basamakları
+@fig integ | Mirze, Bölüm 3 · Her entegrasyon basamağı bir öncekine yeni bir serbestlik ekler
+
+## Bölüm 4 – Planning & Organizing
+Bu bölümde en çok **plan türlerinin sınıflandırılması** ve **departmanlaşma türleri** (özellikle matrix) sorulur.
+### Planlama
+**Planning** = hedefleri belirlemek ve onlara nasıl ulaşılacağına karar vermek. Önce **goal** (ne), sonra **plan** (nasıl).
+| Sınıflama | Tür | Kim yapar / süre | Örnek
+| Zamana ve kademeye göre | **Strategic** | Üst yönetim, uzun vade | 5 yıllık büyüme planı
+|  | **Tactical** | Orta kademe, orta vade | Departmanın yıllık planı
+|  | **Operational** | Alt kademe, kısa vade | Haftalık vardiya planı
+| Kullanım sıklığına göre | **Standing** (sürekli) | Tekrar tekrar kullanılır | Policy, procedure, rule
+|  | **Single-use** (tek kullanımlık) | Bir kez kullanılır | Program, project, budget
+**Policy** genel yönlendiricidir (“müşteri her zaman önce gelir”), **procedure** adım adım işlem sırasıdır, **rule** tek bir yap/yapma kuralıdır (“iş yerinde sigara içilmez”).
+**Karar verme süreci:**
+1. Problemi tanımla
+2. Alternatifleri üret
+3. Alternatifleri değerlendir
+4. En iyisini seç
+5. Uygula
+6. Sonucu değerlendir (geri bildirim)
+### Örgütleme
+- **Division of labor / specialization:** İşin parçalara bölünmesi.
+- **Chain of command:** Tepeden aşağı yetki zinciri; **unity of command** = herkesin tek amiri olması.
+- **Span of control:** Bir yöneticiye bağlı kişi sayısı. Geniş span = az kademe = **flat** yapı; dar span = çok kademe = **tall** yapı.
+- **Centralization:** Kararlar tepede. **Decentralization:** Yetki aşağıya devredilir.
+- **Authority / responsibility / delegation:** Yetki devredilebilir, nihai sorumluluk devredilemez.
+| Departmanlaşma | Neye göre gruplanır | Örnek
+| Functional | İş fonksiyonu | Pazarlama, üretim, finans
+| Product | Ürün grubu | Beyaz eşya, elektronik
+| Geographic | Bölge | Marmara, Ege, yurt dışı
+| Customer | Müşteri tipi | Bireysel, kurumsal
+| Process | Üretim süreci aşaması | Kesim, montaj, boya
+| **Matrix** (modern) | Fonksiyon + proje birlikte | Aşağıdaki şema
+| Team / network (çağdaş) | Takımlar, dış ortaklar | Sanal organizasyon
+@fig matrix | Mirze, Bölüm 4 · Matrix yapıda bir çalışan iki amire rapor verir; bu yüzden unity of command ilkesini bozar
+
+## Bölüm 5 – Leading & Controlling
+Bu bölümde en çok **motivasyon teorilerinin grubu (content/process)**, **Herzberg'in iki faktörü** ve **kontrol türleri** sorulur.
+### Liderlik teorileri
+| Teori | Ana fikir | Anahtar kelime
+| Trait | Liderler doğuştan bazı kişilik özelliklerine sahiptir | “Lider doğulur”
+| Behavioral (styles) | Önemli olan liderin davranışı/stilidir | Autocratic, democratic, laissez-faire
+| Contingency | En iyi stil duruma göre değişir | Fiedler, path-goal, situational
+**Autocratic** = kararları tek başına verir · **Democratic (participative)** = çalışanları karara katar · **Laissez-faire** = serbest bırakır, müdahale etmez.
+### Motivasyon: content theories (NE motive eder?)
+@fig maslow | Mirze, Bölüm 5 · Maslow: alttaki ihtiyaç karşılanmadan üstteki motive etmez
+| Herzberg | Örnekler | Etkisi
+| **Hygiene factors** (dışsal) | Maaş, çalışma koşulları, şirket politikası, amirle ilişki, iş güvencesi | Yoksa **tatminsizlik** yaratır; varlığı tek başına motive etmez
+| **Motivators** (içsel) | Başarı, takdir, sorumluluk, işin kendisi, ilerleme | Varlığı gerçekten **motive eder**
+### Motivasyon: process theories (NASIL motive olunur?)
+- **Vroom – Expectancy theory:** Motivasyon = Expectancy (çaba → performans inancı) × Instrumentality (performans → ödül inancı) × Valence (ödülün kişi için değeri). Çarpım olduğu için biri sıfırsa motivasyon sıfır.
+- **Adams – Equity theory:** Kişi kendi çıktı/girdi oranını (ödül/çaba) başkalarınınkiyle kıyaslar; adaletsizlik hissederse motivasyonu düşer.
+!ipucu **Content** = Maslow, Herzberg (içerik: *ne* istiyoruz). **Process** = Vroom, Adams (süreç: *nasıl* karar veriyoruz). “**M**aslow ve **H**erzberg **M**addeleri **H**azırlar; **V**room ve **A**dams **Y**olu anlatır.”
+### İletişim
+@fig comm | Mirze, Bölüm 5 · İletişim, geri bildirimle kapanan bir döngüdür
+- **Formal communication:** Downward (yukarıdan aşağı: talimat), upward (aşağıdan yukarı: rapor, öneri), horizontal/lateral (aynı kademe arası: koordinasyon).
+- **Informal communication:** **Grapevine** (dedikodu ağı), resmi yapı dışında hızla yayılır.
+### Kontrol
+**Kontrol süreci:** standart belirle → performansı ölç → standartla karşılaştır → düzeltici faaliyet.
+| Tür | Ne zaman | Örnek
+| **Feedforward** (preliminary) | Faaliyet **başlamadan önce** | Hammadde kalite kontrolü
+| **Concurrent** | Faaliyet **sırasında** | Üretim bandında anlık denetim
+| **Feedback** | Faaliyet **bittikten sonra** | Ay sonu satış raporu, müşteri anketi
+
+## En çok karıştırılan kavram çiftleri
+Testte şıklar genelde bu çiftlerden biri diğerinin yerine konarak hazırlanır.
+| Kavram A | Kavram B | Ayırt etme ipucu
+| General environment | Industry environment | Supplier, customer, competitor, substitute, labor market → **industry**. Politik, ekonomik, demografik vb. → **general**
+| Adapt | Influence | Yapıyı değiştirmek, merger/JV → **adapt**. Reklam, lobi, ticaret birliği → **influence**
+| Conceptual skill | Technical skill | Bütünü görmek, strateji → conceptual (**üst**). İşin tekniği → technical (**alt**)
+| Figurehead | Spokesperson | Figurehead = törenlerde temsil (**interpersonal**). Spokesperson = bilgi duyurma (**informational**)
+| Registered partnership | Limited partnership | İkisinde de unvan var; registered'da **herkes sınırsız**, limited'de **karışık** sorumluluk
+| Limited company | Joint-stock company | Ltd.: 2–50 ortak, hisse senedi yok. A.Ş.: en az 5, hisse senedi var
+| Merger | Joint venture | Merger'da kimlikler birleşir; JV'de şirketler **kimliğini korur**
+| Merger | Acquisition | Merger = birleşip yeni şirket; acquisition = biri diğerini satın alır, alınan **subsidiary** olur
+| Balance of trade | Balance of payments | Trade sadece **mal ihracat-ithalatı**; payments **tüm para akışı**
+| Absolute advantage | Comparative advantage | Absolute = en verimli/tek üretici; comparative = **göreceli** verimli
+| FOB | CIF | FOB: gemiye kadar satıcı. CIF: **navlun + sigorta** da satıcıda
+| Tariff | Quota | Tariff = vergi (fiyatı artırır); quota = **miktar** sınırı
+| Free trade area | Customs union | Customs union'da üyeler dışarıya **ortak tarife** uygular
+| Standing plan | Single-use plan | Policy/procedure/rule → standing. Program/project/budget → single-use
+| Strategic plan | Operational plan | Strategic = üst yönetim, uzun vade. Operational = alt kademe, kısa vade
+| Content theory | Process theory | Maslow, Herzberg → content (**ne**). Vroom, Adams → process (**nasıl**)
+| Hygiene factor | Motivator | Maaş, koşullar → hygiene. Başarı, takdir, sorumluluk → motivator
+| Feedforward control | Feedback control | Önce → feedforward; sonra → feedback; sırasında → concurrent
+| Blue-collar | White-collar | El emeği/atölye → blue; ofis/zihin emeği → white. İkisi de **non-manager**
+**Puanlama (32 soruluk deneme):** 28 ve üstü = hazırsın · 22–27 = bu tabloyu tekrar et · 21 ve altı = bölüm özetlerini baştan oku.
+</script>
+
+<script type="text/plain" id="n-law">
+## Kapsam
+Vizede en sık çıkan konuların özeti. Hocanın işlediği konular farklıysa ders izlencesiyle karşılaştır. Cevaplı sorular Test sekmesinde (çoktan seçmeli) ve en alttaki bölümde (klasik ve olay soruları).
+
+## Sosyal düzen kuralları ve hukuk kuralı
+Toplumda insan davranışlarını düzenleyen dört tür kural vardır; hukuku diğerlerinden ayıran şey **devlet gücüyle desteklenen maddi yaptırımdır.**
+| Kural | Kaynağı | Yaptırımı | Örnek
+| Din kuralları | İlahi irade | Uhrevi (öbür dünyada) + toplumsal dışlanma | İbadet etmek
+| Ahlak kuralları | Vicdan, toplumun iyi-kötü anlayışı | Vicdan azabı, toplumun kınaması | Yalan söylememek
+| Görgü kuralları | Toplumsal gelenek | Ayıplanma, dışlanma | Büyüklere yer vermek, selamlaşmak
+| Hukuk kuralları | Devlet (yetkili organlar) | Maddi, devlet zoruyla uygulanır | Borcu ödemek, trafik kurallarına uymak
+Bu kurallar bazen örtüşür: “Öldürmemek” hem din, hem ahlak, hem hukuk kuralıdır.
+### Hukuk kuralının özellikleri
+- **Genel:** belli bir kişiye değil, herkese yöneliktir
+- **Soyut:** belli bir olayı değil, benzer tüm olayları düzenler
+- **Sürekli:** yürürlükten kaldırılana kadar geçerlidir
+- **Yaptırıma bağlı:** uyulmazsa devlet zorla uygulatır
+- **Bağlayıcı (emredici nitelik):** kişinin isteğine bırakılmamıştır
+!ipucu “**G**ençler **S**abah **S**ınava **Y**orgun **B**aşlar” → Genel, Soyut, Sürekli, Yaptırımlı, Bağlayıcı.
+Hukuk kuralı iki parçadan oluşur: **varsayım** (“bir kimse başkasına zarar verirse…”) ve **hüküm** (“…tazmin etmekle yükümlüdür”).
+### Objektif, sübjektif, pozitif ve tabii hukuk
+- **Objektif hukuk:** bir ülkede yürürlükte olan hukuk kurallarının bütünü (ör. Türk hukuku)
+- **Sübjektif hukuk (hak):** hukukun kişiye tanıdığı yetki (ör. mülkiyet hakkı)
+- **Pozitif hukuk:** belli bir ülkede belli bir zamanda yürürlükte olan hukuk
+- **Tabii hukuk (doğal hukuk):** insan doğasından gelen, her yerde ve her zaman geçerli kabul edilen ideal hukuk
+
+## Dünyadaki hukuk sistemleri
+Türkiye **Kıta Avrupası (Roma-Germen)** hukuk sistemindedir; sınavda en çok bu sistemle Anglo-Sakson sistem karşılaştırılır.
+| Sistem | Temel kaynak | Özellik | Örnek ülkeler
+| Kıta Avrupası (Civil Law) | Yazılı kanunlar | Roma hukukuna dayanır, kodifikasyon güçlü, yargı kararları yardımcı kaynak | Almanya, Fransa, İsviçre, İtalya, Türkiye
+| Anglo-Sakson (Common Law) | Yargı kararları (içtihat) | Emsal (precedent): önceki karar sonraki benzer davaları bağlar | İngiltere, ABD, Kanada, Avustralya
+| İslam hukuku | Kur'an, sünnet, icma, kıyas | Din ve hukuk iç içe | Suudi Arabistan, İran
+| Sosyalist hukuk | Kanun + sosyalist ideoloji | Üretim araçları devlete ait; büyük ölçüde tarihe karıştı | Eski SSCB, Doğu Bloku
+| Karma sistemler | Birden fazla sistem | İki sistemi birleştirir | İskoçya, Güney Afrika, Louisiana, Quebec
+### Türkiye ve resepsiyon (iktibas)
+Cumhuriyetin ilk yıllarında Türkiye laik ve çağdaş bir hukuk düzeni için Avrupa kanunlarını aldı. Bir ülkenin başka ülkenin hukukunu benimsemesine **resepsiyon** denir.
+| Kanun | Alındığı ülke
+| Medeni Kanun (1926) | İsviçre
+| Borçlar Kanunu (1926) | İsviçre
+| İcra ve İflas Kanunu | İsviçre
+| Ceza Kanunu (1926) | İtalya
+| Ticaret Kanunu | Almanya
+| Ceza Muhakemesi Kanunu | Almanya
+!ipucu “**İsviçre** sivil (medeni, borçlar, icra), **İtalya** ceza, **Almanya** ticaret ve ceza muhakemesi.” İnkılap Tarihi sınavında da hukuk inkılapları olarak çıkabilir.
+Bu kanunların çoğu 2000'lerde yenilendi (yeni TMK 2001, TCK 2004, TBK ve TTK 2011), ama sistem ve temel yapı aynı kaldı.
+
+## Hukukun kaynakları ve normlar hiyerarşisi
+Hâkim bir uyuşmazlığı önce yazılı hukuka, o yoksa örf ve adete, o da yoksa kendi koyacağı kurala göre çözer (TMK m.1).
+### Kaynakların sınıflandırılması
+- **Asıl (bağlayıcı) kaynaklar**
+  - Yazılı: Anayasa, kanunlar, uluslararası antlaşmalar, Cumhurbaşkanlığı kararnameleri, yönetmelikler
+  - Yazısız: örf ve adet hukuku
+- **Yardımcı kaynaklar:** yargı kararları (içtihat) ve bilimsel görüşler (doktrin). Hâkim bunlardan yararlanır ama kural olarak bağlı değildir.
+İstisna: **Anayasa Mahkemesi kararları** ve **Yargıtay içtihadı birleştirme kararları** bağlayıcıdır.
+### TMK m.1'in sırası
+1. Kanun, sözüyle ve özüyle değindiği bütün konularda uygulanır
+2. Kanunda hüküm yoksa hâkim örf ve adet hukukuna göre karar verir
+3. O da yoksa hâkim, kanun koyucu olsaydı koyacağı kurala göre karar verir (hâkimin hukuk yaratması)
+4. Hâkim karar verirken bilimsel görüşlerden ve yargı kararlarından yararlanır
+### Normlar hiyerarşisi (yukarıdan aşağıya)
+1. **Anayasa:** en üst norm; tüm kurallar ona uygun olmak zorunda (AY m.11)
+2. **Kanunlar** ve usulüne göre yürürlüğe konmuş **uluslararası antlaşmalar** (kanun hükmündedir; temel hak ve özgürlüklere ilişkin antlaşma ile kanun çatışırsa antlaşma uygulanır, AY m.90)
+3. **Cumhurbaşkanlığı kararnameleri:** kanunla çatışırsa kanun uygulanır
+4. **Yönetmelikler**
+5. **Adsız düzenleyici işlemler** (genelge, tebliğ vb.)
+Temel kural: **alt norm üst norma aykırı olamaz.** Kanunların Anayasaya uygunluğunu Anayasa Mahkemesi denetler; yönetmeliklerin kanuna uygunluğunu Danıştay (idari yargı) denetler.
+### Örf ve adet hukukunun unsurları
+- **Maddi unsur:** davranışın uzun süre, sürekli ve düzenli tekrarlanması
+- **Manevi unsur:** toplumun bu davranışa uymayı hukuken zorunlu sayması
+Sadece alışkanlık (manevi unsur yoksa) örf ve adet hukuku değildir, görgü kuralıdır.
+
+## Hukuk kurallarının türleri
+Kurallar, kişilerin onları sözleşmeyle değiştirip değiştiremeyeceğine göre ayrılır; klasik soru “verilen hüküm hangi türdür?” şeklinde gelir.
+| Tür | Anlamı | Aksi kararlaştırılabilir mi? | Örnek
+| Emredici | Kamu düzenini, ahlakı, zayıfı korur; mutlaka uyulur | Hayır; aykırı sözleşme kesin hükümsüzdür | Evlenme yaşı, kişinin hak ve fiil ehliyetinden vazgeçememesi
+| Tamamlayıcı | Taraflar bir konuyu düzenlemediyse boşluğu doldurur | Evet | Sözleşmede ifa yeri yoksa kanundaki ifa yeri kuralı
+| Yorumlayıcı | Tarafların belirsiz ifadesinin ne anlama geldiğini açıklar | Evet | Ödeme “ay başı” denmişse ayın birinci günü
+| Tanımlayıcı | Bir kavramın ne olduğunu tanımlar | Uygulanmaz, tanım yapar | “Ergin olmak 18 yaşını doldurmakla başlar” (TMK m.11)
+### Ayırt etme ipucu
+- Kanun “…olamaz”, “…geçersizdir” diyorsa genelde **emredici**
+- “Aksi kararlaştırılmadıkça…” ifadesi **tamamlayıcı veya yorumlayıcı** kural işaretidir
+- Tamamlayıcı **eksik** bir konuyu doldurur; yorumlayıcı **var olan ama belirsiz** bir ifadeyi açıklar
+
+## Yaptırım türleri
+Yaptırım, hukuk kuralına uyulmamasının sonucudur; vizede en çok **hükümsüzlük türleri** karıştırılır.
+| Yaptırım | Ne demek? | Örnek
+| Ceza | Suç işleyene devletin uyguladığı yaptırım | Hapis, adli para cezası
+| Cebri icra | Borcun devlet zoruyla yerine getirilmesi | Ödenmeyen borç için icra yoluyla haciz
+| Tazminat | Verilen zararın parayla giderilmesi | Trafik kazasında maddi ve manevi tazminat
+| Hükümsüzlük | Hukuka aykırı işlemin istenen sonucu doğurmaması | Aşağıdaki üç tür
+| İptal | İdari işlemin mahkeme kararıyla ortadan kaldırılması | İdare mahkemesinin bir atama kararını iptal etmesi
+| Disiplin cezası | Bir kurum içindeki düzene aykırılığın yaptırımı | Memura uyarı, kınama
+### Hükümsüzlüğün üç türü
+| Tür | Ne zaman? | Kim ileri sürer? | Örnek
+| Yokluk | İşlemin kurucu unsuru eksik, işlem hiç doğmamış | Herkes; mahkeme kararına gerek yok | Evlendirme memuru önünde yapılmamış “evlilik”
+| Kesin hükümsüzlük (mutlak butlan) | Emredici kurala, ahlaka, kamu düzenine aykırılık; şekil eksikliği | Herkes; hâkim kendiliğinden dikkate alır; süreye bağlı değil | Tapuda resmi şekilde yapılmayan taşınmaz satışı
+| İptal edilebilirlik (nisbi butlan) | İrade sakatlığı: yanılma, aldatma, korkutma | Sadece iradesi sakatlanan kişi, belli süre içinde | Aldatılarak imzalanan sözleşme
+!ipucu **Kısa yol:** Yokluk = hiç doğmadı; kesin hükümsüzlük = doğdu ama baştan geçersiz; iptal edilebilirlik = geçerli, ama mağdur isterse ortadan kalkar. İrade sakatlığı üçlüsü: **Y**anılma, **A**ldatma, **K**orkutma (“YAK”).
+
+## Hukukun dalları
+Ayrımın ölçütü ilişkinin taraflarıdır: **devlet egemenlik gücüyle taraftaysa kamu hukuku, taraflar eşitse özel hukuk.**
+| Kamu hukuku | Özel hukuk | Karma
+| Anayasa hukuku | Medeni hukuk (kişiler, aile, miras, eşya) | İş hukuku
+| İdare hukuku | Borçlar hukuku | Sosyal güvenlik hukuku
+| Ceza hukuku | Ticaret hukuku |
+| Vergi (mali) hukuku | Devletler özel hukuku (yabancılık unsurlu ilişkiler) |
+| Ceza muhakemesi hukuku |  |
+| Medeni usul hukuku |  |
+| İcra ve iflas hukuku |  |
+| Devletler genel hukuku (uluslararası hukuk) |  |
+### Karıştırılanlar
+- **Medeni usul hukuku** adında “medeni” geçse de **kamu hukukudur**: devletin yargı yetkisini düzenler.
+- **Devletler genel hukuku** devletler arası ilişkileri düzenler (kamu); **devletler özel hukuku** yabancı unsurlu kişiler arası ilişkileri düzenler (özel), örneğin bir Türk ile bir Alman'ın evliliği.
+- İş hukuku işçi-işveren ilişkisini düzenler (özel), ama devlet işçiyi korumak için emredici kurallarla müdahale eder (kamu); bu yüzden karmadır.
+!ipucu Adında **usul, muhakeme, icra** geçen her dal kamu hukukudur: hepsi devletin yargı gücüyle ilgilidir.
+
+## Uygulama, yorum ve boşluk doldurma
+Bir kural uygulanırken üç soru sorulur: nerede geçerli (yer), ne zaman geçerli (zaman) ve ne anlama geliyor (yorum).
+### Yer bakımından
+- **Mülkilik (ülkesellik) ilkesi:** Türk kanunları Türkiye'de bulunan herkese uygulanır, vatandaş olsun olmasın
+- **Şahsilik ilkesi:** bazı durumlarda Türk vatandaşına yurt dışında da Türk hukuku uygulanır
+### Zaman bakımından
+- Kanun **yürürlüğe girdiği andan sonraki** olaylara uygulanır: **geriye yürümezlik** ilkesi
+- Yürürlük tarihi kanunda yazar; yazmıyorsa Resmî Gazete'de yayımından itibaren 45 gün sonra yürürlüğe girer
+- Ceza hukukunda istisna: **lehe olan kanun geriye yürür.** Fiil suç olmaktan çıkarılırsa ya da ceza hafifletilirse failin lehine olan uygulanır
+- Bir kanun yürürlükten **açıkça** (yeni kanun “şu kanun kaldırılmıştır” der) ya da **örtülü** (yeni kanun eskisiyle çelişir) kaldırılabilir
+### Yorum
+**Yorumu kim yapıyor?**
+- Yasama yorumu: kanun koyucunun kendisi; bağlayıcı
+- Yargısal yorum: hâkim; o davada bağlayıcı
+- Bilimsel (doktriner) yorum: hukukçular; bağlayıcı değil
+- İdari yorum: idare (genelge vb.); idare içinde bağlayıcı
+**Yorum yöntemleri:**
+| Yöntem | Neye bakar?
+| Lafzi (sözel) | Kanunun kelimelerine ve dil bilgisine
+| Tarihi | Kanun koyucunun yapıldığı dönemdeki amacına, gerekçeye
+| Sistematik | Kuralın kanundaki yerine, diğer maddelerle ilişkisine
+| Amaçsal (teleolojik) | Kuralın bugün korumak istediği amaca
+### Boşluk doldurma
+- Kanunda bir konu hiç düzenlenmemişse **kanun boşluğu** vardır
+- Hâkim önce **kıyas** yapar: benzer bir konudaki kuralı uygular
+- Uygun kural yoksa TMK m.1'e göre hâkim kendisi kural koyar
+- **Ceza hukukunda aleyhe kıyas yasaktır:** kanunda açıkça suç sayılmayan fiil için kimse cezalandırılamaz (suç ve cezaların kanuniliği ilkesi)
+
+## Klasik ve olay soruları
+Önce cevabı kendin yaz (kâğıda ya da aklından), sonra aç.
+?? **Kıta Avrupası ve Anglo-Sakson hukuk sistemlerini karşılaştırınız.** || Kıta Avrupası sisteminde asıl kaynak yazılı kanunlardır; Roma hukukuna dayanır ve kodifikasyon güçlüdür, yargı kararları yardımcı kaynaktır. Anglo-Sakson sistemde asıl kaynak yargı kararlarıdır; emsal ilkesine göre önceki karar benzer davalarda bağlayıcıdır. Türkiye, Almanya ve Fransa ilk sisteme; İngiltere ve ABD ikinci sisteme örnektir.
+?? **TMK m.1'e göre hâkimin bir uyuşmazlığı çözerken izleyeceği sırayı açıklayınız.** || Hâkim önce kanunu sözüyle ve özüyle uygular. Kanunda uygulanabilir hüküm yoksa örf ve adet hukukuna bakar. O da yoksa kanun koyucu olsaydı koyacağı kurala göre karar verir. Bu süreçte bilimsel görüşlerden ve yargı kararlarından yararlanır.
+?? **Kesin hükümsüzlük ile iptal edilebilirlik arasındaki farkları yazınız.** || Kesin hükümsüzlükte işlem baştan geçersizdir; emredici kurala, ahlaka, kamu düzenine aykırılık veya şekil eksikliği nedeniyle olur, herkes ileri sürebilir ve hâkim kendiliğinden dikkate alır, süreye bağlı değildir. İptal edilebilirlikte işlem geçerli doğar; irade sakatlığı (yanılma, aldatma, korkutma) nedeniyle olur, sadece iradesi sakatlanan kişi belli süre içinde ileri sürebilir.
+?? **Örf ve adet hukukunun unsurları nelerdir?** || Maddi unsur, bir davranışın uzun süre, sürekli ve düzenli tekrarlanmasıdır. Manevi unsur, toplumun bu davranışa uymayı hukuken zorunlu saymasıdır. Manevi unsur yoksa yalnızca alışkanlık veya görgü kuralı söz konusudur.
+?? **Ceza hukukunda geriye yürümezlik ilkesinin istisnası nedir? Örnek veriniz.** || Faile lehe olan kanun geriye yürür. Örneğin bir fiil işlendiğinde 3 yıl hapis cezası öngörülmüşken yeni kanun cezayı 1 yıla indirirse, henüz kesinleşmemiş davada failin lehine olan yeni kanun uygulanır. Fiil suç olmaktan çıkarılırsa da fail cezalandırılmaz.
+!ek Bundan sonraki soruların biri belgendeydi (Ali–Ayşe arsa olayı); diğer üçü konuyu pekiştirmek için eklendi.
+?? **Hukuk kuralını diğer sosyal düzen kurallarından ayıran özellik nedir? Açıklayınız.** || Devlet gücüyle desteklenen maddi yaptırım. Din, ahlak ve görgü kurallarının da yaptırımı vardır (vicdan azabı, kınama, dışlanma), ama bunlar manevi veya toplumsal yaptırımlardır; yalnızca hukuk kuralına uyulmadığında devlet zor kullanarak uygulatır (ceza, cebri icra, tazminat, hükümsüzlük).
+?? **Olay:** Ali, Ayşe'ye ait bir arsayı noterde ya da tapuda değil, kendi aralarında yazdıkları bir kâğıtla satın almıştır. Bu satışın hukuki durumu nedir? || Taşınmaz satışı kanunda resmi şekle bağlanmıştır. Şekil şartına uyulmadığı için sözleşme **kesin hükümsüzdür**; herkes bunu ileri sürebilir, hâkim kendiliğinden dikkate alır ve geçerli bir mülkiyet devri olmaz.
+?? **Olay:** Mehmet, aracının kilometresinin düşük gösterildiğini bilmeden ikinci el bir araba almıştır. Satıcı kilometreyi bilerek değiştirmiştir. Sözleşmenin durumu nedir? || Satıcının bilerek yanıltması **aldatmadır** (irade sakatlığı). Sözleşme geçerli doğar ama **iptal edilebilir**; yalnızca aldatılan Mehmet, kanundaki süre içinde sözleşmeyle bağlı olmadığını bildirerek ortadan kaldırabilir. Ayrıca zararı varsa tazminat isteyebilir.
+?? **Olay:** Yeni çıkan bir kanun, işlendiği tarihte suç olan bir fiili suç olmaktan çıkarıyor. Bu fiil nedeniyle yargılanan Can'a hangi kanun uygulanır? || Ceza hukukunda **lehe kanun geriye yürür**. Fiil artık suç olmadığı için Can cezalandırılamaz; eski kanunun ağır hükmü uygulanmaz.
+</script>

@@ -1,0 +1,459 @@
+<script type="text/plain" id="n-acc">
+## Kapsam ve dikkat edilecekler
+Vize büyük olasılıkla hocanın 1–3. bölümlerini (2–5. hafta + 3 Kasım örneği) kapsıyor: muhasebe denklemi, finansal tablolar ve yevmiye/T-hesap kaydı. Ders kitabında karşılığı Weygandt IFRS **Chapter 1 (Accounting in Action)** ve **Chapter 2 (The Recording Process)**.
+| Dosya | Bölüm | Kapsadığı konular
+| 2. hafta | 1.1–1.4 | Muhasebenin tanımı (AICPA), IASB/IFRS–FASB/GAAP, finansal tablolar, bilgi kullanıcıları, finansal vs yönetim muhasebesi
+| 3. hafta | 1.5–1.7 | Bilgi kategorileri, planlama/uygulama/kontrol, işletme türleri ve hukuki biçimler, muhasebe döngüsü, A = L + OE, gelir/gider/temettü, Mayıs işlem örnekleri
+| 4. hafta | 2.1–2.3 | Denklem tablosunda işlem analizi (A. Yılmaz örneği), dört finansal tablo, cari/uzun vadeli ayrımı, tabloların hazırlanması
+| 5. hafta | 3.1–3.2 | İşlem, hesap türleri, çift taraflı kayıt, T-hesap, borç/alacak kuralları, yevmiye, defteri kebir, posting
+| 3 Kasım örneği | — | 17 işlemlik Smart Touch Learning soru seti (çözümü aşağıda)
+| Ders kitabı | Ch. 1–2 | Ek alıştırma kaynağı
+!not **Eksik olabilecekler:** 1. hafta dosyası yok (muhtemelen tanışma haftası, konu kaybı görünmüyor). 3 Kasım örneğinin çözümü slaytta yok; vizede en olası soru tipi bu, aşağıda tam çözüldü. Mizan (trial balance) slaytlarda anlatılmamış, vizeye girip girmediğini hocaya sor. Nakit akış tablosu sadece listelenmiş.
+!tuzak **Slayt hataları:** 5. hafta T-hesap örneğinde bir yerde “$750” yazıyor, doğrusu 700 (Cash bakiyesi 1.000 + 700 = 1.700). 3. haftadaki AR tahsilatında tutar yazılmamış (1.000 olmalı). Mayıs örneğinde alacak ve arsa önceden oluşmadan tahsilat/satış yapılıyor; örnekleri bağımsız düşün.
+!ipucu **Terim karışıklığı:** Hoca bazen şahıs işletmesi dili (**Capital, Withdrawal**), bazen şirket dili (**Common Stock, Dividends, Retained Earnings**) kullanıyor. Mantık aynı: sahip para koyar → özkaynak artar; sahip para çeker → özkaynak azalır. Soruda hangisi kullanılmışsa onunla cevap ver.
+
+## Muhasebe ve iş çevresi (teori)
+Muhasebe, işletme faaliyetlerini **ölçen**, verileri **raporlara işleyen** ve sonuçları **karar vericilere ileten** bilgi sistemidir. AICPA tanımındaki dört fiil: **recording, classifying, summarizing, interpreting** (kaydetme, sınıflandırma, özetleme, yorumlama). Bu fiiller parasal ve en azından kısmen finansal nitelikli işlemler için geçerlidir.
+Muhasebe üç soruya cevap verir: işletmenin **ne kadar kaynağı** var, bu kaynaklar **nasıl finanse edildi**, kaynaklarla **hangi sonuç** elde edildi.
+### Standart koyucular
+| Kurum | Ürettiği standart | Nerede
+| IASB | IFRS | 150'den fazla ülke (Türkiye dahil)
+| FASB | US GAAP | ABD şirketleri
+### Bilgi kullanıcıları
+| Kullanıcı | İç/Dış | Ne için
+| Yöneticiler | İç | Planlama, strateji, kaynak dağıtımı, kontrol
+| Hissedarlar / yatırımcılar | Dış | Risk ve getiri; al–tut–sat kararı; temettü ödeme gücü
+| Kreditörler / bankalar | Dış | Kredi ve faiz vadesinde ödenecek mi?
+| Devlet | Dış | Vergilendirme, ekonomiyi teşvik, ulusal istatistik
+| Çalışanlar, tedarikçiler, müşteriler, rakipler | Dış | İşletmenin sürekliliği ve gücü
+### Finansal vs yönetim vs vergi muhasebesi
+|  | Finansal | Yönetim | Vergi
+| Kullanıcı | Dış (yatırımcı, banka, devlet) | İç (yöneticiler) | Vergi idaresi
+| Kural | Ortak standartlar (IFRS/GAAP), karşılaştırılabilir | Serbest, ihtiyaca göre | Vergi mevzuatı
+| Ürün | Bilanço, gelir tablosu, nakit akış tablosu | Bütçe, maliyet raporu | Vergi beyannamesi
+Yönetim muhasebesi yöneticinin üç işlevine hizmet eder: **Planning** (problemi tanımla → kriterleri sırala → alternatifleri bul → analiz et → en iyisini seç; bütçe genelde 1 yıllık plandır), **Implementation** (kaynakları sağlayıp planı uygulamak) ve **Control** (communicate, motivate, direct attention, appraise). **Operating information** günlük işler için gereken, hacmi en büyük veridir (çalışma saatleri, stok, müşteri borçları).
+**İşletme türleri:** Service (hizmet satar), Manufacturer (ham maddeden ürün yapar), Merchandiser (üretilen malı satar; işletmelere satarsa wholesaler, tüketiciye satarsa retailer).
+### Hukuki biçimler
+|  | Sole proprietorship | Partnership | Corporation
+| Sahip | Tek kişi | 2+ kişi | Hissedarlar
+| Sorumluluk | Sınırsız, kişisel | Sınırsız (anlaşmaya göre kâr/zarar paylaşımı) | Sınırlı, yatırdığı kadar
+| Vergi | Kâr sahibin gelirine eklenir | Ortakların gelirine | Ayrı tüzel kişi, ayrı vergilenir
+| Sahiplik devri | Zor | Anlaşmaya bağlı | Hisse kolayca alınıp satılır
+### Muhasebe döngüsü (sırası sorulabilir)
+analyze → journalize → post → trial balance → adjusting entries → adjusted trial balance → financial statements → closing entries → post-closing trial balance
+!ipucu Döngüyü “**A**li **J**ale'ye **P**asta **T**aşıdı” diye ilk dört adımla hatırla: Analyze, Journalize, Post, Trial balance. Sonrası düzeltme → tablolar → kapanış.
+
+## Muhasebe denklemi ve işlem analizi
+Her işlem denklemin iki tarafını eşit etkiler; denklem **her zaman** dengede kalır.
+$$ \text{Assets} = \text{Liabilities} + \text{Owner's Equity} $$
+$$ \text{Owner's Equity} = \text{Capital} + \text{Revenues} - \text{Expenses} - \text{Dividends} $$
+Assets − Liabilities = Net Assets = Owner's Equity. Varlıklar **historical cost** (alış maliyeti) ile kaydedilir.
+| Grup | Tanım | Örnek hesaplar
+| Assets (Varlık) | İşletmenin kontrol ettiği, ölçülebilir, gelecekte fayda sağlayacak kaynak | Cash, Accounts Receivable, Notes Receivable, Inventory, Supplies, Prepaid Expenses, Land, Building, Equipment, Furniture
+| Liabilities (Borç) | Dışarıdakilere olan, geçmiş işlemden doğan yükümlülük | Accounts Payable, Notes Payable, Wages/Salaries Payable, Taxes Payable, Interest Payable, Unearned Revenue
+| Owner's Equity (Özkaynak) | Sahibin varlıklar üzerindeki artık hakkı | Capital / Common Stock, Retained Earnings
+| Revenues | Mal/hizmet satışı; **OE'yi artırır** | Service Revenue, Sales Revenue, Fee Revenue
+| Expenses | Gelir elde etmek için katlanılan maliyet; **OE'yi azaltır** | Rent, Salary, Utilities, Advertising, Supplies Expense
+| Dividends / Withdrawals | Sahibe yapılan dağıtım; **OE'yi azaltır ama gider değildir** | Dividends, Drawings
+### Sık karıştırılanlar
+- **Accounts Payable** = veresiye mal/hizmet alımından doğan borç; **Notes Payable** = yazılı senet/kredi borcu (genelde faizli).
+- **Unearned Revenue** bir **borçtur**: para peşin alındı ama hizmet henüz verilmedi.
+- **Prepaid Expense** bir **varlıktır**: gider peşin ödendi, faydası ileride kullanılacak.
+- Veresiye hizmet verince gelir **o anda** kaydedilir (Accounts Receivable artar); tahsilat sadece varlık değişimidir, yeni gelir değildir.
+- Borç ödemek gider değildir; sadece Cash ve borç birlikte azalır.
+### Çözümlü örnek: A. Yılmaz Consulting (4. hafta)
+1. Sahip 60.000 $ nakit koyar → Cash +60.000, Capital +60.000
+2. 40.000 $'a nakit arsa → Cash −40.000, Land +40.000 (varlık değişimi)
+3. 1.000 $ veresiye büro malzemesi → Supplies +1.000, A/P +1.000
+4. 11.000 $ nakit hizmet geliri → Cash +11.000, Capital +11.000 (revenue)
+5. 6.000 $ veresiye hizmet → A/R +6.000, Capital +6.000 (revenue)
+6. Giderler nakit: bilgisayar kirası 1.200 + ofis kirası 2.200 + maaş 2.400 + elektrik/su 800 = 6.600 → Cash −6.600, Capital −6.600 (expense)
+7. Eski borcun 600 $'ı ödenir → Cash −600, A/P −600
+>>> Denklem tablosunu göster (önce kendin kur)
+| İşlem | Cash | A/R | Supplies | Land | = | A/P | Capital | OE işlem türü
+| 1 | 60.000 |  |  |  | = |  | 60.000 | Owner investment
+| 2 | 20.000 |  |  | 40.000 | = |  | 60.000 |
+| 3 | 20.000 |  | 1.000 | 40.000 | = | 1.000 | 60.000 |
+| 4 | 31.000 |  | 1.000 | 40.000 | = | 1.000 | 71.000 | Service revenue
+| 5 | 31.000 | 6.000 | 1.000 | 40.000 | = | 1.000 | 77.000 | Service revenue
+| 6 | 24.400 | 6.000 | 1.000 | 40.000 | = | 1.000 | 70.400 | Expenses
+| 7 | 23.800 | 6.000 | 1.000 | 40.000 | = | 400 | 70.400 |
+Kontrol: Varlıklar 23.800 + 6.000 + 1.000 + 40.000 = **70.800**; Borç + OE = 400 + 70.400 = **70.800**. Denge tamam.
+<<<
+### Kendini test et
+?? (a) Banka kredisi 10.000 alındı. || Cash +10.000, Notes Payable +10.000.
+?? (b) 15.000'lik kamyon: 2.000 peşin, kalanı senetle. || Truck +15.000, Cash −2.000, Notes Payable +13.000.
+?? (c) Sahip kişisel kullanım için 2.000 çekti. || Cash −2.000, OE −2.000 (withdrawal/dividend; gider değil).
+?? (d) Gelecek ayın hizmeti için müşteriden 900 peşin alındı. || Cash +900, Unearned Revenue +900 (borç). Gelir henüz yok.
+?? (e) 1 yıllık sigorta için 1.200 peşin ödendi. || Prepaid Insurance +1.200, Cash −1.200 (varlık değişimi; gider değil).
+
+## Finansal tablolar
+Tablolar **bu sırayla** hazırlanır, çünkü her biri bir sonrakini besler: Gelir tablosu → (Net Income) → Özkaynak değişim tablosu → (dönem sonu Capital / Retained Earnings) → Bilanço.
+| Tablo | Ne gösterir | Zaman | Hocanın benzetmesi
+| Income Statement (P/L) | Gelirler − Giderler = Net kâr/zarar | Bir **dönem** (“for the year ended…”) | Film
+| Statement of Owner's Equity | Dönem başı sermaye + yatırım + net kâr − temettü/çekiş = dönem sonu | Bir **dönem** | Film
+| Balance Sheet (Statement of Financial Position) | Varlıklar = Borçlar + Özkaynak | Belirli bir **tarih** (“31.12.2023”) | Fotoğraf
+| Statement of Cash Flows | Nakit giriş–çıkışları | Bir dönem | —
+Her tablonun **üç satırlık başlığı** olur: şirket adı, tablonun adı, dönem/tarih. Başlığı eksik yazmak puan kaybettirebilir.
+**Bilanço sınıflandırması:** Cari varlıklar 1 yıl içinde nakde dönen/kullanılanlar (Cash, kısa vadeli yatırımlar, A/R, Inventory, Supplies, Prepaid); uzun vadeli varlıklar PP&E (Land, Building, Equipment), maddi olmayan duran varlıklar, uzun vadeli yatırımlar. Cari borçlar 1 yıl içinde ödenecekler (A/P, Salaries Payable, Taxes Payable, kısa vadeli krediler, Unearned Revenue); uzun vadeli borçlar long-term notes payable, mortgage payable. Türkiye'de borsada işlem gören şirketler tablolarını **üç ayda bir** hazırlar.
+### Çözümlü örnek: A. Yılmaz Consulting tabloları
+| A. Yılmaz Consulting — Income Statement | $
+| Service Revenue (11.000 + 6.000) | 17.000
+| Rent Expense (1.200 + 2.200) | (3.400)
+| Salary Expense | (2.400)
+| Utilities Expense | (800)
+| Total Expenses | (6.600)
+| **Net Income** | **10.400**
+
+| A. Yılmaz Consulting — Statement of Owner's Equity | $
+| Capital, dönem başı | 0
+| + Owner investment | 60.000
+| + Net Income | 10.400
+| − Dividends / Withdrawals | (0)
+| **Capital, dönem sonu** | **70.400**
+
+| Assets | $ | Liabilities & Owner's Equity | $
+| Cash | 23.800 | Accounts Payable | 400
+| Accounts Receivable | 6.000 | Total Liabilities | 400
+| Supplies | 1.000 | A. Yılmaz, Capital | 70.400
+| Land | 40.000 |  |
+| **Total Assets** | **70.800** | **Total L + OE** | **70.800**
+### Tuzaklar
+!tuzak Temettü/çekiş **gelir tablosunda yer almaz**; sadece özkaynak tablosunda düşülür. Sahibin yatırımı gelir değildir; o da özkaynak tablosuna gider. Varlık alımı (arsa, malzeme) gider değildir; bilançoda varlık olarak durur. Bilançodaki sermaye, özkaynak tablosunun **son satırıyla** aynı olmalı.
+
+## Borç/alacak, T-hesap, yevmiye ve defteri kebir
+Tek kural: **Debit = sol, Credit = sağ.** Her işlem en az iki hesabı etkiler ve toplam debit = toplam credit olur (double-entry).
+| Hesap grubu | Artış | Azalış | Normal bakiye
+| Assets | Debit | Credit | Debit
+| Dividends / Withdrawals | Debit | Credit | Debit
+| Expenses | Debit | Credit | Debit
+| Liabilities | Credit | Debit | Credit
+| Capital / Common Stock | Credit | Debit | Credit
+| Revenues | Credit | Debit | Credit
+!ipucu **DEA** (Dividends, Expenses, Assets) borç tarafında artar; **LCR** (Liabilities, Capital, Revenues) alacak tarafında artar. Mantık: gider ve temettü özkaynağı azaltır; özkaynak alacakla artan bir hesap olduğu için onların artışı borca yazılır. “Araç” sekmesindeki Borç/Alacak antrenmanıyla hızlan.
+**Hızlı kontrol (5. hafta slaytı):** nakit artışı → Dr; A/R artışı → Dr; A/P artışı → Cr; malzeme azalışı → Cr; gelir artışı → Cr; kira gideri artışı → Dr; common stock artışı → Cr; notes payable azalışı → Dr; nakit azalışı → Cr; withdrawal artışı → Dr.
+### Kayıt süreci (5 adım)
+1. Etkilenen hesapları ve türlerini belirle (A, L, OE).
+2. Her hesap artıyor mu azalıyor mu; Dr/Cr kuralını uygula.
+3. Yevmiyeye (journal) tarih sırasıyla kaydet.
+4. Defteri kebire (ledger, T-hesaplar) aktar = **posting**.
+5. Denklemin dengede olduğunu kontrol et.
+**Yevmiye kaydı formatı:** önce borçlu hesap ve tutar sol sütunda; altında **içeri girintili** alacaklı hesap ve tutar sağ sütunda; en altta kısa açıklama.
+| Tarih | Hesap | Debit | Credit
+| Nov 1 | Cash | 30.000 |
+|  |     Common Stock |  | 30.000
+|  | *Issued common stock* |  |
+**Posting ve T-hesap:** Her hesabın bir T'si vardır; yevmiyedeki borç tutarı o hesabın sol tarafına, alacak tutarı sağ tarafına taşınır. Tüm T-hesapların toplamı **ledger**dır. Bakiye = büyük taraf − küçük taraf, büyük tarafa yazılır.
+Örnek (5. hafta): Cash'in açılış bakiyesi 1.000 (Dr). 10 Ekim'de 700 $ nakit danışmanlık geliri → Cash Dr 700 / Service Revenue Cr 700. Cash bakiyesi = 1.000 + 700 = **1.700 Dr**.
+### Tanımlar (kısa cevaplı soru gelebilir)
+- **Transaction:** işletmenin finansal durumunu etkileyen ve güvenilir ölçülebilen olay.
+- **Account:** her varlık, borç ve özkaynak kalemi için artış/azalışları gösteren kayıt; muhasebenin temel özetleme aracı.
+- **Journal:** işlemlerin kronolojik kaydı. **Ledger:** hesapların ve bakiyelerinin toplandığı kayıt.
+- **Deferred (unearned) revenue:** peşin tahsil edilip henüz hak edilmemiş gelir → borç. **Accrued liability:** gerçekleşmiş ama ödenmemiş gider (Salaries Payable, Interest Payable).
+- **Retained earnings:** birikmiş net kâr − dağıtılan temettüler.
+- **Cari borç:** 1 yıl veya faaliyet döngüsü içinde (hangisi uzunsa) ödenecek borç.
+### Mizan (trial balance)
+Slaytlarda henüz yok. Tüm hesapların bakiyelerinin listesidir; borç bakiyeleri bir sütuna, alacak bakiyeleri diğerine yazılır ve iki toplam **eşit** olmalıdır.
+!tuzak Mizanın dengede olması kayıtların hatasız olduğunu kanıtlamaz: yanlış hesaba yazılmış ama tutarı doğru bir kayıt, hiç kaydedilmemiş bir işlem ya da iki kez kaydedilmiş bir işlem mizanı bozmaz.
+
+## 3 Kasım örneği: Smart Touch Learning tam çözüm
+17 işlemin sonunda mizan **125.400 = 125.400** ile dengede; net kâr **10.800 $**, toplam varlık **114.700 $**. Önce kendin çöz, sonra kontrol et.
+| # | Tarih | İşlem
+| 1 | Nov 1 | Hissedarlar 30.000 $ nakit yatırır, karşılığında hisse alır
+| 2 | Nov 2 | 20.000 $'a nakit arsa alınır
+| 3 | Nov 3 | 500 $'lık büro malzemesi veresiye alınır
+| 4 | Nov 8 | 5.500 $ nakit hizmet geliri
+| 5 | Nov 10 | 3.000 $ veresiye hizmet
+| 6 | Nov 15 | Kira 2.000 $ ve maaş 1.200 $ nakit ödenir
+| 7 | Nov 21 | Satıcıya 300 $ borç ödenir
+| 8 | Nov 22 | Müşteriden 2.000 $ tahsil edilir
+| 9 | Nov 25 | 5.000 $ temettü ödenir
+| 10 | Dec 1 | 3.000 $ peşin kira ödenir
+| 11 | Dec 1 | 1.200 $ maaş ödenir
+| 12 | Dec 1 | 60.000 $'lık bina senetle alınır
+| 13 | Dec 2 | Hissedarlar 18.000 $'lık mobilya koyar, karşılığında hisse alır
+| 14 | Dec 15 | 100 $'lık elektrik faturası gelir, henüz ödenmez
+| 15 | Dec 15 | 1.200 $ maaş ödenir
+| 16 | Dec 21 | Gelecek ayın hizmeti için 600 $ peşin alınır
+| 17 | Dec 28 | 8.000 $ nakit hizmet geliri
+>>> Yevmiye kayıtlarını göster
+| # | Tarih | Hesap (Dr / Cr) | Debit | Credit | Not
+| 1 | Nov 1 | Cash | 30.000 |  | Hissedar yatırımı
+|  |  |     Common Stock |  | 30.000 |
+| 2 | Nov 2 | Land | 20.000 |  | Varlık ↔ varlık
+|  |  |     Cash |  | 20.000 |
+| 3 | Nov 3 | Office Supplies | 500 |  | Veresiye alım
+|  |  |     Accounts Payable |  | 500 |
+| 4 | Nov 8 | Cash | 5.500 |  | Nakit gelir
+|  |  |     Service Revenue |  | 5.500 |
+| 5 | Nov 10 | Accounts Receivable | 3.000 |  | Gelir şimdi kaydedilir
+|  |  |     Service Revenue |  | 3.000 |
+| 6 | Nov 15 | Rent Expense | 2.000 |  | Bileşik kayıt
+|  |  | Salaries Expense | 1.200 |  |
+|  |  |     Cash |  | 3.200 |
+| 7 | Nov 21 | Accounts Payable | 300 |  | Borç ödemesi, gider değil
+|  |  |     Cash |  | 300 |
+| 8 | Nov 22 | Cash | 2.000 |  | Tahsilat, yeni gelir değil
+|  |  |     Accounts Receivable |  | 2.000 |
+| 9 | Nov 25 | Dividends | 5.000 |  | Gider değil
+|  |  |     Cash |  | 5.000 |
+| 10 | Dec 1 | Prepaid Rent | 3.000 |  | Peşin ödeme = varlık
+|  |  |     Cash |  | 3.000 |
+| 11 | Dec 1 | Salaries Expense | 1.200 |  |
+|  |  |     Cash |  | 1.200 |
+| 12 | Dec 1 | Building | 60.000 |  | Senetle alım
+|  |  |     Notes Payable |  | 60.000 |
+| 13 | Dec 2 | Furniture | 18.000 |  | Nakit dışı yatırım
+|  |  |     Common Stock |  | 18.000 |
+| 14 | Dec 15 | Utilities Expense | 100 |  | Tahakkuk eden borç
+|  |  |     Utilities Payable |  | 100 |
+| 15 | Dec 15 | Salaries Expense | 1.200 |  |
+|  |  |     Cash |  | 1.200 |
+| 16 | Dec 21 | Cash | 600 |  | Henüz kazanılmadı
+|  |  |     Unearned Revenue |  | 600 |
+| 17 | Dec 28 | Cash | 8.000 |  |
+|  |  |     Service Revenue |  | 8.000 |
+<<<
+>>> Cash T-hesabını göster (posting örneği)
+| Debit (+) |  | Credit (−) |
+| Nov 1 | 30.000 | Nov 2 | 20.000
+| Nov 8 | 5.500 | Nov 15 | 3.200
+| Nov 22 | 2.000 | Nov 21 | 300
+| Dec 21 | 600 | Nov 25 | 5.000
+| Dec 28 | 8.000 | Dec 1 | 3.000
+|  |  | Dec 1 | 1.200
+|  |  | Dec 15 | 1.200
+| **Toplam** | **46.100** | **Toplam** | **33.900**
+| **Bakiye** | **12.200** |  |
+Diğer hesaplar aynı şekilde: A/R 3.000 − 2.000 = 1.000 Dr; A/P 500 − 300 = 200 Cr; Common Stock 30.000 + 18.000 = 48.000 Cr; Service Revenue 5.500 + 3.000 + 8.000 = 16.500 Cr; Salaries Expense 1.200 × 3 = 3.600 Dr.
+<<<
+>>> Mizanı göster (Unadjusted Trial Balance, 31 Aralık)
+| Hesap | Debit | Credit
+| Cash | 12.200 |
+| Accounts Receivable | 1.000 |
+| Office Supplies | 500 |
+| Prepaid Rent | 3.000 |
+| Land | 20.000 |
+| Building | 60.000 |
+| Furniture | 18.000 |
+| Accounts Payable |  | 200
+| Utilities Payable |  | 100
+| Unearned Revenue |  | 600
+| Notes Payable |  | 60.000
+| Common Stock |  | 48.000
+| Dividends | 5.000 |
+| Service Revenue |  | 16.500
+| Rent Expense | 2.000 |
+| Salaries Expense | 3.600 |
+| Utilities Expense | 100 |
+| **Toplam** | **125.400** | **125.400**
+<<<
+>>> Bu verilerden tablolar (düzeltme kayıtları öncesi)
+- Gelir tablosu: Service Revenue 16.500 − (Rent 2.000 + Salaries 3.600 + Utilities 100 = 5.700) = **Net Income 10.800**.
+- Retained earnings: 0 + 10.800 − 5.000 dividends = **5.800**.
+- Bilanço: Varlıklar 12.200 + 1.000 + 500 + 3.000 + 20.000 + 60.000 + 18.000 = **114.700**; Borçlar 200 + 100 + 600 + 60.000 = 60.900; Özkaynak 48.000 + 5.800 = 53.800; 60.900 + 53.800 = **114.700**.
+<<<
+
+## Vize tahmini ve kontrol listesi
+Slaytlara harcanan zamana ve çözülen örneklere bakınca vizenin ağırlığı **uygulamada** olacak gibi: işlem analizi, yevmiye kaydı ve tablo hazırlama. Bu bir tahmin; kesin kapsamı hocadan teyit et (özellikle mizan dahil mi).
+| Soru tipi | Olasılık | Nasıl çalışmalı
+| Yevmiye kaydı + T-hesaplara posting | Çok yüksek | 3 Kasım örneğini cevaplara bakmadan baştan çöz
+| İşlemleri denklem tablosunda göster | Yüksek | A. Yılmaz tablosunu boş kâğıtta yeniden kur
+| Gelir tablosu + özkaynak tablosu + bilanço | Yüksek | 3 Kasım verisinden üç tabloyu çıkar
+| Debit/credit kuralı, hesap türü, normal bakiye | Yüksek | Borç/Alacak antrenmanını 3 tur yap
+| Tanımlar, kullanıcılar, finansal vs yönetim, IASB/FASB | Orta | Teori bölümündeki tabloları gözden geçir
+| İşletme biçimleri | Orta | Sorumluluk ve vergi farkına odaklan
+| Cari / uzun vadeli sınıflandırma | Orta | 10 hesap yaz, sınıflandır
+| Mizan hazırlama | Orta-düşük | 3 Kasım mizanını kendin çıkar
+| Kariyer alanları, nakit akış tablosu | Düşük | Bir kez okumak yeter
+### Vizeden önce işaretle
+[] DEA / LCR kuralını bakmadan yazabiliyorum
+[] Prepaid (varlık) ile Unearned (borç) farkını açıklayabiliyorum
+[] Veresiye gelirde gelirin hemen kaydedildiğini, tahsilatın yeni gelir olmadığını biliyorum
+[] Temettü/çekişin gider olmadığını ve gelir tablosuna girmediğini biliyorum
+[] Bileşik kayıt yazabiliyorum (Transaction 6 gibi)
+[] Nakit dışı sermaye konmasını kaydedebiliyorum (Transaction 13: Furniture / Common Stock)
+[] Üç tabloyu doğru sırayla ve üç satırlık başlıkla hazırlayabiliyorum
+[] T-hesapta bakiye bulabiliyorum
+[] Ders kitabı Ch. 1–2 sonundaki Brief Exercise'lardan en az 10 tane çözdüm
+</script>
+
+<script type="text/plain" id="n-econ">
+## Nasıl çalışmalı
+Sınav tamamen çoktan seçmeli (vize %40, final %60) ve kaynak kitap Mankiw, *Principles of Economics*. Konular Türkçe anlatıldı, İngilizce terimler parantez içinde; sınavda sorular İngilizce gelecek.
+Sıra: konu anlatımını oku → Kartlar sekmesinde terimleri pekiştir → Test sekmesinde soruları çöz → Araç sekmesindeki esneklik hesaplayıcıyla alıştırma yap.
+!tuzak **En sık tuzak:** “talepte değişme” (eğrinin kayması) ile “talep edilen miktarda değişme” (eğri üzerinde hareket) ayrımı. Bu ayrım arz için de aynıdır.
+
+## Hafta 1 – Ekonomi nedir ve On İlke
+### Temel tanımlar
+- **Ekonomi (economy):** Yunanca “haneyi yöneten kişi” kelimesinden gelir. Toplumda kaynaklar tek bir merkezî planlayıcıyla değil, milyonlarca hane ve firmanın ortak kararlarıyla dağıtılır.
+- **Kıtlık (scarcity):** Toplumun kaynakları sınırlıdır; insanların istediği tüm mal ve hizmetleri üretemez.
+- **İktisat (economics):** Toplumun kıt kaynaklarını nasıl yönettiğini inceleyen bilim. Diğer tanım: kıt kaynakların sınırsız insan ihtiyaçlarını karşılamak için kullanımının incelenmesi.
+- **Karar alıcılar (decision makers):** bireyler (hane halkı), firmalar ve devlet.
+### Ekonominin On İlkesi (Ten Principles of Economics)
+İlkeler üç gruba ayrılır ve bu gruplama sınavda sorulabilir: **1–4** bireysel karar alma, **5–7** ekonomik aktörlerin etkileşimi, **8–10** ekonominin bütünü.
+| No | İlke | Türkçe anlamı ve kilit nokta | Slayttaki örnek
+| 1 | People face trade-offs | Ödünleşim. “Bedava öğle yemeği yoktur.” Önemli ödünleşim: **verimlilik (efficiency)** – kıt kaynaklardan en fazlasını elde etmek ile **hakkaniyet (equity)** – refahın adil dağıtılması. | Hafta sonu ders vs gezi; temiz çevre vs yüksek büyüme
+| 2 | The cost of something is what you give up to get it | **Fırsat maliyeti (opportunity cost):** bir şeyi elde etmek için vazgeçilen her şey. | Üniversiteye gitmek vs çalışmak
+| 3 | Rational people think at the margin | **Marjinal değişiklik:** planın kenarlarındaki küçük, artımlı ayarlamalar. | Açken pizza vs tokken bir dilim daha
+| 4 | People respond to incentives | Teşvik = fiyat, miktar ya da politikalardaki değişiklikler. | Çevre dostu otomobillere vergi indirimi
+| 5 | Trade can make everyone better off | Rekabet → uzmanlaşma ve çeşitlilik artışı. | Dış ticarete açılmak
+| 6 | Markets are usually a good way to organize economic activity | **Piyasa ekonomisi:** kaynakları merkezî olmayan kararlarla dağıtır. Zıttı: merkezî planlı ekonomi. Adam Smith'in **görünmez el (invisible hand)** fikri. | Vergiler fiyat ayarlamasını bozabilir
+| 7 | Governments can sometimes improve market outcomes | **Piyasa başarısızlığı (market failure)** iki nedenle: **dışsallık (externality)** ve **piyasa gücü (market power)**. | Kirlilik, tekel
+| 8 | A country's standard of living depends on its ability to produce goods and services | Farkların nedeni **verimlilik (productivity):** bir işçinin bir saatte ürettiği miktar. | Eğitim, Ar-Ge sübvansiyonu
+| 9 | Prices rise when the government prints too much money | **Enflasyon:** genel fiyat düzeyinin artması. Friedman: “Enflasyon her zaman parasal bir olgudur.” | Arjantin
+| 10 | Society faces a short-run trade-off between inflation and unemployment | **Phillips eğrisi**. Fiyatlar kısa dönemde yapışkandır (sticky). | Enflasyonu düşürmek kısa vadede işsizliği artırabilir
+!ipucu Grupları “**4–3–3**” diye ezberle: 4 bireysel (trade-off, cost, margin, incentives), 3 etkileşim (trade, markets, government), 3 bütün ekonomi (productivity, money, Phillips).
+**Akılda tut:** Adam Smith (1723–1790) görünmez el ve *Wealth of Nations* (1776) ile; David Ricardo (1772–1823) karşılaştırmalı üstünlük ile anılır.
+
+## Hafta 2 – Bir ekonomist gibi düşünmek
+### Bilim olarak iktisat ve modeller
+İktisatçılar teori kurar, veri toplar ve bu veriyle teoriyi doğrulamaya ya da çürütmeye çalışır. **Varsayımlar (assumptions)** dünyayı anlamayı kolaylaştırır. **İktisadi modeller** gerçekliğin özünü temsil eden diyagram ve denklemlerdir. Derste iki model işlendi: Üretim İmkânları Eğrisi ve Dairesel Akım Diyagramı.
+### Üretim İmkânları Eğrisi (Production Possibilities Frontier, PPF)
+Mevcut üretim faktörleri ve teknolojiyle ekonominin üretebileceği çıktı bileşimlerini gösteren grafik. Kıtlık ve verimliliğin görsel modelidir.
+@fig ppf | Üretim imkânları eğrisi: A etkin, B etkin değil, C ulaşılamaz
+- **Eğrinin üzerindeki nokta (A):** etkin (efficient). Bir maldan daha fazla üretmek için diğerinden vazgeçmek gerekir.
+- **Eğrinin içindeki nokta (B):** etkin değil (inefficient). Kaynaklar tam kullanılmıyor (ör. işsizlik).
+- **Eğrinin dışındaki nokta (C):** mevcut kaynaklarla ulaşılamaz.
+- **Eğri üzerinde hareket:** ödünleşim; vazgeçilen miktar fırsat maliyetidir.
+- **Dışa bükük (bowed outward) şekil:** fırsat maliyeti artar, çünkü kaynaklar her malın üretimine eşit derecede uygun değildir.
+- **Teknolojik gelişme:** eğriyi dışa kaydırır. Sadece bilgisayar üretiminde gelişme olursa eğri yalnızca bilgisayar ekseni yönünde genişler.
+### Üretim faktörleri (factors of production)
+- **Toprak (land):** tarım arazisi, gayrimenkul, ayrıca petrol ve altın gibi doğal kaynaklar.
+- **Emek (labour):** bir ürünü piyasaya getirmek için harcanan fiziksel ve zihinsel çaba.
+- **Sermaye (capital):** makine, alet, fabrika, bina gibi insan yapımı üretim faktörleri.
+!tuzak **Para bir üretim faktörü değildir.** Sermaye = fiziksel sermaye (makine, bina).
+### Dairesel Akım Diyagramı (Circular-Flow Diagram)
+@fig flow | Dairesel akım: iç döngü mal ve faktörler, dış döngü para
+- **İki aktör:** hane halkı (households) ve firmalar (firms). Temel modelde devlet ve dış ticaret yoktur.
+- **İki piyasa:** mal ve hizmet piyasası ile üretim faktörleri piyasası.
+- **İç döngü:** mal-hizmet ve üretim faktörlerinin akışı. **Dış döngü:** paranın akışı (harcama, gelir, ücret, kira, kâr).
+- Hane halkı emeğini **faktör piyasasında** satar, malları **mal piyasasında** alır. Firmalar bunun tersini yapar.
+### Mikro ve makro iktisat
+- **Mikroiktisat:** tek tek karar birimlerini (hane, firma, tek bir piyasa) inceler.
+- **Makroiktisat:** toplam ekonominin davranışını (enflasyon, işsizlik, büyüme) inceler.
+### Mutlak ve karşılaştırmalı üstünlük (Bölüm 3)
+**Mutlak üstünlük (absolute advantage):** bir malı daha az girdiyle üretebilmek. **Karşılaştırmalı üstünlük (comparative advantage):** bir malı daha düşük fırsat maliyetiyle üretebilmek. İki ülke ve iki malda, bir ülke bir malda karşılaştırmalı üstünlüğe sahipse diğer ülke mutlaka diğer malda karşılaştırmalı üstünlüğe sahiptir. Ticaretten kazanç karşılaştırmalı üstünlükten doğar.
+!ek **Hesap örneği:** Türkiye 1 saatte 4 araba ya da 8 bilgisayar, Almanya 6 araba ya da 6 bilgisayar üretebiliyor. Türkiye'de 1 arabanın fırsat maliyeti 2 bilgisayar, Almanya'da 1 bilgisayar. Arabada karşılaştırmalı üstünlük **Almanya'da**, bilgisayarda **Türkiye'de** (1 bilgisayar = 0,5 araba < 1 araba). Mutlak üstünlük arabada Almanya'da, bilgisayarda Türkiye'de.
+
+## Hafta 3–4 – Arz ve talep
+### Piyasa ve rekabet
+**Piyasa (market):** belirli bir mal ya da hizmetin alıcı ve satıcılarından oluşan grup.
+| Piyasa türü | Firma sayısı | Ürün
+| Tam rekabet (perfect competition) | Çok | Özdeş (identical)
+| Monopolcü rekabet (monopolistic competition) | Çok | Farklılaştırılmış (differentiated)
+| Oligopol (oligopoly) | Birkaç | Özdeş ya da farklı
+| Tekel (monopoly) | Bir | Tek ürün
+**Tam rekabetin özellikleri:** mallar özdeştir; alıcı ve satıcılar **fiyat alıcıdır (price takers)**; her iki taraf da fiyatlar hakkında **tam bilgiye** sahiptir; giriş ve çıkış serbesttir. Satıcının alıcıdan daha fazla bilgiye sahip olması tam rekabetle **çelişir**.
+### Talep (demand)
+**Talep edilen miktar (quantity demanded):** alıcıların satın almaya istekli ve gücü yeten olduğu miktar.
+**Talep yasası (law of demand):** diğer her şey sabitken (ceteris paribus) fiyat artınca talep edilen miktar düşer. Talep eğrisi negatif eğimlidir.
+Talebin belirleyicileri:
+1. **Malın kendi fiyatı** → eğri üzerinde hareket.
+2. **Gelir:** **normal mal** – gelir artınca talep artar; **düşük mal (inferior good)** – gelir artınca talep azalır (toplu taşıma, ucuz markalar).
+3. **İlişkili malların fiyatları:** **ikame (substitutes)** – birinin fiyatı artınca diğerinin talebi artar (çay–kahve); **tamamlayıcı (complements)** – birinin fiyatı artınca diğerinin talebi azalır (araba–benzin).
+4. **Zevk ve tercihler (tastes)**
+5. **Beklentiler (expectations)**
+6. **Alıcı sayısı** (Mankiw ekler)
+**Piyasa talebi:** bireysel taleplerin yatay toplamı (her fiyatta miktarlar toplanır). **Ceteris paribus:** “diğer her şey sabitken”.
+### En önemli ayrım: kayma ve hareket
+@fig shift | Sol: fiyat değişince eğri üzerinde hareket. Sağ: fiyat dışı etken eğriyi kaydırır
+| Ne değişti? | Sonuç | Terim
+| Malın kendi fiyatı | Eğri **üzerinde hareket** | Talep edilen miktarda değişme (change in quantity demanded)
+| Fiyat dışı belirleyici (gelir, ilişkili mal fiyatı, zevk, beklenti, alıcı sayısı) | Eğrinin **kayması** | Talepte değişme (change in demand)
+Her fiyatta talep edilen miktarı artıran değişiklik eğriyi **sağa**, azaltan **sola** kaydırır. Slayttaki örnek: sigarayı caydıran bir kampanya talep eğrisini **sola kaydırır**; sigara vergisinin fiyatı artırması ise eğri **üzerinde yukarı doğru hareket** demektir.
+### Arz (supply)
+**Arz yasası:** diğer her şey sabitken fiyat artınca arz edilen miktar artar. Arz eğrisi pozitif eğimlidir.
+Arzın belirleyicileri: (1) malın kendi fiyatı → eğri üzerinde hareket; (2) **girdi fiyatları** – artarsa arz sola kayar; (3) **teknoloji** – arzı sağa kaydırır; (4) **beklentiler**; (5) satıcı sayısı.
+### Denge (equilibrium)
+- **Denge:** iki eğrinin kesiştiği nokta. **Denge fiyatı** = piyasayı temizleyen fiyat (market-clearing price).
+- **Fiyat dengenin üstündeyse:** arz edilen > talep edilen → **arz fazlası (surplus)** → fiyat düşer.
+- **Fiyat dengenin altındaysa:** talep edilen > arz edilen → **kıtlık (shortage)** → fiyat yükselir.
+- Fazla ve kıtlıklar geçicidir; piyasa fiyatı kendiliğinden dengeye götürür.
+### Karşılaştırmalı statik: 3 adım
+1. Olay arzı mı, talebi mi (ya da ikisini) etkiliyor?
+2. Eğri hangi yöne kayıyor?
+3. Yeni dengede fiyat (P) ve miktar (Q) ne oluyor?
+| Olay (dondurma piyasası) | Kayma | Fiyat | Miktar
+| Çok sıcak bir yaz | Talep sağa | Artar | Artar
+| Deprem fabrikaları yıkıyor | Arz sola | Artar | Azalır
+| İkisi birlikte | Talep sağa + arz sola | Kesin artar | **Belirsiz**
+!ipucu İki eğri aynı anda kayınca biri (P ya da Q) kesin, diğeri belirsizdir. Aynı yöne kayıyorlarsa **Q** kesin; ters yöne kayıyorlarsa **P** kesin.
+| Talep | Arz | P | Q
+| Artar | Artar | Belirsiz | Artar
+| Artar | Azalır | Artar | Belirsiz
+| Azalır | Artar | Azalır | Belirsiz
+| Azalır | Azalır | Belirsiz | Azalır
+
+## Hafta 4–5 – Esneklik
+**Esneklik:** bir iktisadi değişkenin başka bir değişkendeki değişime ne kadar duyarlı olduğunun ölçüsü (tepki verme derecesi).
+### Talebin fiyat esnekliği (PED)
+Talep yasası nedeniyle işaret negatiftir, ama Mankiw'de **mutlak değer** kullanılır.
+**Esnekliği belirleyenler:**
+- **Zorunlu vs lüks:** zorunlu mallar (ilaç, ekmek) inelastik, lüks mallar (yat, tatil) elastik.
+- **Yakın ikameler:** ikamesi çok olan mal daha elastik (tereyağı ↔ margarin).
+- **Piyasanın tanımı:** dar tanımlı piyasa daha elastik (“gıda” inelastik, “vanilyalı dondurma” elastik).
+- **Zaman ufku:** uzun dönemde talep daha elastiktir.
+**i. Yüzde değişim yöntemi:**
+$$ E_d = \frac{\%\Delta Q_d}{\%\Delta P}, \qquad \%\Delta Q = \frac{Q_2 - Q_1}{Q_1}\times 100 $$
+**ii. Orta nokta yöntemi (midpoint):** değişim, başlangıç ve son değerin ortalamasına bölünür; yönden bağımsız aynı sonucu verdiği için tercih edilir.
+$$ E_d = \frac{(Q_2 - Q_1)/[(Q_2 + Q_1)/2]}{(P_2 - P_1)/[(P_2 + P_1)/2]} $$
+### Esneklik derecelerine göre talep eğrileri
+| Değer | Ad | Eğri | Anlamı
+| E = 0 | Tam inelastik (perfectly inelastic) | Dikey | Fiyat ne olursa olsun miktar değişmez
+| 0 < E < 1 | İnelastik | Dik | Miktar fiyattan daha az oranda değişir
+| E = 1 | Birim esnek (unit elastic) | Orta | Aynı oranda değişir
+| E > 1 | Elastik | Yatık | Miktar fiyattan daha fazla oranda değişir
+| E = ∞ | Tam elastik (perfectly elastic) | Yatay | En küçük fiyat artışı miktarı sıfıra indirir
+!ipucu Eğri ne kadar **yatıksa** o kadar **elastik**, ne kadar **dikse** o kadar **inelastik**. “**D**ik = **D**uyarsız”.
+### Diğer esneklikler
+- **Gelir esnekliği** = %ΔQd / %ΔGelir. **Normal mal → pozitif**, **düşük mal → negatif**. Zorunlu normal mallar 0–1 arası, lüks mallar 1'den büyük.
+- **Çapraz fiyat esnekliği** = %ΔQd(1) / %ΔP(2). **İkameler → pozitif**, **tamamlayıcılar → negatif**.
+- **Arzın fiyat esnekliği** = %ΔQs / %ΔP. **Uzun dönemde daha elastiktir** (fabrika kurulur, yeni firmalar girer). Miktarı sabit olan şeylerin (sahil arsası) arzı tam inelastiktir.
+!ek **Toplam gelir (TR = P × Q) ve esneklik** (Mankiw 5. bölüm; slaytta yoksa hızlıca geç): Talep **inelastikse** fiyat artışı toplam geliri **artırır**; **elastikse** fiyat artışı toplam geliri **azaltır**; birim esnekse değişmez. Tarım örneği bu yüzden işler: verim artışı fiyatı çok düşürür, inelastik talepte çiftçinin geliri azalır.
+### Slayttaki alıştırma: sütün arz esnekliği
+Sütün litre fiyatı 30 TL'den 40 TL'ye çıkınca aylık üretim 10.000 litreden 12.000 litreye çıkıyor.
+- **Yüzde değişim:** %ΔQ = 2.000/10.000 = %20; %ΔP = 10/30 = %33,3 → **Es = 0,60** (inelastik).
+- **Orta nokta:** %ΔQ = 2.000/11.000 = %18,2; %ΔP = 10/35 = %28,6 → **Es ≈ 0,64** (inelastik).
+### Uygulama: OPEC neden petrol fiyatını yüksek tutamadı?
+- **Kısa dönemde** hem arz hem talep inelastiktir: arzdaki azalma fiyatı **çok** yükseltir.
+- **Uzun dönemde** her iki eğri de elastikleşir: tüketiciler tasarruf eder, OPEC dışı üreticiler üretimi artırır; aynı arz azalması fiyatı **daha az** yükseltir.
+- **Sonuç:** OPEC yüksek fiyatı yalnızca kısa dönemde koruyabildi.
+Diğer iki uygulama: tarımda verim artışı, talep inelastik olduğu için fiyatı çok düşürür ve çiftçinin toplam gelirini azaltabilir; uyuşturucu yasağı (arz kısıtlaması), talep inelastik olduğundan fiyatı ve kullanıcıların harcamasını artırarak suçu artırabilir.
+
+## Terimler sözlüğü
+| İngilizce | Türkçe | Kısa tanım
+| Scarcity | Kıtlık | Kaynakların istekleri karşılamaya yetmemesi
+| Trade-off | Ödünleşim | Bir şeyi elde etmek için başka bir şeyden vazgeçmek
+| Efficiency / Equity | Verimlilik / Hakkaniyet | Pastayı büyütmek / pastayı adil bölmek
+| Opportunity cost | Fırsat maliyeti | Vazgeçilen en iyi alternatif
+| Marginal change | Marjinal değişiklik | Küçük, artımlı ayarlama
+| Incentive | Teşvik | Davranışı değiştiren fiyat, miktar ya da politika
+| Invisible hand | Görünmez el | Kişisel çıkarın piyasada toplumsal faydaya yol açması (Smith)
+| Market failure | Piyasa başarısızlığı | Piyasanın kaynakları etkin dağıtamaması
+| Externality | Dışsallık | Bir eylemin üçüncü kişiye etkisi
+| Market power | Piyasa gücü | Fiyatları etkileyebilme gücü
+| Productivity | Verimlilik (üretkenlik) | İşçi başına saatlik üretim
+| Phillips curve | Phillips eğrisi | Kısa dönem enflasyon–işsizlik ödünleşimi
+| Price taker | Fiyat alıcı | Piyasa fiyatını veri kabul eden
+| Normal / Inferior good | Normal / Düşük mal | Gelir ↑ → talep ↑ / talep ↓
+| Substitutes / Complements | İkame / Tamamlayıcı | Çay–kahve / araba–benzin
+| Surplus / Shortage | Arz fazlası / Kıtlık | Fiyat dengenin üstünde / altında
+| Comparative statics | Karşılaştırmalı statik | Eski ve yeni dengeyi karşılaştırma
+| Midpoint method | Orta nokta yöntemi | Ortalamaya bölerek yüzde değişim
+| Cartel | Kartel | Üretimi koordineli kısan üretici birliği (OPEC)
+Tüm terimler Kartlar sekmesinde de var.
+
+## Hocanın çalışma soruları (Hafta 5 slaytı)
+Bu sorular sınav tarzını gösteriyor. Önce kendin cevapla, sonra aç.
+?? 1. İktisadın en doğru tanımı hangisi? || **a** — Sınırsız isteklerin kıt kaynaklarla nasıl karşılanacağını inceleyen sosyal bilim. Kıtlık vurgusu olan tek şık.
+?? 2. “Elektrikli arabalara vergi indirimi tüketiciyi geleneksel arabalardan uzaklaştırır” hangi ilke? || **d** — People respond to incentives.
+?? 3. Temel dairesel akım diyagramı için doğru ifade? || **c** — Para akışı ve mal-hizmet akışı vardır. Temel modelde devlet ve dış ticaret yoktur; hane halkı emeğini faktör piyasasında satar.
+?? 4. X ülkesi arabada karşılaştırmalı üstünlüğe sahipse? || **c** — Y ülkesi diğer malda (bilgisayar) karşılaştırmalı üstünlüğe sahiptir. Mutlak üstünlük hakkında bilgi yoktur.
+?? 5. ÜİE neden dışa bükük? || **b** — Kaynaklar her malın üretimine eşit uygun değildir → artan fırsat maliyeti.
+?? 6. Tam rekabette olmayan özellik? || **c** — Tam rekabette herkes tam bilgiye sahiptir; satıcının daha çok bilmesi bunu bozar.
+?? 7. Bir mal ne zaman normal kabul edilir? || **c** — Tüketicinin geliri artınca talebi artıyorsa.
+?? 8. Talep yasası neyi ifade eder? || **c** — Ceteris paribus fiyat artınca talep edilen miktar düşer.
+?? 9. Arz eğrisi ne zaman sağa kayar? || **b** — Üretimi verimli yapan teknoloji. Fiyat artışı eğri üzerinde hareket, girdi fiyatı artışı sola kayma.
+?? 10. Büyük bir göç dalgası nihai mal piyasasını nasıl etkiler? (açık uçlu) || Alıcı sayısı artar → **talep sağa kayar** → fiyat ve miktar artar. Göçmenler emek arzını artırıp maliyeti düşürürse **arz da sağa kayar**; o zaman miktar kesin artar, fiyat belirsizdir. İki kanalı da yazmak en güvenli cevap.
+</script>

@@ -1,0 +1,42 @@
+<header class="top">
+  <button class="ibtn menu-btn" id="menuBtn" aria-label="Menüyü aç" aria-expanded="false">☰</button>
+  <a class="brand" href="#"><b>Vize Masası</b><small>16–20 Kasım</small></a>
+  <div class="search" id="searchBox">
+    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="8.5" cy="8.5" r="6"/><path d="m13 13 5 5"/></svg>
+    <input id="q" type="search" placeholder="Konu, terim, formül ara…" autocomplete="off" aria-label="Ara">
+    <kbd>/</kbd>
+    <div class="results" id="results" hidden></div>
+  </div>
+  <div class="top-tools">
+    <span class="pill next-exam" id="nextExam"></span>
+    <button class="ibtn pomo" id="pomo" title="Odak sayacı (25 dk çalış, 5 dk mola). Sağ tık veya uzun bas: sıfırla">25:00</button>
+    <button class="ibtn" id="themeBtn" title="Tema değiştir" aria-label="Tema değiştir">◐</button>
+    <button class="ibtn hide-sm" id="helpBtn" title="Kısayollar" aria-label="Kısayollar">?</button>
+  </div>
+</header>
+<div class="shell">
+  <nav class="side" id="side" aria-label="Dersler"></nav>
+  <div class="scrim" id="scrim"></div>
+  <main id="view" tabindex="-1"></main>
+</div>
+<div class="toast" id="toast" hidden></div>
+<dialog id="help">
+  <div class="dl">
+    <h2>Kısayollar</h2>
+    <div class="keys">
+      <kbd>/</kbd><span>Aramaya git</span>
+      <kbd>Boşluk</kbd><span>Kartı çevir</span>
+      <kbd>← →</kbd><span>Önceki / sonraki kart</span>
+      <kbd>1</kbd><span>Kartta “Tekrar et”</span>
+      <kbd>2</kbd><span>Kartta “Biliyorum”</span>
+      <kbd>A–E</kbd><span>Testte şık seç</span>
+      <kbd>Enter</kbd><span>Testte sonraki soru</span>
+      <kbd>Esc</kbd><span>Aramayı / menüyü kapat</span>
+    </div>
+    <p class="muted" style="font-size:13px;margin:14px 0 0">İlerlemen (bitirdiğin konular, test puanların, kart kutuların, yanlışların) bu sayfaya kaydedilir; aynı hesapla telefondan açınca da görünür.</p>
+    <div class="row" style="margin-top:16px;justify-content:space-between">
+      <button class="btn sm" id="resetBtn">İlerlemeyi sıfırla…</button>
+      <button class="btn pri" id="helpClose">Kapat</button>
+    </div>
+  </div>
+</dialog>
