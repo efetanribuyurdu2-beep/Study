@@ -308,7 +308,15 @@ function viewNotes(c, jump){
 }
 function viewOzet(c){
   const O = ozet(c.id);
-  view.innerHTML = `<div class="wrap" style="--c:${cvar(c.id)}">${courseHead(c,'ozet')}<p class="muted" style="margin-top:0">Sınavdan hemen önce bakılacak tek sayfa. Ayrıntı için Konu anlatımı sekmesine dön.</p><div class="prose">${O.html}</div></div>`;
+  const traps = $('#n-'+c.id).textContent.split('\n').filter(l=>l.trim().startsWith('!tuzak ')).map(l=>l.trim().slice(7));
+  const weakKl = (KL[c.id]||[]).map((q,i)=>[q,i]).filter(([q,i])=>{ const s = klScoreOf(c.id,i); return s!=null && s<70; });
+  const wrongN = Object.keys(S.wrong).filter(k=>k.startsWith(c.id+'-')).length, weakCards = deck(c.id,'weak').length;
+  let sb = `<details class="rv sabah" open><summary>Sınav sabahı · 15 dakikalık son bakış</summary><div>`;
+  sb += `<div class="row" style="margin:4px 0 10px">${(KL[c.id]||[]).length?`<a class="btn sm" href="#${c.id}-klasik">Zayıf klasikler: ${weakKl.length}</a>`:''}<a class="btn sm" href="#${c.id}-test">Yanlış test soruları: ${wrongN}</a><a class="btn sm" href="#${c.id}-kart">Bilmediğin kartlar: ${weakCards}</a></div>`;
+  if(weakKl.length) sb += `<p class="muted" style="margin:.4em 0">Puanı %70'in altında kalan klasikler:</p><ul>${weakKl.map(([q,i])=>`<li><a href="#${c.id}-klasik" data-kgo-sabah="${i}">${esc(plain(q.q.split('\n')[0]).slice(0,110))}</a> <span class="pill lo">%${klScoreOf(c.id,i)}</span></li>`).join('')}</ul>`;
+  if(traps.length) sb += `<p class="muted" style="margin:.6em 0 .2em">Bu dersin tuzakları:</p>` + traps.map(t=>`<div class="co tuzak"><span class="cl">Dikkat</span>${inline(t)}</div>`).join('');
+  sb += `</div></details>`;
+  view.innerHTML = `<div class="wrap" style="--c:${cvar(c.id)}">${courseHead(c,'ozet')}<p class="muted" style="margin-top:0">Sınavdan hemen önce bakılacak tek sayfa. Ayrıntı için Konu anlatımı sekmesine dön.</p><div class="prose">${sb}${O.html}</div></div>`;
   hydrate(view); typeset(view);
 }
 function hydrate(root){
@@ -746,6 +754,7 @@ document.addEventListener('click', e=>{
   const d = t.dataset;
   if(d.done){ S.done[d.done] ? delete S.done[d.done] : S.done[d.done]=1; save(); hydrate(view); const tc = $(`.toc a[data-jump="${d.done}"]`); if(tc) tc.classList.toggle('done', !!S.done[d.done]); renderSide(parseHash()); if(S.done[d.done]){ const sec=t.closest('.sec'); const nx=sec&&sec.nextElementSibling; toast('Konu bitti olarak işaretlendi.'); } return; }
   if(d.jump){ e.preventDefault(); scrollToSec(d.jump); return; }
+  if(d.kgoSabah!==undefined){ e.preventDefault(); KS = {cid:parseHash().cid, i:+d.kgoSabah}; KX = null; location.hash = KS.cid+'-klasik'; return; }
   if(d.kgo!==undefined){ KS = {cid:parseHash().cid, i:+d.kgo}; KX = null; route(); window.scrollTo(0,0); return; }
   if(d.klist!==undefined){ KS = null; route(); return; }
   if(d.kexam!==undefined){ startExam(parseHash().cid); return; }
