@@ -1,0 +1,199 @@
+<script>
+/* ================= KLASİK SORULAR =================
+   {t: konu, q: soru, a: örnek cevap (not dili), k: puan anahtarı, p: 1 = problem/hesap, ek: 1 = belgede yoktu} */
+const KL = {};
+KL.acc = [
+ {t:'Teori', q:'Muhasebeyi tanımlayınız ve AICPA tanımındaki dört temel işlevi açıklayınız.', k:['Tanım: işletme faaliyetlerini ölçen, işleyen ve karar vericilere ileten bilgi sistemi','Recording (kaydetme)','Classifying (sınıflandırma)','Summarizing (özetleme)','Interpreting (yorumlama)','Parasal / finansal nitelikli işlemler vurgusu'], a:`Muhasebe, bir işletmenin ekonomik faaliyetlerini **ölçen**, bu verileri **raporlara işleyen** ve sonuçları **karar vericilere ileten** bir bilgi sistemidir.
+AICPA tanımına göre muhasebe, parasal ve en azından kısmen finansal nitelikli işlemlerin:
+1. **Kaydedilmesi (recording):** işlemlerin tarih sırasıyla yevmiyeye yazılması
+2. **Sınıflandırılması (classifying):** benzer işlemlerin aynı hesaplarda toplanması
+3. **Özetlenmesi (summarizing):** hesapların finansal tablolara dönüştürülmesi
+4. **Yorumlanması (interpreting):** sonuçların analiz edilip kullanıcılara anlamlı hâle getirilmesi
+sanatıdır. Muhasebe üç soruya cevap verir: işletmenin ne kadar kaynağı var, bu kaynaklar nasıl finanse edildi ve hangi sonuç elde edildi.`},
+ {t:'Teori', q:'Finansal muhasebe ile yönetim muhasebesini kullanıcı, kurallar ve ürün açısından karşılaştırınız.', k:['Finansal: dış kullanıcılar (yatırımcı, banka, devlet)','Yönetim: iç kullanıcılar (yöneticiler)','Finansal: ortak standartlar (IFRS/GAAP), karşılaştırılabilir','Yönetim: serbest, ihtiyaca göre','Ürünler: finansal tablolar vs bütçe/maliyet raporu','Yönetim muhasebesinin işlevleri: planning, implementation, control'], a:`| | Finansal muhasebe | Yönetim muhasebesi
+| Kullanıcı | Dış kullanıcılar: yatırımcı, kreditör, devlet | İç kullanıcılar: yöneticiler
+| Kurallar | Ortak standartlar (IFRS / US GAAP); karşılaştırılabilir olmalı | Zorunlu standart yok; ihtiyaca göre serbest
+| Ürün | Bilanço, gelir tablosu, özkaynak ve nakit akış tabloları | Bütçeler, maliyet raporları, performans raporları
+| Amaç | İşletmenin genel durumunu dışarıya raporlamak | Planlama, uygulama ve kontrol kararlarını desteklemek
+Yönetim muhasebesi yöneticinin üç işlevine hizmet eder: **planning** (bütçe, alternatif seçimi), **implementation** (planı uygulamak) ve **control** (sonuçları izleyip değerlendirmek).`},
+ {t:'Teori', q:'Muhasebe bilgisinin iç ve dış kullanıcılarını, bilgiyi ne amaçla kullandıklarıyla birlikte açıklayınız.', k:['İç kullanıcı: yöneticiler; planlama ve kontrol','Yatırımcılar/hissedarlar: risk-getiri, al-tut-sat, temettü','Kreditörler/bankalar: borcun ve faizin ödenme gücü','Devlet: vergi, teşvik, istatistik','Diğer dış kullanıcılar: çalışanlar, tedarikçiler, müşteriler, rakipler'], a:`**İç kullanıcılar:** Yöneticiler. Planlama, strateji belirleme, kaynak dağıtımı ve kontrol için kullanır.
+**Dış kullanıcılar:**
+- **Yatırımcılar / hissedarlar:** riski ve getiriyi değerlendirir; hisseyi alma, tutma ya da satma kararı verir; temettü ödeme gücüne bakar.
+- **Kreditörler / bankalar:** verilen kredinin ve faizin vadesinde ödenip ödenemeyeceğini değerlendirir.
+- **Devlet:** vergilendirme, ekonomiyi teşvik politikaları ve ulusal istatistikler için kullanır.
+- **Çalışanlar, tedarikçiler, müşteriler, rakipler:** işletmenin sürekliliğini ve finansal gücünü değerlendirir.`},
+ {t:'Teori', q:'Sole proprietorship, partnership ve corporation türlerini sahiplik, sorumluluk ve vergilendirme açısından karşılaştırınız.', k:['Sole proprietorship: tek sahip, sınırsız sorumluluk','Partnership: 2+ ortak, sınırsız sorumluluk, kâr anlaşmaya göre','Corporation: hissedarlar, sınırlı sorumluluk','Vergi: ilk ikisinde kâr sahibin/ortakların gelirine eklenir; corporation ayrı vergilenir','Sahiplik devri: corporation\'da hisse kolay devredilir'], a:`| | Sole proprietorship | Partnership | Corporation
+| Sahiplik | Tek kişi | İki veya daha fazla ortak | Hissedarlar
+| Sorumluluk | Sınırsız, kişisel mal varlığına kadar | Sınırsız; kâr/zarar ortaklık anlaşmasına göre paylaşılır | Sınırlı: hissedar yatırdığı kadar sorumlu
+| Vergi | Kâr sahibin kişisel gelirine eklenir | Kâr ortakların gelirine eklenir | Ayrı tüzel kişidir, kendi kârı üzerinden vergilenir
+| Sahiplik devri | Zor | Anlaşmaya bağlı | Hisse alınıp satılarak kolayca devredilir
+Özkaynak hesaplarında da fark vardır: şahıs işletmesinde **Capital** ve **Withdrawals**, şirkette **Common Stock**, **Retained Earnings** ve **Dividends** kullanılır.`},
+ {t:'Döngü', q:'Muhasebe döngüsünün adımlarını sırasıyla yazınız.', k:['Analyze transactions','Journalize','Post to ledger','Trial balance','Adjusting entries','Adjusted trial balance','Financial statements','Closing entries','Post-closing trial balance'], a:`1. **Analyze:** işlemleri analiz et (hangi hesaplar, artış mı azalış mı)
+2. **Journalize:** yevmiyeye tarih sırasıyla kaydet
+3. **Post:** defteri kebirdeki (ledger) hesaplara aktar
+4. **Trial balance:** mizan hazırla (debit toplamı = credit toplamı)
+5. **Adjusting entries:** dönem sonu düzeltme kayıtları
+6. **Adjusted trial balance:** düzeltilmiş mizan
+7. **Financial statements:** finansal tabloları hazırla
+8. **Closing entries:** gelir, gider ve temettü hesaplarını kapat
+9. **Post-closing trial balance:** kapanış sonrası mizan`},
+ {t:'Denklem', q:'Prepaid expense ile unearned revenue arasındaki farkı birer örnek ve yevmiye kaydıyla açıklayınız.', k:['Prepaid expense bir varlıktır','Gider peşin ödenmiş, fayda ileride','Örnek kayıt: Prepaid Rent Dr / Cash Cr','Unearned revenue bir borçtur','Para peşin alınmış, hizmet henüz verilmemiş','Örnek kayıt: Cash Dr / Unearned Revenue Cr'], a:`**Prepaid expense (peşin ödenmiş gider)** bir **varlıktır**. Gider peşin ödenmiştir ama faydası gelecek dönemlerde kullanılacaktır.
+Örnek: 1 Aralık'ta 3 aylık kira 3.000 peşin ödendi.
+| Hesap | Debit | Credit
+| Prepaid Rent | 3.000 |
+|    Cash |  | 3.000
+**Unearned revenue (kazanılmamış gelir)** bir **borçtur**. Para peşin tahsil edilmiştir ama hizmet henüz verilmemiştir; işletme hizmeti vermek zorundadır.
+Örnek: gelecek ayın hizmeti için müşteriden 600 peşin alındı.
+| Hesap | Debit | Credit
+| Cash | 600 |
+|    Unearned Revenue |  | 600
+Hizmet verildikçe Unearned Revenue azalır ve gelir kaydedilir; kira dönemi geçtikçe Prepaid Rent azalır ve gider kaydedilir.`},
+ {t:'Tablolar', q:'Temettü (dividends) neden bir gider değildir? Hangi finansal tabloda gösterilir?', k:['Temettü sahiplere dağıtımdır, gelir elde etmek için katlanılan maliyet değildir','Özkaynağı azaltır','Gelir tablosunda yer almaz','Özkaynak / retained earnings tablosunda düşülür','Normal bakiyesi debit'], a:`Gider, **gelir elde etmek için katlanılan** maliyettir (kira, maaş, elektrik). Temettü ise kazanılmış kârın **sahiplere dağıtılmasıdır**; gelir elde etmeye katkısı yoktur. Bu yüzden gider değildir.
+Temettü özkaynağı azaltır, ama **gelir tablosuna girmez** ve net kârı etkilemez. **Statement of owner's equity / retained earnings** tablosunda dönem başı özkaynağa net kâr eklendikten sonra düşülür:
+Dönem sonu RE = Dönem başı RE + Net Income − Dividends
+Dividends hesabı borç (debit) tarafında artar ve normal bakiyesi debittir (DEA kuralı).`},
+ {t:'Mizan', q:'Mizan (trial balance) dengede ise kayıtlar hatasız mıdır? Açıklayınız.', k:['Mizan sadece debit = credit eşitliğini kontrol eder','Hatasızlığı kanıtlamaz','Yanlış hesaba kayıt (tutar doğru) bozmaz','Hiç kaydedilmemiş işlem bozmaz','İki kez kaydedilen işlem bozmaz','Debit ve credit\'te aynı tutarda yapılan hata bozmaz'], a:`Hayır. Mizan yalnızca **toplam borç bakiyelerinin toplam alacak bakiyelerine eşit** olduğunu gösterir. Eşitlik, kayıtların doğru olduğunu kanıtlamaz. Mizanı bozmayan hatalar:
+- Tutarı doğru ama **yanlış hesaba** yapılan kayıt (ör. Supplies yerine Equipment'a borç)
+- **Hiç kaydedilmemiş** bir işlem
+- **İki kez** kaydedilmiş bir işlem
+- Borç ve alacakta **aynı tutarda** yanlış yazılmış kayıt (ör. 500 yerine iki tarafta da 50)
+Mizanın dengede olmaması ise kesin olarak bir hata olduğunu gösterir.`},
+ {t:'Tablolar', q:'Finansal tabloları hazırlanma sırasıyla yazınız ve neden bu sırayla hazırlandıklarını açıklayınız.', k:['1. Income statement','2. Statement of owner\'s equity','3. Balance sheet','(4. Statement of cash flows)','Net income → özkaynak tablosuna taşınır','Dönem sonu özkaynak → bilançoya taşınır','Üç satırlık başlık'], a:`1. **Income statement:** gelirler − giderler = net kâr/zarar (bir dönem için)
+2. **Statement of owner's equity:** dönem başı özkaynak + yatırım + **net kâr** − temettü = dönem sonu özkaynak
+3. **Balance sheet:** varlıklar = borçlar + **dönem sonu özkaynak** (belirli bir tarih için)
+4. Statement of cash flows: nakit giriş ve çıkışları
+Sıra zorunludur, çünkü her tablo bir sonrakini besler: gelir tablosunun sonucu (net kâr) özkaynak tablosuna, özkaynak tablosunun son satırı bilançoya taşınır. Her tablonun üç satırlık başlığı olur: şirket adı, tablonun adı, dönem/tarih.`},
+ {t:'Tablolar', q:'Cari (current) ve uzun vadeli (non-current) varlık ve borçları tanımlayıp her birine iki örnek veriniz.', k:['Cari varlık: 1 yıl/faaliyet döngüsü içinde nakde dönen veya kullanılan','Örnek: Cash, A/R, Inventory, Supplies, Prepaid','Uzun vadeli varlık: PP&E, maddi olmayan duran varlık, uzun vadeli yatırım','Cari borç: 1 yıl içinde ödenecek','Örnek: A/P, Salaries Payable, Unearned Revenue','Uzun vadeli borç: long-term notes, mortgage payable'], a:`**Cari varlıklar:** bir yıl (veya faaliyet döngüsü, hangisi uzunsa) içinde nakde dönmesi ya da kullanılması beklenen varlıklar. Örnek: Cash, Accounts Receivable, Inventory, Supplies, Prepaid Rent.
+**Uzun vadeli varlıklar:** bir yıldan uzun süre kullanılacak varlıklar. Örnek: Land, Building, Equipment (PP&E), maddi olmayan duran varlıklar, uzun vadeli yatırımlar.
+**Cari borçlar:** bir yıl içinde ödenecek borçlar. Örnek: Accounts Payable, Salaries Payable, Taxes Payable, Unearned Revenue, kısa vadeli krediler.
+**Uzun vadeli borçlar:** vadesi bir yıldan uzun borçlar. Örnek: long-term Notes Payable, Mortgage Payable.`},
+ {t:'Denklem', p:1, ek:1, q:`**Ece Design** Ekim ayında kuruldu. İşlemleri muhasebe denklemi tablosunda gösteriniz (Cash, A/R, Supplies, Equipment = A/P + Capital).
+1. Sahip 25.000 nakit koydu.
+2. 8.000 nakit ödeyerek ekipman aldı.
+3. 1.200 büro malzemesini veresiye aldı.
+4. 4.500 nakit hizmet geliri elde etti.
+5. 2.000 veresiye hizmet verdi.
+6. Kira 1.500 ve maaş 1.000 nakit ödendi.
+7. A/P'nin 700'ü ödendi.
+8. Müşterilerden 1.200 tahsil edildi.
+9. Sahip kişisel kullanım için 900 çekti.`, k:['Her işlemde denklem dengede','Tahsilat (8) gelir değil, varlık değişimi','Borç ödeme (7) gider değil','Çekiş (9) gider değil, OE azalışı','Son Cash 18.600','Toplam varlık 28.600 = A/P 500 + Capital 28.100'], a:`| # | Cash | A/R | Supplies | Equipment | = | A/P | Capital | Açıklama
+| 1 | +25.000 |  |  |  | = |  | +25.000 | Owner investment
+| 2 | −8.000 |  |  | +8.000 | = |  |  | Varlık ↔ varlık
+| 3 |  |  | +1.200 |  | = | +1.200 |  | Veresiye alım
+| 4 | +4.500 |  |  |  | = |  | +4.500 | Service revenue
+| 5 |  | +2.000 |  |  | = |  | +2.000 | Service revenue
+| 6 | −2.500 |  |  |  | = |  | −2.500 | Rent 1.500 + Salaries 1.000
+| 7 | −700 |  |  |  | = | −700 |  | Borç ödeme
+| 8 | +1.200 | −1.200 |  |  | = |  |  | Tahsilat
+| 9 | −900 |  |  |  | = |  | −900 | Withdrawal
+| **Bakiye** | **18.600** | **800** | **1.200** | **8.000** | = | **500** | **28.100** |
+Kontrol: 18.600 + 800 + 1.200 + 8.000 = **28.600** = 500 + 28.100.`},
+ {t:'Tablolar', p:1, ek:1, q:'Bir önceki sorudaki **Ece Design** verilerinden Ekim ayı için gelir tablosu, özkaynak değişim tablosu ve bilançoyu hazırlayınız.', k:['Üç satırlık başlık','Revenue 6.500 (4.500 + 2.000)','Expenses 2.500 (Rent 1.500 + Salaries 1.000)','Net income 4.000','Capital sonu = 25.000 + 4.000 − 900 = 28.100','Bilanço: varlıklar 28.600 = A/P 500 + Capital 28.100','Çekiş gelir tablosunda yok'], a:`**Ece Design — Income Statement — For the Month Ended October 31**
+| Kalem | Tutar
+| Service Revenue | 6.500
+| Rent Expense | (1.500)
+| Salaries Expense | (1.000)
+| **Net Income** | **4.000**
+**Ece Design — Statement of Owner's Equity — For the Month Ended October 31**
+| Kalem | Tutar
+| Capital, October 1 | 0
+| + Owner investment | 25.000
+| + Net Income | 4.000
+| − Withdrawals | (900)
+| **Capital, October 31** | **28.100**
+**Ece Design — Balance Sheet — October 31**
+| Assets | | Liabilities & Owner's Equity |
+| Cash | 18.600 | Accounts Payable | 500
+| Accounts Receivable | 800 | E. Design, Capital | 28.100
+| Supplies | 1.200 | |
+| Equipment | 8.000 | |
+| **Total** | **28.600** | **Total** | **28.600**`},
+ {t:'Yevmiye', p:1, ek:1, q:`Aşağıdaki işlemlerin yevmiye kayıtlarını yapınız.
+a) Hisse senedi karşılığında 40.000 nakit alındı.
+b) 12.000'lik ekipman alındı: 3.000 peşin, kalanı senetle.
+c) Gelecek ay verilecek hizmet için 2.400 peşin tahsil edildi.
+d) Müşterilere 5.000'lik hizmet faturası kesildi (veresiye).
+e) 300 elektrik faturası nakit ödendi.
+f) 1.000 temettü nakit ödendi.`, k:['a) Cash Dr / Common Stock Cr','b) Bileşik kayıt: Equipment 12.000 Dr / Cash 3.000 + Notes Payable 9.000 Cr','c) Cash Dr / Unearned Revenue Cr (gelir değil)','d) Accounts Receivable Dr / Service Revenue Cr','e) Utilities Expense Dr / Cash Cr','f) Dividends Dr / Cash Cr (gider değil)','Alacaklı hesaplar girintili, borç = alacak'], a:`| | Hesap | Debit | Credit
+| a | Cash | 40.000 |
+| |    Common Stock |  | 40.000
+| b | Equipment | 12.000 |
+| |    Cash |  | 3.000
+| |    Notes Payable |  | 9.000
+| c | Cash | 2.400 |
+| |    Unearned Revenue |  | 2.400
+| d | Accounts Receivable | 5.000 |
+| |    Service Revenue |  | 5.000
+| e | Utilities Expense | 300 |
+| |    Cash |  | 300
+| f | Dividends | 1.000 |
+| |    Cash |  | 1.000
+(b) bileşik kayıttır: bir borçlu, iki alacaklı hesap. (c)'de hizmet verilmediği için gelir oluşmaz. (f)'de temettü gider değildir.`},
+ {t:'T-hesap', p:1, ek:1, q:'Cash hesabının açılış bakiyesi 2.000 (Dr). Ay içinde: 3 Kasım 5.000 nakit hizmet geliri, 10 Kasım 1.200 kira ödemesi, 15 Kasım 800 maaş ödemesi, 20 Kasım müşteriden 600 tahsilat. Cash T-hesabını çizip bakiyesini bulunuz.', k:['Açılış 2.000 debit tarafında','Girişler (5.000, 600) debit','Çıkışlar (1.200, 800) credit','Debit toplamı 7.600, credit toplamı 2.000','Bakiye 5.600 Dr (büyük tarafa yazılır)'], a:`| Debit (+) | | Credit (−) |
+| Açılış | 2.000 | 10 Kasım | 1.200
+| 3 Kasım | 5.000 | 15 Kasım | 800
+| 20 Kasım | 600 | |
+| **Toplam** | **7.600** | **Toplam** | **2.000**
+| **Bakiye** | **5.600** | |
+Bakiye = büyük taraf − küçük taraf = 7.600 − 2.000 = **5.600 debit**. Cash bir varlık olduğu için normal bakiyesi zaten debittir.`},
+ {t:'Mizan', p:1, ek:1, q:'Aşağıdaki bakiyelerden 30 Kasım tarihli mizanı hazırlayınız ve net kârı bulunuz: Cash 9.000; Accounts Receivable 3.000; Supplies 600; Equipment 15.000; Accounts Payable 1.600; Notes Payable 8.000; Unearned Revenue 1.000; Common Stock 15.000; Dividends 1.200; Service Revenue 7.500; Salaries Expense 3.200; Rent Expense 900; Utilities Expense 200.', k:['Varlıklar, Dividends ve giderler debit sütununda','Borçlar, Common Stock ve Revenue credit sütununda','Toplamlar 33.100 = 33.100','Net income = 7.500 − 4.300 = 3.200','Temettü net kârı etkilemez'], a:`| Hesap | Debit | Credit
+| Cash | 9.000 |
+| Accounts Receivable | 3.000 |
+| Supplies | 600 |
+| Equipment | 15.000 |
+| Accounts Payable |  | 1.600
+| Notes Payable |  | 8.000
+| Unearned Revenue |  | 1.000
+| Common Stock |  | 15.000
+| Dividends | 1.200 |
+| Service Revenue |  | 7.500
+| Salaries Expense | 3.200 |
+| Rent Expense | 900 |
+| Utilities Expense | 200 |
+| **Toplam** | **33.100** | **33.100**
+Net income = 7.500 − (3.200 + 900 + 200) = 7.500 − 4.300 = **3.200**. Dividends net kârı etkilemez, retained earnings'i azaltır.`},
+ {t:'Borç/Alacak', p:1, ek:1, q:'Aşağıdaki hesapların türünü (A, L, OE, R, E, D), artış tarafını ve normal bakiyesini yazınız: Accounts Receivable, Unearned Revenue, Rent Expense, Common Stock, Prepaid Insurance, Dividends, Salaries Payable, Service Revenue.', k:['Accounts Receivable: Asset, Dr, Dr','Unearned Revenue: Liability, Cr, Cr','Rent Expense: Expense, Dr, Dr','Common Stock: OE, Cr, Cr','Prepaid Insurance: Asset, Dr, Dr','Dividends: D, Dr, Dr','Salaries Payable: Liability, Cr, Cr','Service Revenue: Revenue, Cr, Cr'], a:`| Hesap | Tür | Artış | Normal bakiye
+| Accounts Receivable | Asset | Debit | Debit
+| Unearned Revenue | Liability | Credit | Credit
+| Rent Expense | Expense | Debit | Debit
+| Common Stock | Owner's Equity | Credit | Credit
+| Prepaid Insurance | Asset | Debit | Debit
+| Dividends | Dividends | Debit | Debit
+| Salaries Payable | Liability | Credit | Credit
+| Service Revenue | Revenue | Credit | Credit
+Kural: **DEA** (Dividends, Expenses, Assets) borçla, **LCR** (Liabilities, Capital, Revenues) alacakla artar.`},
+ {t:'Denklem', p:1, ek:1, q:'Yıl başında bir işletmenin varlıkları 50.000, borçları 20.000\'dir. Yıl içinde borçlar 5.000 artmış, sahip 3.000 ek yatırım yapmış ve 2.000 temettü dağıtılmıştır. Yıl sonu varlıklar 64.000 ise yılın net kârı ne kadardır?', k:['Başlangıç OE = 50.000 − 20.000 = 30.000','Yıl sonu borçlar = 25.000','Yıl sonu OE = 64.000 − 25.000 = 39.000','Sonu OE = başı + yatırım + NI − temettü','NI = 39.000 − 30.000 − 3.000 + 2.000 = 8.000'], a:`1. Yıl başı özkaynak: 50.000 − 20.000 = **30.000**
+2. Yıl sonu borçlar: 20.000 + 5.000 = **25.000**
+3. Yıl sonu özkaynak: 64.000 − 25.000 = **39.000**
+4. Özkaynak değişimi: Sonu = Başı + Yatırım + Net Income − Temettü
+39.000 = 30.000 + 3.000 + NI − 2.000 → **NI = 8.000**`},
+ {t:'3 Kasım örneği', q:'Smart Touch Learning örneğinde 22 Kasım\'daki 2.000 tahsilat ve 21 Aralık\'taki 600 peşin tahsilat neden gelir olarak kaydedilmez? Doğru kayıtları yazınız.', k:['22 Kasım: gelir 10 Kasım\'da hizmet verilince kaydedildi','Tahsilat sadece A/R → Cash varlık değişimi','Kayıt: Cash Dr 2.000 / A/R Cr 2.000','21 Aralık: hizmet henüz verilmedi, gelir kazanılmadı','Kayıt: Cash Dr 600 / Unearned Revenue Cr 600 (borç)'], a:`**22 Kasım (2.000 tahsilat):** Gelir, hizmetin verildiği **10 Kasım'da** kaydedildi (A/R Dr / Service Revenue Cr). Tahsilatta yeni bir gelir yoktur; sadece bir varlık (A/R) başka bir varlığa (Cash) dönüşür.
+| Hesap | Debit | Credit
+| Cash | 2.000 |
+|    Accounts Receivable |  | 2.000
+**21 Aralık (600 peşin tahsilat):** Para alındı ama hizmet **henüz verilmedi**; gelir kazanılmamıştır. İşletmenin müşteriye hizmet borcu doğar.
+| Hesap | Debit | Credit
+| Cash | 600 |
+|    Unearned Revenue |  | 600
+Gelir, hizmet verildiği zaman kaydedilir; paranın alındığı zaman değil.`}
+];
+
+/* ================= EK TEST SORULARI ================= */
+QZ.acc.push(
+ ['Denklem','Which of the following is NOT an asset?',null,['Accounts Receivable','Supplies','Unearned Revenue','Prepaid Insurance','Equipment'],2,'Unearned Revenue bir borçtur: para alındı, hizmet borcu var.',1],
+ ['Denklem','Services of $800 are performed on account. The effect on the equation is:',null,['Assets ↑ 800, Liabilities ↑ 800','Assets ↑ 800, Equity ↑ 800','Assets ↓ 800, Equity ↓ 800','No effect until cash is collected','Liabilities ↓ 800, Equity ↑ 800'],1,'A/R artar (varlık), gelir özkaynağı artırır. Gelir, hizmet verildiğinde kaydedilir.',1],
+ ['Denklem','The owner withdraws cash for personal use. The effect is:',null,['Assets ↓, Expenses ↑','Assets ↓, Equity ↓','Liabilities ↑, Equity ↓','Assets ↑, Equity ↑','No effect'],1,'Çekiş özkaynağı azaltır ama gider değildir.',1],
+ ['Borç/Alacak','A credit to the Cash account means that cash has:',null,['increased','decreased','not changed','been earned','been borrowed'],1,'Cash bir varlıktır; varlıklar debitle artar, creditle azalır.',1],
+ ['Borç/Alacak','The normal balance of the Dividends account is:',null,['Credit','Debit','Zero','Same as Revenue','Same as Common Stock'],1,'DEA grubu: Dividends borçla artar, normal bakiyesi debit.',1],
+ ['Yevmiye','A utility bill of $100 is received but not yet paid. The entry is:',null,['Dr Utilities Expense, Cr Cash','Dr Utilities Payable, Cr Utilities Expense','Dr Utilities Expense, Cr Utilities Payable','Dr Cash, Cr Utilities Payable','No entry until paid'],2,'Gider gerçekleşti ama ödenmedi: tahakkuk eden borç (3 Kasım #14).',1],
+ ['Yevmiye','Rent for the next three months is paid in advance. The entry is:',null,['Dr Rent Expense, Cr Cash','Dr Prepaid Rent, Cr Cash','Dr Cash, Cr Prepaid Rent','Dr Prepaid Rent, Cr Rent Payable','Dr Rent Payable, Cr Cash'],1,'Peşin ödenen gider bir varlıktır (3 Kasım #10).',1],
+ ['Tablolar','Revenues are $9,000 and expenses are $11,000. The result is:',null,['Net income of $2,000','Net loss of $2,000','Net income of $20,000','Net loss of $11,000','Break-even'],1,'Giderler gelirden fazlaysa net zarar oluşur: 9.000 − 11.000 = −2.000.',1],
+ ['Tablolar','Beginning capital $10,000; net income $4,000; owner investment $3,000; withdrawals $1,500. Ending capital is:',null,['$12,500','$14,000','$15,500','$17,000','$18,500'],2,'10.000 + 3.000 + 4.000 − 1.500 = 15.500.',1],
+ ['Tablolar','Which of the following is a long-term liability?',null,['Accounts Payable','Salaries Payable','Unearned Revenue','Mortgage Payable (20 years)','Utilities Payable'],3,'Vadesi bir yıldan uzun olan borç uzun vadelidir.',1],
+ ['Teori','The basic summarizing device of accounting that records increases and decreases of a specific item is the:',null,['Journal','Account','Trial balance','Balance sheet','Ledger'],1,'Account (hesap): her kalemin artış ve azalışlarını gösteren kayıt. Ledger tüm hesapların toplamıdır.',1],
+ ['Teori','Under the historical cost principle, assets are recorded at:',null,['their current market value','their purchase cost','the owner\'s estimate','their insurance value','zero'],1,'Varlıklar alış maliyetiyle kaydedilir.',1],
+ ['Tablolar','Retained earnings increases with:',null,['dividends','net income','expenses','a net loss','owner withdrawals'],1,'RE = birikmiş net kâr − temettüler.',1],
+ ['Yevmiye','A journal entry with more than one debit or credit account is called a:',null,['simple entry','compound entry','closing entry','reversing entry','trial entry'],1,'Bileşik kayıt (compound entry), ör. Rent + Salaries Expense / Cash.',1],
+ ['Borç/Alacak','Which pair of accounts both increase with a CREDIT?',null,['Cash and Revenue','Accounts Payable and Service Revenue','Dividends and Common Stock','Expenses and Liabilities','Supplies and Unearned Revenue'],1,'LCR: borçlar ve gelirler alacakla artar.',1]
+);
+</script>

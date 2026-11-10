@@ -1,11 +1,11 @@
 <script>
 /* ================= DERSLER, TAKVİM, PLAN ================= */
 const COURSES = [
-  {id:'acc',  code:'ACC1005',  name:'Muhasebeye Giriş',   short:'Muhasebe',      exam:'2026-11-16T16:00', src:'https://claude.ai/artifact/CjQWsEDj6ZBfkPZVGxMvu5', book:'Weygandt IFRS · Ch. 1–2', tool:'Borç/Alacak antrenmanı'},
-  {id:'econ', code:'ECON1007', name:'Mikroiktisat',       short:'Mikroiktisat',  exam:'2026-11-17T16:00', src:'https://claude.ai/artifact/GhPgVAfzKEAu2c3YS87Kkb', book:'Mankiw · Hafta 1–5', tool:'Esneklik hesaplayıcı'},
-  {id:'math', code:'BUS MATH', name:'İşletme Matematiği', short:'Matematik',     exam:'2026-11-18T15:30', src:'https://claude.ai/artifact/Lw8Qpa77erb4Ub8ctqVJm7', book:'Haeussler · Bölüm 1–5', tool:'Finans hesaplayıcı'},
-  {id:'bus',  code:'INTRO BUS',name:'İşletmeye Giriş',    short:'İşletme',       exam:'2026-11-19T13:00', src:'https://claude.ai/artifact/Uhz74mdjRz66UAGJggUKfi', book:'Mirze · Bölüm 1–5', tool:null},
-  {id:'law',  code:'HUKUK',    name:'Hukuka Giriş',       short:'Hukuk',         exam:'2026-11-20T11:00', src:'https://claude.ai/artifact/SKFn6wD3m673SiUJuMhAXH', book:'Vize konuları', tool:null}
+  {id:'acc', fmt:'klasik', code:'ACC1005',  name:'Muhasebeye Giriş',   short:'Muhasebe',      exam:'2026-11-16T16:00', src:'https://claude.ai/artifact/CjQWsEDj6ZBfkPZVGxMvu5', book:'Weygandt IFRS · Ch. 1–2', tool:'Borç/Alacak antrenmanı'},
+  {id:'econ', fmt:'test', code:'ECON1007', name:'Mikroiktisat',       short:'Mikroiktisat',  exam:'2026-11-17T16:00', src:'https://claude.ai/artifact/GhPgVAfzKEAu2c3YS87Kkb', book:'Mankiw · Hafta 1–5', tool:'Esneklik hesaplayıcı'},
+  {id:'math', fmt:'klasik', code:'BUS MATH', name:'İşletme Matematiği', short:'Matematik',     exam:'2026-11-18T15:30', src:'https://claude.ai/artifact/Lw8Qpa77erb4Ub8ctqVJm7', book:'Haeussler · Bölüm 1–5', tool:'Finans hesaplayıcı'},
+  {id:'bus', fmt:'test', code:'INTRO BUS',name:'İşletmeye Giriş',    short:'İşletme',       exam:'2026-11-19T13:00', src:'https://claude.ai/artifact/Uhz74mdjRz66UAGJggUKfi', book:'Mirze · Bölüm 1–5', tool:null},
+  {id:'law', fmt:'klasik', code:'HUKUK',    name:'Hukuka Giriş',       short:'Hukuk',         exam:'2026-11-20T11:00', src:'https://claude.ai/artifact/SKFn6wD3m673SiUJuMhAXH', book:'Vize konuları', tool:null}
 ];
 const OTHER_EXAMS = [
   {id:'ink', name:'İnkılap Tarihi', exam:'2026-11-18T13:00'},
